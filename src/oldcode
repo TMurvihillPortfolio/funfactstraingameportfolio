@@ -1,0 +1,58 @@
+import React, { PureComponent } from 'react';
+import {withStyles} from '@material-ui/core';
+import backgroundMap from '../img/usmap1930NewYorkChicago.jpg';
+
+const styles = {
+    root: {
+        height: '100vh',
+        width: '100%',
+        backgroundImage: `url(${backgroundMap})`,
+        backroundRepeat: 'norepeat',
+        backgroundSize: 'cover'
+    },
+    TrainOperations: {
+        
+    },
+    TrainOperationsHeader: {
+        color: '#a74227',
+        backgroundColor: '#c79382',
+        fontFamily: 'algerian, sans-serif',
+        fontSize: '36px',
+        width: '60%',
+        margin: 'auto',
+        marginTop: '0',
+        borderRadius: '7px',
+
+    },
+    trainNameCSS: {
+        marginBottom: '40px',
+        borderRadius: '7px'
+    },
+    trainImageCSS: {
+        borderRadius: '7px',
+        margin: '40px',
+        boxShadow: '10px 10px 15px 4px #333'
+    },
+    factList: {
+        listStyle: 'none'
+    },
+    factItem: {       
+    }
+}
+
+class TrainOperations extends PureComponent {
+    constructor(props) {
+        super(props);
+        this.state = {  }
+    }
+    render() { 
+        const { classes } = this.props;
+        return (
+            <div className={classes.root}>
+                <h1 className={classes.TrainOperationsHeader}>Train Operations</h1>
+            </div>           
+         );
+    }
+}
+
+export default withStyles(styles)(TrainOperations);
