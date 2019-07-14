@@ -3,28 +3,35 @@ import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import TrainInfoCard from "./TrainInfoCard";
 import trainsList from '../assets/trainslist';
-import backgroundMap from '../img/usmap1930NewYorkChicago.jpg';
+import backgroundMap from '../img/usmap1930NewYorkChicagowNames.jpg';
 import clsx from 'clsx';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import NavBar from './NavBar';
+import trainOnMap from '../img/TrainForMap.png';
+import ContractList from './ContractList';
+
+import { makeStyles } from '@material-ui/core/styles';
+import ListSubheader from '@material-ui/core/ListSubheader';
+import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
-import NavBar from './NavBar';
-import { flexbox } from "@material-ui/system";
-
+import Collapse from '@material-ui/core/Collapse';
+import DraftsIcon from '@material-ui/icons/Drafts';
+import TrainIcon from '@material-ui/icons/Train';
+import DescriptionIcon from '@material-ui/icons/Description';
+import LabelIcon from '@material-ui/icons/Label';
+import ExpandLess from '@material-ui/icons/ExpandLess';
+import ExpandMore from '@material-ui/icons/ExpandMore';
+import OperationsDrawer from './OperationsDrawer';
 
 const drawerWidth = 250;
 const styles = theme => ({
@@ -34,7 +41,8 @@ const styles = theme => ({
         backgroundImage: `url(${backgroundMap})`,
         backroundRepeat: 'norepeat',
         backgroundSize: 'cover',
-        marginTop: '25px'
+        backgroundAttachment: 'fixed',
+        marginTop: '25px'       
     },
     appBar: {
         transition: theme.transitions.create(['margin', 'width'], {
@@ -94,31 +102,54 @@ const styles = theme => ({
         margin: 'auto',
         marginTop: '0',
         borderRadius: '7px',
+    },
+    
+    nested: {
+      paddingLeft: theme.spacing(4),
+    },
+    labelIcon: {
+      opacity: '0.4',
+      fontSize: '14px',
+      marginLeft: '30px'
     }
-})
+});
 
 class TrainOperations extends PureComponent {
-  static defaultProps = {
-    maxColors: 20
-  };
   constructor(props) {
     super(props);
+    this.handleClick=this.handleClick.bind(this);
+    this.handleCurrentClick=this.handleCurrentClick.bind(this);
+    this.handleOfferClick=this.handleOfferClick.bind(this);
+    this.handleDrawerOpen=this.handleDrawerOpen.bind(this);
+    this.handleDrawerClose=this.handleDrawerClose.bind(this);
     this.state = {
       open: true,
+      openNested: true,
+      openCurrentNested: true,
+      openOfferNested: true,
+      setOpen: true
     };
   }
 
+  handleClick() {
+    this.setState({ openNested : !this.state.openNested });
+  }
+  handleCurrentClick() {
+    this.setState({ openCurrentNested : !this.state.openCurrentNested });
+  }
+  handleOfferClick() {
+    this.setState({ openOfferNested : !this.state.openOfferNested });
+  }
   handleDrawerOpen = () => {
     this.setState({ open: true });
   };
-
   handleDrawerClose = () => {
     this.setState({ open: false });
   };
 
   render() {
     const { classes } = this.props;
-    const { open } = this.state
+    const { open } = this.state;
     return (
       <div className={classes.drawerContainer}>
         <CssBaseline />
@@ -144,58 +175,10 @@ class TrainOperations extends PureComponent {
           <NavBar />
         </Toolbar>
       </AppBar>
-        <Drawer
-          className={classes.drawer}
-          variant='persistent'
-          anchor='left'
-          open={open}
-          classes={{
-            paper: classes.drawerPaper
-          }}
-        >
-          <div className={classes.drawerHeader}>
-              <IconButton onClick={this.handleDrawerClose}>
-                <ChevronLeftIcon />
-              </IconButton>
-          </div>
-          <div className={classes.container}>
-            
-            <Divider />
-            <Typography variant='h4' className={classes.drawHeader} gutterBottom>What's your move?</Typography>
-            <div className={classes.buttons}>
-              <Button
-                variant='contained'
-                className={classes.button}
-                color='secondary'
-              >
-                Build Route
-              </Button>
-              <Button
-                variant='contained'
-                className={classes.button}
-                color='primary'
-              >
-                Buy Train
-              </Button>
-              <Button
-                variant='contained'
-                className={classes.button}
-                color='primary'
-              >
-                View My Contracts
-              </Button>
-              <Button
-                variant='contained'
-                className={classes.button}
-                color='primary'
-              >
-                View Contract Offers
-              </Button>
-            </div>
-          </div>
-        </Drawer>
+        <OperationsDrawer />
         <div className={classes.root}>
             <h1 className={classes.TrainOperationsHeader}>Train Operations</h1>
+            <img src={trainOnMap} style={{height: '25px', position: 'fixed', top:'50%'}}/>
         </div> 
       </div>
     );
