@@ -6,24 +6,35 @@ import {withStyles} from '@material-ui/core';
 const styles = {
     NavBar: {
         backgroundColor: '#a74227',
-        padding: '10px',
         display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+    },
+    logo: {
+        '& img': {
+            height: '65px',
+            width: '100px',
+            margin: '-25px 20px -25px -23px'
+        }       
+    }, 
+    links: {
+        display: 'flex',
+        flexDirection: 'row',
         justifyContent: 'space-evenly',
-        '& a': {
+        "& a": {
             textDecoration: 'none',
             fontSize: '20px',
-            padding: '5px 7px',
+            padding: '5px 15px',
             color: '#f7f6f5',
             borderBottom: '1px solid transparent',
-            transition: 'all 0.3s ease-in-out',
-            '&:hover': {
-                borderBottom: '1px solid #f7f6f5'
-            },
-            '& img': {
-                height: '25px'
-            }
-        }
-    },     
+            transition: 'all 0.3s ease-in-out'
+            
+        },
+        '& a:hover': {
+            borderBottom: '1px solid #f7f6f5'
+        },
+        
+    }    
 }
 
 class NavBar extends PureComponent {
@@ -35,11 +46,13 @@ class NavBar extends PureComponent {
         const { classes } = this.props;
         return ( 
             <nav className={classes.NavBar}>
-                <NavLink to='/'><img src={logowText} /></NavLink>
-                <NavLink to='/funfactstrains/trainoperations'>TrainOperations</NavLink>
-                <NavLink to='/funfactstrains/companymanagement'>CompanyManagement</NavLink>
-                <NavLink to='/funfactstrains/illinois201'>Illinois 201</NavLink>
-                <NavLink to='/funfactstrains/jennylind'>Jenny Lind</NavLink>
+                <NavLink className={classes.logo} to='/'><img src={logowText} /></NavLink>
+                <div className={classes.links}>    
+                    <NavLink to='/funfactstrains/trainoperations'>TrainOperations</NavLink>
+                    <NavLink to='/funfactstrains/companymanagement'>CompanyManagement</NavLink>
+                    <NavLink to='/funfactstrains/illinois201'>Illinois 201</NavLink>
+                    <NavLink to='/funfactstrains/jennylind'>Jenny Lind</NavLink>
+                </div>
             </nav>
          );
     }

@@ -60,7 +60,7 @@ const styles = theme => ({
         }),
       },
       menuButton: {
-        marginRight: theme.spacing(2),
+        marginRight: '35px',
       },
       hide: {
         display: 'none',
@@ -85,7 +85,8 @@ const styles = theme => ({
     },
     button: {
         color: '#f3f2fa',
-        margin: '20px',backgroundColor: '#857cad',
+        margin: '20px',
+        backgroundColor: '#857cad',
         '&:hover': {
             backgroundColor: '#5f5592'
         }
@@ -93,14 +94,14 @@ const styles = theme => ({
     drawHeader: {
         padding: '20px'
     },
-    TrainOperationsHeader: {
+    TrainOperationsHeaderOpen: {
         color: '#a74227',
         backgroundColor: '#c79382',
         fontFamily: 'algerian, sans-serif',
         fontSize: '36px',
-        width: '60%',
-        margin: 'auto',
-        marginTop: '0',
+        width: `calc(60% - ${drawerWidth}px)`,
+        marginLeft: drawerWidth + 225,
+        marginTop: 0,
         borderRadius: '7px',
     },
     
@@ -117,28 +118,11 @@ const styles = theme => ({
 class TrainOperations extends PureComponent {
   constructor(props) {
     super(props);
-    this.handleClick=this.handleClick.bind(this);
-    this.handleCurrentClick=this.handleCurrentClick.bind(this);
-    this.handleOfferClick=this.handleOfferClick.bind(this);
     this.handleDrawerOpen=this.handleDrawerOpen.bind(this);
     this.handleDrawerClose=this.handleDrawerClose.bind(this);
     this.state = {
-      open: true,
-      openNested: true,
-      openCurrentNested: true,
-      openOfferNested: true,
-      setOpen: true
+      open: true
     };
-  }
-
-  handleClick() {
-    this.setState({ openNested : !this.state.openNested });
-  }
-  handleCurrentClick() {
-    this.setState({ openCurrentNested : !this.state.openCurrentNested });
-  }
-  handleOfferClick() {
-    this.setState({ openOfferNested : !this.state.openOfferNested });
   }
   handleDrawerOpen = () => {
     this.setState({ open: true });
@@ -169,15 +153,12 @@ class TrainOperations extends PureComponent {
           >
             <MenuIcon />
           </IconButton>
-          {/* <Typography variant="h6" noWrap>
-            Persistent drawer
-          </Typography> */}
           <NavBar />
         </Toolbar>
       </AppBar>
-        <OperationsDrawer />
+        {open ? <OperationsDrawer handleDrawerClose={this.handleDrawerClose}/> : ''}
         <div className={classes.root}>
-            <h1 className={classes.TrainOperationsHeader}>Train Operations</h1>
+            <h1 className={open?classes.TrainOperationsHeaderOpen:classes.TrainOperationsHeaderOpenClosed}>Train Operations</h1>
             <img src={trainOnMap} style={{height: '25px', position: 'fixed', top:'50%'}}/>
         </div> 
       </div>

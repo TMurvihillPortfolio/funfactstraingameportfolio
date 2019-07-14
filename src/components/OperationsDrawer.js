@@ -94,6 +94,9 @@ const styles = theme => ({
       opacity: '0.4',
       fontSize: '14px',
       marginLeft: '30px'
+    },
+    closeDrawerIcon: {
+        textAlign: 'left'
     }
 });
 
@@ -101,34 +104,28 @@ class OperationsDrawer extends PureComponent {
     
     constructor(props) {
         super(props);
-        this.handleClick=this.handleClick.bind(this);
+        this.handleTrainClick=this.handleTrainClick.bind(this);
         this.handleCurrentClick=this.handleCurrentClick.bind(this);
         this.handleOfferClick=this.handleOfferClick.bind(this);
-        this.handleDrawerOpen=this.handleDrawerOpen.bind(this);
-        this.handleDrawerClose=this.handleDrawerClose.bind(this);
+        this.handleDrawerCloseClick=this.handleDrawerCloseClick.bind(this);
         this.state = {
-          open: true,
-          openNested: true,
-          openCurrentNested: true,
-          openOfferNested: true,
-          setOpen: true
+          openTrainNested: false,
+          openCurrentNested: false,
+          openOfferNested: false
         };
       }
     
-      handleClick() {
-        this.setState({ openNested : !this.state.openNested });
-      }
       handleCurrentClick() {
         this.setState({ openCurrentNested : !this.state.openCurrentNested });
       }
       handleOfferClick() {
         this.setState({ openOfferNested : !this.state.openOfferNested });
-      }   
-      handleDrawerOpen = () => {
-        this.setState({ open: true });
-      };    
-      handleDrawerClose = () => {
-        this.setState({ open: false });
+      }
+      handleTrainClick() {
+        this.setState({ openTrainNested : !this.state.openTrainNested });
+      }    
+      handleDrawerCloseClick = () => {
+        this.props.handleDrawerClose();
       };
     
     render() { 
@@ -139,13 +136,13 @@ class OperationsDrawer extends PureComponent {
                 className={classes.drawer}
                 variant='persistent'
                 anchor='left'
-                open={open}
+                open={true}
                 classes={{
                     paper: classes.drawerPaper
                 }}
             >
-            <div className={classes.drawerHeader}>
-                <IconButton onClick={this.handleDrawerClose}>
+            <div className={classes.closeDrawerIcon}>
+                <IconButton onClick={this.handleDrawerCloseClick}>
                     <ChevronLeftIcon />
                 </IconButton>
             </div>
@@ -244,15 +241,15 @@ class OperationsDrawer extends PureComponent {
                         </ListItem>
                     </List>
                     </Collapse>
-                    <ListItem button onClick={this.handleClick}>
+                    <ListItem button onClick={this.handleTrainClick}>
                     <ListItemIcon>
                         <TrainIcon />
                     </ListItemIcon>
                     <ListItemText primary="Company Owned Trains" />
-                    {this.state.openNested ? <ExpandLess /> : <ExpandMore />}
+                    {this.state.openTrainNested ? <ExpandLess /> : <ExpandMore />}
                     </ListItem>
                     
-                    <Collapse in={this.state.openNested} timeout="auto" unmountOnExit>
+                    <Collapse in={this.state.openTrainNested} timeout="auto" unmountOnExit>
                     <List component="div" disablePadding>
                         <ListItem button className={classes.nested}>
                         <ListItemIcon>

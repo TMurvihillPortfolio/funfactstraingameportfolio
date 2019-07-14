@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import {withStyles} from '@material-ui/core';
+import NavBar from './NavBar';
 
 const styles = {
     TrainInfoCardCSS: {
@@ -34,6 +35,7 @@ class TrainInfoCard extends PureComponent {
             <li key={`${classes.trainId}${fact}`} className={classes.factItem}><h4>{fact}</h4></li>);
         return ( 
             <div className={classes.trainNameCSS}>
+                <NavBar />
                 <h1>{trainName}</h1>
                 <img 
                     src={trainImage} 

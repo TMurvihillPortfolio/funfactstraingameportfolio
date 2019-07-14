@@ -12,15 +12,18 @@ class App extends PureComponent {
     super(props);
     this.state = {  }
   }
-  render() {console.log(trainsList[0]);
+  render() {
+    console.log(trainsList[0]);
+    console.log(trainsList);
+    console.log(trainsList[0].trains[0]);
     return ( 
       <div className="App">
           <Switch>
             <Route exact path='/' render={() => <TrainOperations />}/>        
             <Route exact path='/funfactstrains/trainoperations' render={() => <TrainOperations />}/>        
             <Route exact path='/funfactstrains/companymanagement' render={() => <CompanyManagement />}/>       
-            <Route exact path='/funfactstrains/illinois201' render={() => <TrainInfoCard trainObj={trainsList[0]} />}/>       
-            <Route exact path='/funfactstrains/jennylind' render={() => <TrainInfoCard trainName="Jenny Lind" trainObj={trainsList[1]} />}/>       
+            <Route exact path='/funfactstrains/illinois201' render={() => <TrainInfoCard trainObj={trainsList[0].trains[0]} />}/>       
+            <Route exact path='/funfactstrains/jennylind' render={() => <TrainInfoCard trainName="Jenny Lind" trainObj={trainsList[0].trains[1]} />}/>       
           </Switch>
       </div>
      );
