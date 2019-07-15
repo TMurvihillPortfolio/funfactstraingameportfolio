@@ -9,6 +9,7 @@ const styles = {
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
+        minHeight: '64px'
     },
     logo: {
         '& img': {
@@ -50,8 +51,8 @@ class NavBar extends PureComponent {
                 <div className={classes.links}>    
                     <NavLink to='/funfactstrains/trainoperations'>TrainOperations</NavLink>
                     <NavLink to='/funfactstrains/companymanagement'>CompanyManagement</NavLink>
-                    <NavLink to='/funfactstrains/illinois201'>Illinois 201</NavLink>
-                    <NavLink to='/funfactstrains/jennylind'>Jenny Lind</NavLink>
+                    <NavLink to='/funfactstrains/trains/illinois201'>Illinois 201</NavLink>
+                    <NavLink to='/funfactstrains/trains/jennylind'>Jenny Lind</NavLink>
                 </div>
             </nav>
          );
