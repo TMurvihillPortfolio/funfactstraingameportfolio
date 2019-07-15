@@ -134,6 +134,7 @@ class TrainOperations extends PureComponent {
   render() {
     const { classes } = this.props;
     const { open } = this.state;
+    
     return (
       <div className={classes.drawerContainer}>
         <CssBaseline />
@@ -156,7 +157,7 @@ class TrainOperations extends PureComponent {
           <NavBar />
         </Toolbar>
       </AppBar>
-        {open ? <OperationsDrawer handleDrawerClose={this.handleDrawerClose}/> : ''}
+        {open ? <OperationsDrawer routeHistory={this.props.history} handleDrawerClose={this.handleDrawerClose}/> : ''}
         <div className={classes.root}>
             <h1 className={open?classes.TrainOperationsHeaderOpen:classes.TrainOperationsHeaderOpenClosed}>Train Operations</h1>
             <img src={trainOnMap} style={{height: '25px', position: 'fixed', top:'50%'}}/>

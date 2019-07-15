@@ -51,7 +51,7 @@ class NavBar extends PureComponent {
                 <div className={classes.links}>    
                     <NavLink to='/funfactstrains/trainoperations'>TrainOperations</NavLink>
                     <NavLink to='/funfactstrains/companymanagement'>CompanyManagement</NavLink>
-                    <NavLink to='/funfactstrains/trains/illinois201'>Illinois 201</NavLink>
+                    <NavLink to='/funfactstrains/trains/illinoiscentral201'>Illinois 201</NavLink>
                     <NavLink to='/funfactstrains/trains/jennylind'>Jenny Lind</NavLink>
                 </div>
             </nav>

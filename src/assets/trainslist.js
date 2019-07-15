@@ -2,6 +2,11 @@ import uuid from 'uuid';
 import illinoisCentral201 from '../img/illinoisCentral201.jpg';
 import jennyLind from '../img/jennylind.jpg';
 
+import wheat from '../img/wheat.jpg';
+import textiles from '../img/textiles.jpg';
+import coal from '../img/coal.jpg';
+import milk from '../img/milk.jpg';
+
 export default [{
     trains: 
         [
@@ -32,47 +37,91 @@ export default [{
         [
             {
                 id: uuid(),
+                pathName: 'coal1_chicago_newyork16',
                 from: 'Chicago',
                 to: 'NewYork',
-                payment: '20',
+                payment: '16',
                 units: '1',
                 cargo: 'coal',
+                cargoImage: coal,
                 offerDate: 'June 4, 1878', 
                 accepted: 'true' //boolean for now, do date later
             },
             {
                 id: uuid(),
+                pathName: 'textiles1_atlanta_columbus20',
                 from: 'Atlanta',
                 to: 'Columbus',
                 payment: '12',
                 units: '1',
                 cargo: 'textiles',
+                cargoImage: textiles,
                 offerDate: 'June 4, 1878',
                 accepted: 'false' //boolean for now, do date later
             },
             {
                 id: uuid(),
+                pathName: 'wheat1_newyork_boston3',
                 from: 'New York',
                 to: 'Boston',
                 payment: '3',
                 units: '1',
                 cargo: 'wheat',
+                cargoImage: wheat,
                 offerDate: 'January 26, 1878',
                 accepted: 'true' //boolean for now, do date later
             },
             {
                 id: uuid(),
+                pathName: 'milk1_boston_washington5',
                 from: 'Boston',
                 to: 'Washington',
                 payment: '5',
                 units: '1',
-                cargo: 'rice',
+                cargo: 'milk',
+                cargoImage: milk,
                 offerDate: 'April 17, 1878',
                 accepted: 'false'
             }
 
-        ]        
-    
+        ],
+        cargoTypes: [{         
+                name: 'coal',
+                image: coal,
+                cargoFacts:  [
+                    'FunFact one about coal',
+                    'FunFact two about coal',
+                    'FunFact three about coal'
+                ]
+            },
+            {
+                name: 'wheat',
+                image: wheat,
+                cargoFacts:  [
+                    'FunFact one about wheat',
+                    'FunFact two about wheat',
+                    'FunFact three about wheat'
+                ]
+            },
+            {
+                name: 'milk',
+                image: milk,
+                cargoFacts:  [
+                    'FunFact one about milk',
+                    'FunFact two about milk',
+                    'FunFact three about milk'
+                ]
+            },
+            {
+                name: 'textiles',
+                image: textiles,
+                cargoFacts:  [
+                    'FunFact one about textiles',
+                    'FunFact two about textiles',
+                    'FunFact three about textiles'
+                ]
+            }
+        ]   
 }]
 
 

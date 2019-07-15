@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import '../css/App.css';
 import { Route, Switch } from 'react-router-dom';
 import TrainInfoCard from './TrainInfoCard';
+import ContractInfoCard from './ContractInfoCard';
 import TrainOperations from './TrainOperations';
 import NavBar from './NavBar';
 import CompanyManagement from './CompanyManagement';
@@ -13,25 +14,29 @@ class App extends PureComponent {
     this.state = {  }
   }
   render() {
-    const trains = companyData[0].trains;
-    let trainName = 'jennylind';
+    const { trains, contracts } = companyData[0];
     const getTrain = props => {
       let name = props.match.params.trainpathname;
       let trainIndex = trains.findIndex(train => train.pathName === name);
       return <TrainInfoCard trainObj={trains[trainIndex]} history={props.history} />
     }
+    const getContract = routeProps => {
+      const name = routeProps.match.params.contractpathname;
+      const contractIndex = contracts.findIndex(contract => contract.pathName === name);
+      const contractCargo = contracts[contractIndex].cargo;
+      const cargoIndex = companyData[0].cargoTypes.findIndex(cargo => cargo.name === contractCargo);
+      const cargoImage = companyData[0].cargoTypes[cargoIndex].image;
+      return <ContractInfoCard contractObj={contracts[contractIndex]} history={routeProps.history} cargoImage={cargoImage}/>
+    }
     
-    //let trainObj = trains.find(train => train.pathName === this.props.match.params.trainPathName);
-
     return ( 
       <div className="App">
           <Switch>
             <Route exact path='/' render={() => <TrainOperations />}/>        
-            <Route exact path='/funfactstrains/trainoperations' render={() => <TrainOperations />}/>        
+            <Route exact path='/funfactstrains/trainoperations' render={(routeProps) => <TrainOperations {...routeProps} />}/>        
             <Route exact path='/funfactstrains/companymanagement' render={(routeProps) => <CompanyManagement {...routeProps}/>}/>       
-            {/* <Route exact path='/funfactstrains/trains/:trainpathname' render={(routeProps) => <TrainInfoCard trainPathName={routeProps.match.params.trainpathname} trainObj={trains[0]} />}/>      */}
             <Route exact path='/funfactstrains/trains/:trainpathname' render={getTrain}/>     
-            {/* <Route exact path='/funfactstrains/trains/:trainpathname' render={(routeProps) => <TrainInfoCard name="JennyLind" trainObj={trains[1]} />}/>        */}
+            <Route exact path='/funfactstrains/contracts/:contractpathname' render={getContract}/>
           </Switch>
       </div>
      );

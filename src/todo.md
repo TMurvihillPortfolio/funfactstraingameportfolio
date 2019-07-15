@@ -1,0 +1,1 @@
+- make function to convert info to pathnames instead of a separate field for the pathname

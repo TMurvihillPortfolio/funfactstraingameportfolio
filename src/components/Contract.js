@@ -5,15 +5,14 @@ const styles = {};
 class Contract extends Component {
     constructor(props) {
         super(props);
-        this.handleClick=this.handleClick.bind(this);
+        this.handleclick=this.handleclick.bind(this);
         this.state = {
            
         };
       }
     state = {  }
 
-    handleClick() {
-        console.log('contract', this.props);
+    handleclick() {
         this.props.handleContractDialogOpen(this.props.contractObj);
         //this.props.history.push('/');
     }
@@ -22,7 +21,7 @@ class Contract extends Component {
         const contract = this.props.contractObj;
         
         return ( 
-            <div onClick={this.handleClick}>
+            <div onClick={this.handleclick}>
                 {listView ? `${contract.cargo.toUpperCase()} -- ${contract.from} to ${contract.to}` :
                     
                     //fullView goes here

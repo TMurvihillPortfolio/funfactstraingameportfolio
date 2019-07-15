@@ -23,14 +23,6 @@ import Collapse from '@material-ui/core/Collapse';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 
-//Required for Dialogs
-import TextField from '@material-ui/core/TextField';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
-
 //user generated
 import companyData from '../assets/trainslist';
 import Contract from './Contract';
@@ -110,6 +102,12 @@ const styles = theme => ({
     },
     closeDrawerIcon: {
         textAlign: 'left'
+    },
+    contractDialogMain: {
+        textAlign: 'center'
+    },
+    contractDialogPrompt: {
+        fontSize: '24px'
     }
 });
 
@@ -151,8 +149,7 @@ class OperationsDrawer extends PureComponent {
           //this.props.history.push('/trains/jennylind');
       }
       handleContractDialogOpen(contractObj) {
-        this.setState({ openContractDialog : true, contractDialogObj : contractObj });
-        console.log(contractObj);
+        this.props.routeHistory.push(`/funfactstrains/contracts/${contractObj.pathName}`);
       }
     
       handleContractDialogClose() {
@@ -160,7 +157,8 @@ class OperationsDrawer extends PureComponent {
       }
     
     render() { 
-        const { classes } = this.props;        
+        const { classes } = this.props;
+        const { contractDialogObj } = this.state;        
         const contracts = companyData[0].contracts;
         const currentContracts = contracts.
             filter(contract => contract.accepted === 'true').
@@ -185,16 +183,18 @@ class OperationsDrawer extends PureComponent {
                 <ListItem  
                     key={contract.id} 
                     className={classes.nested}
-                    button 
-                    onClick={this.handleContractClick}
+                    button
+                    onClick={this.handleClick}
                 >             
                     <ListItemIcon>
                         <LabelIcon className={classes.labelIcon}/>
                     </ListItemIcon>
-                    <Contract contractObj={contract} handleContractClick = {this.handleContractClick} listView/>
+                    <Contract contractObj={contract} handleContractDialogOpen={this.handleContractDialogOpen} 
+                     listView/>
                 </ListItem>
             )
         ;
+        
 
         return ( 
             <div>
@@ -316,36 +316,6 @@ class OperationsDrawer extends PureComponent {
                     </div>
                 </div>
                 </Drawer>
-
-            
-                <Button variant="outlined" color="primary" onClick={this.handleContractDialogOpen}>
-                    Open form dialog
-                </Button>
-                <Dialog open={this.state.openContractDialog} onClose={this.handleContractDialogClose} aria-labelledby="form-dialog-title">
-                    <DialogTitle id="form-dialog-title">{this.state.contractDialogObj.from}</DialogTitle>
-                    <DialogContent>
-                        <DialogContentText>
-                        To subscribe to this website, please enter your email address here. We will send updates
-                        occasionally.
-                        </DialogContentText>
-                        <TextField
-                        autoFocus
-                        margin="dense"
-                        id="name"
-                        label="Email Address"
-                        type="email"
-                        fullWidth
-                        />
-                    </DialogContent>
-                    <DialogActions>
-                        <Button onClick={this.handleContractDialogClose} color="primary">
-                            Cancel
-                        </Button>
-                        <Button onClick={this.handleContractDialogClose} color="primary">
-                            Subscribe
-                        </Button>
-                    </DialogActions>
-                </Dialog>
             </div>
         );
     }
