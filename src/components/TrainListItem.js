@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class ContractList extends Component {
+class TrainListItem extends Component {
     constructor(props) {
         super(props);
         this.handleclick=this.handleclick.bind(this);
@@ -9,17 +9,17 @@ class ContractList extends Component {
     state = {  }
 
     handleclick() {
-        this.props.handleContractDialogOpen(this.props.contractObj);
+        this.props.handleTrainDialogOpen(this.props.trainObj);
     }
     render() { 
-        const contract = this.props.contractObj;
-        
+        const train = this.props.trainObj;
+        console.log(train);
         return ( 
             <div onClick={this.handleclick}>
-                {`${contract.cargo.toUpperCase()} -- ${contract.from} to ${contract.to}`}
+                {train.trainName.toUpperCase()}
             </div>
          );
     }
 }
  
-export default ContractList;
+export default TrainListItem;

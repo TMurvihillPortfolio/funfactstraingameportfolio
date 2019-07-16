@@ -32,7 +32,7 @@ class TrainInfoCard extends PureComponent {
         const { classes } = this.props;
         const { trainName, trainImage, trainFacts, trainId } = this.props.trainObj;
         const factList = trainFacts.map(fact => 
-            <li key={`${classes.trainId}${fact}`} className={classes.factItem}><h4>{fact}</h4></li>);
+            <li key={`${trainId}${fact}`} className={classes.factItem}><h4>{fact}</h4></li>);
         return ( 
             <div className={classes.trainNameCSS}>
                 <NavBar />

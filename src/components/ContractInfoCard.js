@@ -1,6 +1,8 @@
 import React, { PureComponent } from 'react';
 import {withStyles} from '@material-ui/core';
 import NavBar from './NavBar';
+import Divider from '@material-ui/core/Divider';
+import companyData from '../assets/trainslist';
 
 const styles = {
     TrainInfoCardCSS: {
@@ -26,40 +28,53 @@ const styles = {
 class ContractInfoCard extends PureComponent {
     constructor(props) {
         super(props);
-        this.getCargoImage = this.getCargoImage.bind(this);
-        this.state = {  }
+        this.getCargoObj = this.getCargoObj.bind(this);
+        this.state = {};
     }
-    getCargoImage() {
-        console.log('imin');
-        console.log(this.props.contractObj.cargo);
-        //this.props.contractObj.map(contract => console.log(contract));
+    getCargoObj() {
+        const cargoType = this.props.contractObj.cargo;
+        const cargoIndex = companyData[0].cargoTypes.findIndex(cargo => cargo.name === cargoType);
+        return companyData[0].cargoTypes[cargoIndex];
+        // return companyData[0].cargoTypes[cargoIndex].cargoFacts;
+        
+        //console.log(cargoType);
+        //console.log(cargoObj);
     }
     render() { 
-        console.log(this.props);
-
-        const { classes, cargoImage } = this.props;
+        const myCargo = this.getCargoObj();
+        const { image, cargoFacts } = myCargo;
+        const { classes } = this.props;
         const { cargo, from, to, offerDate, accepted, contractId, pathName } = this.props.contractObj;
-        //const cargoImage = this.getCargoImage();
+        const funFacts = cargoFacts.map(fact => 
+            <li 
+                key={`${contractId}${fact}`} 
+                className={classes.factItem}
+            >
+                <h4>{fact}</h4>
+            </li>
+        );
         // const factList = contractFacts.map(fact => 
-        //     <li key={`${classes.trainId}${fact}`} className={classes.factItem}><h4>{fact}</h4></li>);
+        //     <li key={`${fact}`} className={classes.factItem}><h4>{fact}</h4></li>);
         return ( 
             // <div className={classes.trainNameCSS}>
             <div >
                 <NavBar />
                 <h1>{cargo.toUpperCase()}</h1>
                 <h1>{from} to {to}</h1>
-                {/* <img 
-                    src={cargoImage} 
-                    alt='engraving of steam contract' 
-                    className={classes.trainImageCSS}
-                /> */}
+                
                 <img 
-                    src={cargoImage} 
+                    src={image} 
                     alt='engraving of steam contract' 
                     className={classes.trainImageCSS}
                 />
                 <h3>Contract Proffered: {offerDate}</h3>
                 <h3>{accepted ? "Contract Accepted" : "Not yet accepted."}</h3>
+                <Divider />
+                <h4>Fun factList</h4>
+                <ul>
+                    {funFacts}
+                </ul>
+
             </div>
          );
     }

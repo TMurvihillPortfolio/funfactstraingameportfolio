@@ -23,16 +23,13 @@ class App extends PureComponent {
     const getContract = routeProps => {
       const name = routeProps.match.params.contractpathname;
       const contractIndex = contracts.findIndex(contract => contract.pathName === name);
-      const contractCargo = contracts[contractIndex].cargo;
-      const cargoIndex = companyData[0].cargoTypes.findIndex(cargo => cargo.name === contractCargo);
-      const cargoImage = companyData[0].cargoTypes[cargoIndex].image;
-      return <ContractInfoCard contractObj={contracts[contractIndex]} history={routeProps.history} cargoImage={cargoImage}/>
+      return <ContractInfoCard contractObj={contracts[contractIndex]} history={routeProps.history}/>
     }
     
     return ( 
       <div className="App">
           <Switch>
-            <Route exact path='/' render={() => <TrainOperations />}/>        
+            <Route exact path='/' render={(routeProps) => <TrainOperations {...routeProps} />}/>        
             <Route exact path='/funfactstrains/trainoperations' render={(routeProps) => <TrainOperations {...routeProps} />}/>        
             <Route exact path='/funfactstrains/companymanagement' render={(routeProps) => <CompanyManagement {...routeProps}/>}/>       
             <Route exact path='/funfactstrains/trains/:trainpathname' render={getTrain}/>     

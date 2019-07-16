@@ -25,7 +25,8 @@ import ExpandMore from '@material-ui/icons/ExpandMore';
 
 //user generated
 import companyData from '../assets/trainslist';
-import Contract from './Contract';
+import ContractList from './ContractList';
+import TrainListItem from './TrainListItem';
 
 const drawerWidth = 250;
 
@@ -122,11 +123,11 @@ class OperationsDrawer extends PureComponent {
         this.handleContractClick=this.handleContractClick.bind(this);
         this.handleContractDialogOpen=this.handleContractDialogOpen.bind(this);
         this.handleContractDialogClose=this.handleContractDialogClose.bind(this);
+        this.handleTrainDialogOpen=this.handleTrainDialogOpen.bind(this);
         this.state = {
           openTrainNested: false,
-          openCurrentNested: true,
+          openCurrentNested: false,
           openOfferNested: false,
-          openContractDialog: false,
           contractDialogObj: ''
         };
       }
@@ -155,11 +156,14 @@ class OperationsDrawer extends PureComponent {
       handleContractDialogClose() {
         this.setState({ openContractDialog: false });
       }
-    
+      handleTrainDialogOpen(trainObj) {
+        this.props.routeHistory.push(`/funfactstrains/trains/${trainObj.pathName}`);
+      }
     render() { 
-        const { classes } = this.props;
-        const { contractDialogObj } = this.state;        
+        console.log(this.props);
+        const { classes } = this.props;       
         const contracts = companyData[0].contracts;
+        const trains = companyData[0].trains;
         const currentContracts = contracts.
             filter(contract => contract.accepted === 'true').
             map(contract => 
@@ -172,7 +176,7 @@ class OperationsDrawer extends PureComponent {
                     <ListItemIcon>
                         <LabelIcon className={classes.labelIcon}/>
                     </ListItemIcon>
-                    <Contract contractObj={contract} handleContractDialogOpen={this.handleContractDialogOpen} 
+                    <ContractList contractObj={contract} handleContractDialogOpen={this.handleContractDialogOpen} 
                      listView/>
                 </ListItem>
             )
@@ -189,12 +193,27 @@ class OperationsDrawer extends PureComponent {
                     <ListItemIcon>
                         <LabelIcon className={classes.labelIcon}/>
                     </ListItemIcon>
-                    <Contract contractObj={contract} handleContractDialogOpen={this.handleContractDialogOpen} 
-                     listView/>
+                    <ContractList 
+                        contractObj={contract} 
+                        handleContractDialogOpen={this.handleContractDialogOpen} 
+                     />
                 </ListItem>
             )
         ;
-        
+        const trainListItems = trains.map(train =>  
+            <ListItem  
+                    key={train.id} 
+                    className={classes.nested}
+                    button
+                    onClick={this.handleClick}
+                >             
+                    <ListItemIcon>
+                        <LabelIcon className={classes.labelIcon}/>
+                    </ListItemIcon>
+                    <TrainListItem trainObj={train} handleTrainDialogOpen={this.handleTrainDialogOpen} 
+                     listView/>
+                </ListItem>
+        );
 
         return ( 
             <div>
@@ -262,29 +281,29 @@ class OperationsDrawer extends PureComponent {
                         }
                         className={classes.drawerPaper}
                     >
-                        <ListItem button handleClick={this.handleContractDialogOpen}>
-                        <ListItemIcon>
-                            <DescriptionIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="Current Contracts" />
-                        {this.state.openCurrentNested ? <ExpandLess /> : <ExpandMore />}
+                        <ListItem button onClick={this.handleCurrentClick}>
+                            <ListItemIcon>
+                                <DescriptionIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Current Contracts" />
+                            {this.state.openCurrentNested ? <ExpandLess /> : <ExpandMore />}
                         </ListItem>
                         <Collapse in={this.state.openCurrentNested} timeout="auto" unmountOnExit>
-                        <List component="div" disablePadding>
-                            {currentContracts}
-                        </List>
+                            <List component="div" disablePadding>
+                                {currentContracts}
+                            </List>
                         </Collapse>
                         <ListItem button onClick={this.handleOfferClick}>
-                        <ListItemIcon>
-                            <DraftsIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="Contract Offers" />
-                        {this.state.openOfferNested ? <ExpandLess /> : <ExpandMore />}
+                            <ListItemIcon>
+                                <DraftsIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Contract Offers" />
+                            {this.state.openOfferNested ? <ExpandLess /> : <ExpandMore />}
                         </ListItem>
                         <Collapse in={this.state.openOfferNested} timeout="auto" unmountOnExit>
-                        <List component="div" disablePadding>
-                            {offers}
-                        </List>
+                            <List component="div" disablePadding>
+                                {offers}
+                            </List>
                         </Collapse>
                         <ListItem button onClick={this.handleTrainClick}>
                         <ListItemIcon>
@@ -295,19 +314,9 @@ class OperationsDrawer extends PureComponent {
                         </ListItem>
                         
                         <Collapse in={this.state.openTrainNested} timeout="auto" unmountOnExit>
-                        <List component="div" disablePadding>
-                            <ListItem button className={classes.nested}>
-                            <ListItemIcon>
-                                <LabelIcon className={classes.labelIcon} />
-                            </ListItemIcon>
-                            <ListItemText primary="Train Item 1" />
-                            </ListItem>
-                            <ListItem button className={classes.nested}>
-                            <ListItemIcon>
-                                <LabelIcon className={classes.labelIcon} />
-                            </ListItemIcon>
-                            <ListItemText primary="Train Item 2" />
-                            </ListItem>
+                        
+                        <List component="div" disablePadding>                
+                            {trainListItems}
                         </List>
                         </Collapse>
                     </List>

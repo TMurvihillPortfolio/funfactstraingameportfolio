@@ -134,7 +134,8 @@ class TrainOperations extends PureComponent {
   render() {
     const { classes } = this.props;
     const { open } = this.state;
-    
+    console.log('train ops');
+    console.log(this.props);
     return (
       <div className={classes.drawerContainer}>
         <CssBaseline />
