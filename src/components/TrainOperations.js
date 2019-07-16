@@ -1,48 +1,28 @@
 import React, { PureComponent } from "react";
 import { withStyles } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
-import TrainInfoCard from "./TrainInfoCard";
-import trainsList from '../assets/trainslist';
 import backgroundMap from '../img/usmap1930NewYorkChicagowNames.jpg';
 import clsx from 'clsx';
-import Drawer from '@material-ui/core/Drawer';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NavBar from './NavBar';
-import trainOnMap from '../img/TrainForMap.png';
-import ContractList from './ContractList';
-
-import { makeStyles } from '@material-ui/core/styles';
-import ListSubheader from '@material-ui/core/ListSubheader';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import Collapse from '@material-ui/core/Collapse';
-import DraftsIcon from '@material-ui/icons/Drafts';
-import TrainIcon from '@material-ui/icons/Train';
-import DescriptionIcon from '@material-ui/icons/Description';
-import LabelIcon from '@material-ui/icons/Label';
-import ExpandLess from '@material-ui/icons/ExpandLess';
-import ExpandMore from '@material-ui/icons/ExpandMore';
 import OperationsDrawer from './OperationsDrawer';
+import StatusWindow from './StatusWindow';
 
 const drawerWidth = 250;
 const styles = theme => ({
     root: {
-        height: '100vh',
-        width: '100%',
+        height: '900px',
         backgroundImage: `url(${backgroundMap})`,
-        backroundRepeat: 'norepeat',
+        backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover',
+        backgroundPosition: 'center',
         backgroundAttachment: 'fixed',
-        marginTop: '25px'       
+        marginTop: '25px',
+        position: 'relative',
+        //marginBottom: '25px'      
     },
     appBar: {
         transition: theme.transitions.create(['margin', 'width'], {
@@ -121,7 +101,9 @@ class TrainOperations extends PureComponent {
     this.handleDrawerOpen=this.handleDrawerOpen.bind(this);
     this.handleDrawerClose=this.handleDrawerClose.bind(this);
     this.state = {
-      open: true
+      open: true,
+      top: 350,
+      right: 100 
     };
   }
   handleDrawerOpen = () => {
@@ -130,12 +112,16 @@ class TrainOperations extends PureComponent {
   handleDrawerClose = () => {
     this.setState({ open: false });
   };
-
+  
   render() {
+    // function trainY() = {
+    //   setInterval => 
+    // } 
     const { classes } = this.props;
     const { open } = this.state;
-    console.log('train ops');
-    console.log(this.props);
+        
+    //const top = '700px';
+    //const right = '700px';
     return (
       <div className={classes.drawerContainer}>
         <CssBaseline />
@@ -161,7 +147,8 @@ class TrainOperations extends PureComponent {
         {open ? <OperationsDrawer routeHistory={this.props.history} handleDrawerClose={this.handleDrawerClose}/> : ''}
         <div className={classes.root}>
             <h1 className={open?classes.TrainOperationsHeaderOpen:classes.TrainOperationsHeaderOpenClosed}>Train Operations</h1>
-            <img src={trainOnMap} style={{height: '25px', position: 'fixed', top:'50%'}}/>
+            
+            <StatusWindow />
         </div> 
       </div>
     );

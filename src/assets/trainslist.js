@@ -85,7 +85,8 @@ export default [{
             }
 
         ],
-        cargoTypes: [{         
+        cargoTypes: [
+            {         
                 name: 'coal',
                 image: coal,
                 cargoFacts:  [
@@ -120,6 +121,20 @@ export default [{
                     'FunFact two about textiles',
                     'FunFact three about textiles'
                 ]
+            }
+        ],
+        activeTrains: [
+            {
+                id: uuid(),
+                contractId: '',
+                top: 300,
+                right: 100
+            },
+            {
+                id: uuid(),
+                contractId: '',
+                top: 500,
+                right: 200
             }
         ]   
 }]
