@@ -106,26 +106,31 @@ const styles = {
 class ActiveTrain extends PureComponent {
     constructor(props) {
         super(props);
-        this.state = { 
-            top: 650,
-            right: 100,
-            oldTop: 350,
-            oldRight: 100
-         }
+        this.state = {}
     }
     componentDidMount() {
-        //UPDATE PARENT STATE
-        this.updatePosition = setInterval(() =>{this.props.updatePositions()}, 3000);
+        // UPDATE PARENT STATE
+        this.updatePositions = setInterval(() =>{this.props.updatePositions()}, 3000);
     }
     
     componentWillUnmount() {
-        clearInterval(this.updatePosition);
+       clearInterval(this.updatePositions);
     }
 
     render() { 
-        const { classes, right } = this.props;
+        const { classes, right, top } = this.props;
         return ( 
-            <img src={trainOnMap} className={classes.trainOnMap} style={{top: `${this.state.top}px`, right: `${right}px`}}/>
+            <div>
+            <img 
+                src={trainOnMap} 
+                className={classes.trainOnMap} 
+                style={{
+                    top: `${top}px`, 
+                    right: `${right}px`
+                }}
+            />
+            
+            </div>
          );
     }
 }

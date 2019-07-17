@@ -33,7 +33,7 @@ const styles = theme => ({
       },
       appBarShift: {
         width: `calc(100% - ${drawerWidth+50}px)`,
-        marginLeft: drawerWidth,
+        marginLeft: drawerWidth-100,
         transition: theme.transitions.create(['margin', 'width'], {
           easing: theme.transitions.easing.easeOut,
           duration: theme.transitions.duration.enteringScreen,
@@ -101,9 +101,8 @@ class TrainOperations extends PureComponent {
     this.handleDrawerOpen=this.handleDrawerOpen.bind(this);
     this.handleDrawerClose=this.handleDrawerClose.bind(this);
     this.state = {
-      open: true,
-      top: 350,
-      right: 100 
+      open: true
+      
     };
   }
   handleDrawerOpen = () => {
@@ -113,12 +112,13 @@ class TrainOperations extends PureComponent {
     this.setState({ open: false });
   };
   
+  
   render() {
     // function trainY() = {
     //   setInterval => 
     // } 
     const { classes } = this.props;
-    const { open } = this.state;
+    const { open, trainRight1, trainTop1, trainRight2, trainTop2 } = this.state;
         
     //const top = '700px';
     //const right = '700px';
@@ -146,9 +146,8 @@ class TrainOperations extends PureComponent {
       </AppBar>
         {open ? <OperationsDrawer routeHistory={this.props.history} handleDrawerClose={this.handleDrawerClose}/> : ''}
         <div className={classes.root}>
-            <h1 className={open?classes.TrainOperationsHeaderOpen:classes.TrainOperationsHeaderOpenClosed}>Train Operations</h1>
-            
-            <StatusWindow />
+            <h1 className={open?classes.TrainOperationsHeaderOpen:classes.TrainOperationsHeaderOpenClosed}>Train Operations</h1>            
+            <StatusWindow key='001'/>
         </div> 
       </div>
     );

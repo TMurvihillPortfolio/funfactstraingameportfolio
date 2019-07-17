@@ -9,13 +9,14 @@ const styles = {
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
-        minHeight: '64px'
+        minHeight: '64px',
+        marginLeft: '-15px'
     },
     logo: {
         '& img': {
             height: '65px',
             width: '100px',
-            margin: '-25px 20px -25px -23px'
+            margin: '-25px 15px -25px -23px'
         }       
     }, 
     links: {

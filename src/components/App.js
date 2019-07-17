@@ -4,7 +4,6 @@ import { Route, Switch } from 'react-router-dom';
 import TrainInfoCard from './TrainInfoCard';
 import ContractInfoCard from './ContractInfoCard';
 import TrainOperations from './TrainOperations';
-import NavBar from './NavBar';
 import CompanyManagement from './CompanyManagement';
 import companyData from '../assets/trainslist';
 

@@ -44,8 +44,7 @@ export default [{
                 units: '1',
                 cargo: 'coal',
                 cargoImage: coal,
-                offerDate: 'June 4, 1878', 
-                accepted: 'true' //boolean for now, do date later
+                status: 'offered' //offered, accepted, started               
             },
             {
                 id: uuid(),
@@ -56,8 +55,7 @@ export default [{
                 units: '1',
                 cargo: 'textiles',
                 cargoImage: textiles,
-                offerDate: 'June 4, 1878',
-                accepted: 'false' //boolean for now, do date later
+                status: 'offered' //offered, accepted, started               
             },
             {
                 id: uuid(),
@@ -68,8 +66,7 @@ export default [{
                 units: '1',
                 cargo: 'wheat',
                 cargoImage: wheat,
-                offerDate: 'January 26, 1878',
-                accepted: 'true' //boolean for now, do date later
+                status: 'started' //offered, accepted, started               
             },
             {
                 id: uuid(),
@@ -80,8 +77,7 @@ export default [{
                 units: '1',
                 cargo: 'milk',
                 cargoImage: milk,
-                offerDate: 'April 17, 1878',
-                accepted: 'false'
+                status: 'accepted' //offered, accepted, started               
             }
 
         ],
@@ -125,18 +121,24 @@ export default [{
         ],
         activeTrains: [
             {
-                id: uuid(),
+                id: 1,
                 contractId: '',
-                top: 300,
+                top: 620,
                 right: 100
             },
             {
-                id: uuid(),
+                id: 2,
                 contractId: '',
-                top: 500,
+                top: 640,
+                right: 300
+            },
+            {
+                id: 3,
+                contractId: '',
+                top: 660,
                 right: 200
-            }
-        ]   
+            },
+        ]  
 }]
 
 

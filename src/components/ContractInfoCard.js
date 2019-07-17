@@ -1,8 +1,9 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import {withStyles} from '@material-ui/core';
 import NavBar from './NavBar';
 import Divider from '@material-ui/core/Divider';
 import companyData from '../assets/trainslist';
+import Button from '@material-ui/core/Button';
 
 const styles = {
     TrainInfoCardCSS: {
@@ -25,26 +26,55 @@ const styles = {
     }
 }
 
-class ContractInfoCard extends PureComponent {
+class ContractInfoCard extends Component {
     constructor(props) {
         super(props);
         this.getCargoObj = this.getCargoObj.bind(this);
-        this.state = {};
+        this.handleClick = this.handleClick.bind(this);
+        this.getButtonText = this.getButtonText.bind(this);
+        this.startTrain = this.startTrain.bind(this);
+        this.state = {
+            status : 'offered',
+            myValue : 'min'
+        };
     }
     getCargoObj() {
         const cargoType = this.props.contractObj.cargo;
-        const cargoIndex = companyData[0].cargoTypes.findIndex(cargo => cargo.name === cargoType);
+        const cargoIndex = companyData[0].cargoTypes
+            .findIndex(cargo => cargo.name === cargoType);
         return companyData[0].cargoTypes[cargoIndex];
-        // return companyData[0].cargoTypes[cargoIndex].cargoFacts;
-        
-        //console.log(cargoType);
-        //console.log(cargoObj);
     }
-    render() { 
+    handleClick() {
+        if (this.state.status==='offered') {
+            this.setState({ status: 'accepted' });
+        }
+        ////////////////////// STATUS CHANGED FROM STARTED FOR TESTING
+        if (this.state.status==='accepted') {
+            this.setState({ status: 'accepted' }, this.startTrain());
+        }
+    }
+    getButtonText() {
+        if (this.state.status==='offered') return 'Accept Contract'; 
+        if (this.state.status==='accepted') return 'Start Train'; 
+        if (this.state.status==='started') return 'In Progress'; //NOT YET IMPLEMENTED -- add time left
+    }
+    startTrain() {
+        let activeTrains = JSON.parse(localStorage.getItem('funFactsActiveTrains'));
+        const newObj = {
+            id: 8,
+            contractId: '',
+            top: 700,
+            right: 100,
+            completed: 160
+        }
+        const newArray=[...activeTrains, newObj];
+        localStorage.setItem('funFactsActiveTrains', JSON.stringify(newArray));
+    }
+    render() {        
         const myCargo = this.getCargoObj();
         const { image, cargoFacts } = myCargo;
         const { classes } = this.props;
-        const { cargo, from, to, offerDate, accepted, contractId, pathName } = this.props.contractObj;
+        const { cargo, from, to, status, contractId } = this.props.contractObj;
         const funFacts = cargoFacts.map(fact => 
             <li 
                 key={`${contractId}${fact}`} 
@@ -67,14 +97,20 @@ class ContractInfoCard extends PureComponent {
                     alt='engraving of steam contract' 
                     className={classes.trainImageCSS}
                 />
-                <h3>Contract Proffered: {offerDate}</h3>
-                <h3>{accepted ? "Contract Accepted" : "Not yet accepted."}</h3>
+                <h2><Button
+                        variant='contained'
+                        className={classes.button}
+                        style={{backgroundColor: '#a74227', color: 'whitesmoke'}}
+                        onClick={this.handleClick}
+                    >
+                        {this.getButtonText()}
+                    </Button></h2>
                 <Divider />
-                <h4>Fun factList</h4>
-                <ul>
+                <h3>FunFact List</h3>
+                <Divider />
+                <ul className={classes.factList}>
                     {funFacts}
                 </ul>
-
             </div>
          );
     }

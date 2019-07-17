@@ -29,7 +29,6 @@ import ContractList from './ContractList';
 import TrainListItem from './TrainListItem';
 
 const drawerWidth = 250;
-
 const styles = theme => ({
     root: {
         // height: '100vh',
@@ -160,12 +159,11 @@ class OperationsDrawer extends PureComponent {
         this.props.routeHistory.push(`/funfactstrains/trains/${trainObj.pathName}`);
       }
     render() { 
-        console.log(this.props);
         const { classes } = this.props;       
         const contracts = companyData[0].contracts;
         const trains = companyData[0].trains;
         const currentContracts = contracts.
-            filter(contract => contract.accepted === 'true').
+            filter(contract => contract.status === 'accepted' || contract.status === 'started').
             map(contract => 
                 <ListItem  
                     key={contract.id} 
@@ -182,7 +180,7 @@ class OperationsDrawer extends PureComponent {
             )
         ;
         const offers = contracts.
-            filter(contract => contract.accepted === 'false').
+            filter(contract => contract.status === 'offered').
             map(contract => 
                 <ListItem  
                     key={contract.id} 
