@@ -101,8 +101,7 @@ class TrainOperations extends PureComponent {
     this.handleDrawerOpen=this.handleDrawerOpen.bind(this);
     this.handleDrawerClose=this.handleDrawerClose.bind(this);
     this.state = {
-      open: true
-      
+      open: true    
     };
   }
   handleDrawerOpen = () => {

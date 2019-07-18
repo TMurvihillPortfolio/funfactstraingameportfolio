@@ -32,6 +32,10 @@ class StatusWindow extends Component {
             activeTrains: funFactsActiveTrains || false         
          }
     }
+    componentDidMount() {
+        const activeTrains = JSON.parse(localStorage.getItem('funFactsActiveTrains'));
+        this.setState({ activeTrains : activeTrains });
+    }
     syncLocalStorage() {
         console.log('sync before', this.state.activeTrains);
         localStorage.setItem(
@@ -53,7 +57,6 @@ class StatusWindow extends Component {
         console.log(deleteId)
         copyState.map(train => {
             if (train.right >= train.completed) {
-                
                 filterArray = copyState.filter(filterTrain => filterTrain.id !== train.id );
                 this.setState({ activeTrains : filterArray }, this.syncLocalStorage());
             }
