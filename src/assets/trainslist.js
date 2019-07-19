@@ -36,7 +36,7 @@ export default [{
     contracts: 
         [
             {
-                id: uuid(),
+                id: 'f859306a-cce8-47b9-9a65-f9363396116d',
                 pathName: 'coal1_chicago_newyork16',
                 from: 'Chicago',
                 to: 'NewYork',
@@ -122,21 +122,31 @@ export default [{
         activeTrains: [
             {
                 id: 1,
-                contractId: '',
-                top: 620,
-                right: 100
+                contractId: '25682d2e-c8e4-4f26-a14a-78f161ccc646',
+                top: 10,
+                right: 0,
+                lengthOfTrip: 460
             },
             {
                 id: 2,
                 contractId: '',
-                top: 640,
-                right: 300
+                top: 10,
+                right: 0,
+                lengthOfTrip: 500
             },
             {
                 id: 3,
                 contractId: '',
-                top: 660,
-                right: 200
+                top: 10,
+                right: 0,
+                lengthOfTrip: 400
+            },
+            {
+                id: 4,
+                contractId: '',
+                top: 10,
+                right: 0,
+                lengthOfTrip: 180
             },
         ]  
 }]

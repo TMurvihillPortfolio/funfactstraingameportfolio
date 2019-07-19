@@ -6,7 +6,7 @@ import App from './components/App';
 import SplashScreen from './components/SplashScreen';
 
 ReactDOM.render(
-    <BrowserRouter>
+    <BrowserRouter>   
         <SplashScreen />
         <App />
     </BrowserRouter>, 

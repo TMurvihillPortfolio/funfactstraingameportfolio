@@ -10,8 +10,9 @@ import MenuIcon from '@material-ui/icons/Menu';
 import NavBar from './NavBar';
 import OperationsDrawer from './OperationsDrawer';
 import StatusWindow from './StatusWindow';
+import {_DRAWER_WIDTH as drawerWidth} from '../assets/constants';
 
-const drawerWidth = 250;
+//const drawerWidth = 250;
 const styles = theme => ({
     root: {
         height: '900px',
@@ -45,9 +46,6 @@ const styles = theme => ({
       hide: {
         display: 'none',
       },
-    TrainOperations: {
-        
-    },
     drawer: {
         width: `${drawerWidth}px`,
         overflow: 'hidden',
@@ -83,8 +81,7 @@ const styles = theme => ({
         marginLeft: drawerWidth + 225,
         marginTop: 0,
         borderRadius: '7px',
-    },
-    
+    },    
     nested: {
       paddingLeft: theme.spacing(4),
     },
@@ -109,18 +106,11 @@ class TrainOperations extends PureComponent {
   };
   handleDrawerClose = () => {
     this.setState({ open: false });
-  };
-  
-  
-  render() {
-    // function trainY() = {
-    //   setInterval => 
-    // } 
+  }; 
+  render() { 
     const { classes } = this.props;
-    const { open, trainRight1, trainTop1, trainRight2, trainTop2 } = this.state;
+    const { open } = this.state;
         
-    //const top = '700px';
-    //const right = '700px';
     return (
       <div className={classes.drawerContainer}>
         <CssBaseline />

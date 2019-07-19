@@ -100,7 +100,7 @@ import trainOnMap from '../img/redtraincrop.png';
 const styles = {
     trainOnMap: {
         height: '8px', 
-        position: 'fixed'
+        position: 'absolute'
     }
 }
 class ActiveTrain extends PureComponent {
@@ -120,10 +120,11 @@ class ActiveTrain extends PureComponent {
     render() { 
         const { classes, right, top } = this.props;
         return ( 
-            <div>
+            <div style={{position: 'relative'}}>
             <img 
                 src={trainOnMap} 
                 className={classes.trainOnMap} 
+                alt='train on a progress bar'
                 style={{
                     top: `${top}px`, 
                     right: `${right}px`

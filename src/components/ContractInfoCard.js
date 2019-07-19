@@ -4,6 +4,8 @@ import NavBar from './NavBar';
 import Divider from '@material-ui/core/Divider';
 import companyData from '../assets/trainslist';
 import Button from '@material-ui/core/Button';
+import uuid from 'uuid';
+import { _TRIP_LENGTHS as tripLengths } from '../assets/constants';
 
 const styles = {
     TrainInfoCardCSS: {
@@ -22,7 +24,8 @@ const styles = {
     factList: {
         listStyle: 'none'
     },
-    factItem: {       
+    factItem: {   
+        textAlign: 'center'    
     }
 }
 
@@ -33,6 +36,7 @@ class ContractInfoCard extends Component {
         this.handleClick = this.handleClick.bind(this);
         this.getButtonText = this.getButtonText.bind(this);
         this.startTrain = this.startTrain.bind(this);
+        this.getLengthOfTrip = this.getLengthOfTrip.bind(this);
         this.state = {
             status : 'offered',
             myValue : 'min'
@@ -58,22 +62,54 @@ class ContractInfoCard extends Component {
         if (this.state.status==='accepted') return 'Start Train'; 
         if (this.state.status==='started') return 'In Progress'; //NOT YET IMPLEMENTED -- add time left
     }
+    getLengthOfTrip() {
+        //Declare variables
+        let city1, city2;
+        
+        //Account for either from/to order, Chi-Atl or Atl-Chi, etc.
+        if (this.props.contractObj.from === "Atlanta") {
+            city2 = this.props.contractObj.from;
+            city1 = this.props.contractObj.to;
+        } else {
+            city1 = this.props.contractObj.from;
+            city2 = this.props.contractObj.to;
+        }
+        
+        //Get trip distance from tripLength object
+        for(let key in tripLengths) {
+            if(tripLengths.hasOwnProperty(city1)) {
+                let cityList = tripLengths[key];
+                for(let city in cityList) {
+                    if(city === city2) {
+                        return cityList[city];
+                    }
+                }
+            }
+        }
+
+        //Error handling NOT YET IMPLEMENTED
+        return 'Distance between cities not found';
+    }
     startTrain() {
         let activeTrains = JSON.parse(localStorage.getItem('funFactsActiveTrains'));
         const newObj = {
-            id: 8,
-            contractId: '',
-            top: 700,
-            right: 100,
-            completed: 160
+            id: uuid(),
+            contractId: this.props.contractObj.id,
+            top: 10,
+            right: 0,
+            lengthOfTrip: this.getLengthOfTrip()
         }
+        console.log('newobj', newObj);
         const newArray=[...activeTrains, newObj];
+        console.log(newArray);
         localStorage.setItem('funFactsActiveTrains', JSON.stringify(newArray));
     }
     render() {        
         const myCargo = this.getCargoObj();
         const { image, cargoFacts } = myCargo;
         const { classes } = this.props;
+        //console.log('props', this.props);
+        console.log('end',this.getLengthOfTrip());
         const { cargo, from, to, status, contractId } = this.props.contractObj;
         const funFacts = cargoFacts.map(fact => 
             <li 

@@ -38,7 +38,7 @@ class CompanyManagement extends PureComponent {
                 <StatusWindow key='001'/>  
                 <img 
                     src={underConstruction} 
-                    alt='1800s photo of railroad construction' 
+                    alt='1800s railroad construction' 
                     className={classes.trainImageCSS}
                 /> 
             </div>

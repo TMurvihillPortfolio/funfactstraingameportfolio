@@ -48,7 +48,7 @@ class NavBar extends PureComponent {
         const { classes } = this.props;
         return ( 
             <nav className={classes.NavBar}>
-                <NavLink className={classes.logo} to='/'><img src={logowText} /></NavLink>
+                <NavLink className={classes.logo} to='/'><img src={logowText} alt='logo Fun Facts Train Game'/></NavLink>
                 <div className={classes.links}>    
                     <NavLink to='/funfactstrains/trainoperations'>TrainOperations</NavLink>
                     <NavLink to='/funfactstrains/companymanagement'>CompanyManagement</NavLink>

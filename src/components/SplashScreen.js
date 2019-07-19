@@ -59,7 +59,7 @@ class SplashScreen extends Component {
         return (
             // <div className='root'>
                 <div id='splash' className='splashScreen'>
-                    <img src={logo} className= 'splashScreenImg' alt='logo "Fun Facts Train Game" with train picture'/>
+                    <img src={logo} className= 'splashScreenImg' alt='train logo "Fun Facts Train Game"'/>
                 </div>
             // </div>           
          );
