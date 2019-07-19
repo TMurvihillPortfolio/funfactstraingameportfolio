@@ -50,9 +50,7 @@ class SplashScreen extends Component {
         const splash = document.querySelector('#splash');
         splash.addEventListener('webkitTransitionEnd', splash.classList.remove('splashScreenShow'));
         splash.addEventListener('transitionEnd', splash.classList.remove('splashScreenShow'));
-        console.log(splash);
         setTimeout(() => myFunc(),100);
-        
     }
     render() { 
         //const { classes } = this.props;

@@ -97,24 +97,25 @@ class StatusWindow extends Component {
         const fullArray = this.state.activeTrains.map(train => {
             const tempArray = []
             contracts.map(contract => {
-                console.log('contractid', contract.id);
-                console.log('train.contractID', train.contractId)
+                //console.log('contractid', contract.id);
+                //console.log('train.contractID', train.contractId)
                 if (train.contractId === contract.id) {
                     train.from = contract.from;
                     train.to = contract.to;
                     train.cargo = contract.cargo;
                     train.lengthOfTrip = 444;
-                    console.log('fulltrain', train);
-                    console.log('to', train.to);
+                  //  console.log('fulltrain', train);
+                    //console.log('to', train.to);
                     tempArray.push(train);
                 }
             });
             return tempArray;
         });
         console.log('fullArr', fullArray);
+        fullArray.map(train => console.log(train, train[0].to));
         const activeTrains = fullArray.map((train,index) => 
             <div key={index} className={classes.progress}>
-                <div className={classes.progressTo}>{train[index].to}</div>                
+                <div className={classes.progressTo}>{train[0].to}</div>                
                 <div className={classes.progressTrain}>
                     <ActiveTrain 
                         right={this.state.activeTrains[index].right}
@@ -124,8 +125,8 @@ class StatusWindow extends Component {
                     />
                 </div>
                 
-                <div className={classes.progressFrom}>{train[index].from}</div>
-                <div className={classes.progressCargo}>{train[index].cargo}</div>
+                <div className={classes.progressFrom}>{train[0].from}</div>
+                <div className={classes.progressCargo}>{train[0].cargo}</div>
             </div>
         );
         

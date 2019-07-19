@@ -58,7 +58,7 @@ export default [{
                 status: 'offered' //offered, accepted, started               
             },
             {
-                id: uuid(),
+                id: '2b64c7ad-d69b-428e-a405-17c351a08f9b',
                 pathName: 'wheat1_newyork_boston3',
                 from: 'New York',
                 to: 'Boston',
