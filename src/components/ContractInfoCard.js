@@ -38,8 +38,7 @@ class ContractInfoCard extends Component {
         this.startTrain = this.startTrain.bind(this);
         this.getLengthOfTrip = this.getLengthOfTrip.bind(this);
         this.state = {
-            status : 'offered',
-            myValue : 'min'
+            status : 'offered'
         };
     }
     getCargoObj() {
@@ -63,45 +62,52 @@ class ContractInfoCard extends Component {
         if (this.state.status==='started') return 'In Progress'; //NOT YET IMPLEMENTED -- add time left
     }
     getLengthOfTrip() {
-        //Declare variables
-        let city1, city2;
-        
-        //Account for either from/to order, Chi-Atl or Atl-Chi, etc.
-        if (this.props.contractObj.from === "Atlanta") {
-            city2 = this.props.contractObj.from;
-            city1 = this.props.contractObj.to;
-        } else {
-            city1 = this.props.contractObj.from;
-            city2 = this.props.contractObj.to;
-        }
-        
-        //Get trip distance from tripLength object
-        for(let key in tripLengths) {
-            if(tripLengths.hasOwnProperty(city1)) {
-                let cityList = tripLengths[key];
-                for(let city in cityList) {
-                    if(city === city2) {
-                        return cityList[city];
+        //Get trip distance between cities, data found in constants.js (_TRIP_LENGTHS)
+        function getDistance(city1, city2) {
+            for(let key in tripLengths) {
+                if(key === city1) {
+                    let cityList = tripLengths[key];
+                    for(let city in cityList) {
+                        if(city === city2) {
+                            return cityList[city];
+                        }
                     }
                 }
             }
         }
+        //Initialize variables
+        let distance;
+        let city1 = this.props.contractObj.from;
+        let city2 = this.props.contractObj.to;
+        
+        //find for distance
+        distance = getDistance(city1, city2);
 
+        //if distance not found, switch city order and find again
+        if (distance===undefined) {
+            city1 = this.props.contractObj.to;
+            city2 = this.props.contractObj.from;
+            distance = getDistance(city1, city2);
+        } 
+        
         //Error handling NOT YET IMPLEMENTED
-        return 'Distance between cities not found';
+        if (distance===undefined) {           
+            return 'Distance between cities not found';
+        }
+
+        //return result
+        return distance;        
     }
     startTrain() {
         let activeTrains = JSON.parse(localStorage.getItem('funFactsActiveTrains'));
         const newObj = {
             id: uuid(),
             contractId: this.props.contractObj.id,
-            top: 10,
+            top: 15,
             right: 0,
             lengthOfTrip: this.getLengthOfTrip()
         }
-        console.log('newobj', newObj);
         const newArray=[...activeTrains, newObj];
-        console.log(newArray);
         localStorage.setItem('funFactsActiveTrains', JSON.stringify(newArray));
     }
     render() {        
@@ -116,7 +122,7 @@ class ContractInfoCard extends Component {
                 key={`${contractId}${fact}`} 
                 className={classes.factItem}
             >
-                <h4>{fact}</h4>
+                <p>{fact}</p>
             </li>
         );
         // const factList = contractFacts.map(fact => 
@@ -142,7 +148,7 @@ class ContractInfoCard extends Component {
                         {this.getButtonText()}
                     </Button></h2>
                 <Divider />
-                <h3>FunFact List</h3>
+                <h3>Fun Facts about {cargo}</h3>
                 <Divider />
                 <ul className={classes.factList}>
                     {funFacts}

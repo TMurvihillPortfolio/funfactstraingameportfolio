@@ -47,7 +47,7 @@ export default [{
                 status: 'offered' //offered, accepted, started               
             },
             {
-                id: uuid(),
+                id: 'f85739206a-cce8-47b9-9a65-f9363396116d',
                 pathName: 'textiles1_atlanta_columbus20',
                 from: 'Atlanta',
                 to: 'Columbus',
@@ -60,7 +60,7 @@ export default [{
             {
                 id: '2b64c7ad-d69b-428e-a405-17c351a08f9b',
                 pathName: 'wheat1_newyork_boston3',
-                from: 'New York',
+                from: 'NewYork',
                 to: 'Boston',
                 payment: '3',
                 units: '1',
@@ -69,7 +69,7 @@ export default [{
                 status: 'started' //offered, accepted, started               
             },
             {
-                id: uuid(),
+                id: 'f859306a-cce8-47b9-9a65-f93asfd96116d',
                 pathName: 'milk1_boston_washington5',
                 from: 'Boston',
                 to: 'Washington',
@@ -79,7 +79,6 @@ export default [{
                 cargoImage: milk,
                 status: 'accepted' //offered, accepted, started               
             }
-
         ],
         cargoTypes: [
             {         
@@ -113,17 +112,17 @@ export default [{
                 name: 'textiles',
                 image: textiles,
                 cargoFacts:  [
-                    'FunFact one about textiles',
-                    'FunFact two about textiles',
-                    'FunFact three about textiles'
+                    'Sewing machines emerged in the 19th century[56] streamlining clothing production.',
+                    'In the early 1800s advances in transportation resulted in increasing quantities of textiles produced in far-away factories rather than produced locally.',
+                    'The vast majority of the people working in these factories were women.'
                 ]
             }
         ],
         activeTrains: [
             {
                 id: 1,
-                contractId: '25682d2e-c8e4-4f26-a14a-78f161ccc646',
-                top: 10,
+                contractId: 'f859306a-cce8-47b9-9a65-f93asfd96116d',
+                top: 15,
                 right: 0,
                 lengthOfTrip: 460
             },

@@ -103,7 +103,6 @@ class StatusWindow extends Component {
                     train.from = contract.from;
                     train.to = contract.to;
                     train.cargo = contract.cargo;
-                    train.lengthOfTrip = 444;
                   //  console.log('fulltrain', train);
                     //console.log('to', train.to);
                     tempArray.push(train);
@@ -112,7 +111,11 @@ class StatusWindow extends Component {
             return tempArray;
         });
         console.log('fullArr', fullArray);
-        fullArray.map(train => console.log(train, train[0].to));
+        fullArray.map(train => {
+            if (train[0].to) {
+                console.log(train, train[0].to);
+            }
+        });
         const activeTrains = fullArray.map((train,index) => 
             <div key={index} className={classes.progress}>
                 <div className={classes.progressTo}>{train[0].to}</div>                
