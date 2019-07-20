@@ -51,9 +51,8 @@ class ContractInfoCard extends Component {
         if (this.state.status==='offered') {
             this.setState({ status: 'accepted' });
         }
-        ////////////////////// STATUS CHANGED FROM STARTED FOR TESTING
         if (this.state.status==='accepted') {
-            this.setState({ status: 'accepted' }, this.startTrain());
+            this.setState({ status: 'started' }, this.startTrain());
         }
     }
     getButtonText() {
@@ -103,12 +102,13 @@ class ContractInfoCard extends Component {
         const newObj = {
             id: uuid(),
             contractId: this.props.contractObj.id,
-            top: 15,
+            top: 8,
             right: 0,
             lengthOfTrip: this.getLengthOfTrip()
         }
         const newArray=[...activeTrains, newObj];
         localStorage.setItem('funFactsActiveTrains', JSON.stringify(newArray));
+        this.props.history.push('/funfactstrains/trainoperations');
     }
     render() {        
         const myCargo = this.getCargoObj();

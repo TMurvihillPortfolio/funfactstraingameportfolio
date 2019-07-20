@@ -27,7 +27,9 @@ const styles = {
         flex: '1',
     },
     progressTrain: {
-        flex: '7',
+        flex: '4',
+        border: '1px solid rgba(28,21,18,.075)',
+        margin: '2px'
     },
     progressFrom: {
         flex: '1',
@@ -63,13 +65,12 @@ class StatusWindow extends Component {
         const newTrains = this.state.activeTrains.map(train => {
             let newRight = train.right += 400/train.lengthOfTrip;
             if (train.right >= 400) {
-                deleteId = train.id;
-                console.log(deleteId);               
+                deleteId = train.id;               
             }
             return {...train, right: newRight};
         });
         if (deleteId===-1) {
-            this.setState({ activeTrains: newTrains });
+            this.setState({ activeTrains: newTrains },this.syncLocalStorage);
         } else {
             this.completeActiveTrain(deleteId);
         }       
@@ -122,7 +123,7 @@ class StatusWindow extends Component {
                 <div className={classes.progressTrain}>
                     <ActiveTrain 
                         right={this.state.activeTrains[index].right}
-                        top={train.top}                       
+                        top={this.state.activeTrains[index].top}                       
                         updatePositions={this.updatePositions}
                         className={classes.activeTrain}
                     />
