@@ -114,8 +114,6 @@ class ContractInfoCard extends Component {
         const myCargo = this.getCargoObj();
         const { image, cargoFacts } = myCargo;
         const { classes } = this.props;
-        //console.log('props', this.props);
-        console.log('end',this.getLengthOfTrip());
         const { cargo, from, to, status, contractId } = this.props.contractObj;
         const funFacts = cargoFacts.map(fact => 
             <li 

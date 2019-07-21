@@ -1,1 +1,2 @@
 - make function to convert info to pathnames instead of a separate field for the pathname
+- when train completes add a note that flashes from the bottom

@@ -9,28 +9,12 @@ import milk from '../img/milk.jpg';
 
 export default [{
     trains: 
-        [
+        [ 
             {
-                trainId: uuid(),
-                trainName: 'Illinois Central 201',
-                pathName: 'illinoiscentral201',
-                trainImage: illinoisCentral201,       
-                trainFacts: [ 
-                    'Casey Jones was one of its engineers',
-                    'On display at Illinois Railway Museum',
-                    'Built in 1880, retired 1928'
-                ]
+                id: '0001-illcent201'
             },
             {
-                trainId: uuid(),
-                trainName: 'Jenny Lind',
-                pathName: 'jennylind',
-                trainImage: jennyLind,
-                trainFacts: [
-                    'Named after Jenny Lind, who was a famous opera singer of the period.',
-                    'Due to advancements in suspension, it steamed freely and was economical on fuel.',
-                    'Standard gauge locomotive buit in 1847'
-                ]
+                id: '0002-jennylind'
             }
         ],
     contracts: 
@@ -43,7 +27,6 @@ export default [{
                 payment: '16',
                 units: '1',
                 cargo: 'coal',
-                cargoImage: coal,
                 status: 'offered' //offered, accepted, started               
             },
             {
@@ -54,7 +37,6 @@ export default [{
                 payment: '12',
                 units: '1',
                 cargo: 'textiles',
-                cargoImage: textiles,
                 status: 'offered' //offered, accepted, started               
             },
             {
@@ -65,7 +47,6 @@ export default [{
                 payment: '3',
                 units: '1',
                 cargo: 'wheat',
-                cargoImage: wheat,
                 status: 'started' //offered, accepted, started               
             },
             {
@@ -76,7 +57,6 @@ export default [{
                 payment: '5',
                 units: '1',
                 cargo: 'milk',
-                cargoImage: milk,
                 status: 'accepted' //offered, accepted, started               
             }
         ],

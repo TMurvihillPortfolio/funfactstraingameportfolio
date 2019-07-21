@@ -25,6 +25,7 @@ import ExpandMore from '@material-ui/icons/ExpandMore';
 
 //user generated
 import companyData from '../assets/trainslist';
+import { _TRAIN_DETAILS } from '../assets/constants'
 import ContractList from './ContractList';
 import TrainListItem from './TrainListItem';
 
@@ -161,7 +162,9 @@ class OperationsDrawer extends PureComponent {
     render() { 
         const { classes } = this.props;       
         const contracts = companyData[0].contracts;
-        const trains = companyData[0].trains;
+        const trainIds = companyData[0].trains;
+        const testit = _TRAIN_DETAILS;
+        console.log('traindeets', _TRAIN_DETAILS);
         const currentContracts = contracts.
             filter(contract => contract.status === 'accepted' || contract.status === 'started').
             map(contract => 
@@ -198,7 +201,7 @@ class OperationsDrawer extends PureComponent {
                 </ListItem>
             )
         ;
-        const trainListItems = trains.map(train =>  
+        const trainListItems = _TRAIN_DETAILS.map(train =>  
             <ListItem  
                     key={train.id} 
                     className={classes.nested}
@@ -212,7 +215,7 @@ class OperationsDrawer extends PureComponent {
                      listView/>
                 </ListItem>
         );
-
+       
         return ( 
             <div>
                 <Drawer

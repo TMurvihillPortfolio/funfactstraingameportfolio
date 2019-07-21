@@ -85,8 +85,7 @@ class StatusWindow extends Component {
         localStorage.setItem('myData', JSON.stringify(companyData[0]));      
         const stringit = JSON.parse(localStorage.getItem('myData'));
         const { contracts } = companyData[0];
-        console.log(contracts);
-
+       
         //debugger;
         //const bigArray = [...this.state.activeTrains];
         //bigArray.map(ob => console.log(ob));
@@ -111,12 +110,11 @@ class StatusWindow extends Component {
             });
             return tempArray;
         });
-        console.log('fullArr', fullArray);
-        fullArray.map(train => {
-            if (train[0].to) {
-                console.log(train, train[0].to);
-            }
-        });
+        // fullArray.map(train => {
+        //     if (train[0].to) {
+        //         console.log(train, train[0].to);
+        //     }
+        // });
         const activeTrains = fullArray.map((train,index) => 
             <div key={index} className={classes.progress}>
                 <div className={classes.progressTo}>{train[0].to}</div>                

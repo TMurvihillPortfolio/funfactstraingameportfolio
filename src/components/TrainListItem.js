@@ -13,7 +13,6 @@ class TrainListItem extends Component {
     }
     render() { 
         const train = this.props.trainObj;
-        console.log(train);
         return ( 
             <div onClick={this.handleclick}>
                 {train.trainName.toUpperCase()}

@@ -6,7 +6,7 @@ import ContractInfoCard from './ContractInfoCard';
 import TrainOperations from './TrainOperations';
 import CompanyManagement from './CompanyManagement';
 import companyData from '../assets/trainslist';
-import SplashScreen from './SplashScreen';
+import { _TRAIN_DETAILS } from '../assets/constants';
 
 class App extends PureComponent {
   constructor(props) {
@@ -14,7 +14,8 @@ class App extends PureComponent {
     this.state = {  }
   }
   render() {
-    const { trains, contracts } = companyData[0];
+    const { contracts } = companyData[0];
+    const trains = _TRAIN_DETAILS;
     const getTrain = props => {
       let name = props.match.params.trainpathname;
       let trainIndex = trains.findIndex(train => train.pathName === name);

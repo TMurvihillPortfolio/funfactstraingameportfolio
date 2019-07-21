@@ -30,6 +30,7 @@ class TrainInfoCard extends PureComponent {
     }
     render() { 
         const { classes } = this.props;
+        console.log('props', this.props);
         const { trainName, trainImage, trainFacts, trainId } = this.props.trainObj;
         const factList = trainFacts.map(fact => 
             <li key={`${trainId}${fact}`} className={classes.factItem}><h4>{fact}</h4></li>);
