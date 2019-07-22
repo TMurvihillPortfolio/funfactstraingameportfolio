@@ -8,7 +8,6 @@ import coal from '../img/coal.jpg';
 import milk from '../img/milk.jpg';
 
 const _DRAWER_WIDTH = 240;
-
 const _TRAIN_DETAILS = [
     {
         trainId: '0001-illcent201',
@@ -33,33 +32,6 @@ const _TRAIN_DETAILS = [
         ]
     }
 ]
-const _TRIP_LENGTHS = {
-    Boston: {
-        Chicago: 850,
-        Washington: 395,
-        Columbus: 642,
-        Atlanta: 937,
-        NewYork: 190
-    },
-    Chicago: {
-        Washington: 595,
-        Columbus: 276,
-        Atlanta: 590,
-        NewYork: 711
-    },
-    Washington: {
-        Columbus: 327,
-        Atlanta: 542,
-        NewYork: 203
-    },
-    Columbus: {
-        Atlanta: 570,
-        NewYork: 476
-    },
-    NewYork: {
-        Atlanta: 746
-    }
-}
 const _CARGO_TYPES = [
     {         
         name: 'coal',
@@ -98,5 +70,31 @@ const _CARGO_TYPES = [
         ]
     }
 ];
-
+const _TRIP_LENGTHS = {
+    Boston: {
+        Chicago: 850,
+        Washington: 395,
+        Columbus: 642,
+        Atlanta: 937,
+        NewYork: 190
+    },
+    Chicago: {
+        Washington: 595,
+        Columbus: 276,
+        Atlanta: 590,
+        NewYork: 711
+    },
+    Washington: {
+        Columbus: 327,
+        Atlanta: 542,
+        NewYork: 203
+    },
+    Columbus: {
+        Atlanta: 570,
+        NewYork: 476
+    },
+    NewYork: {
+        Atlanta: 746
+    }
+}
 export { _DRAWER_WIDTH, _TRIP_LENGTHS, _TRAIN_DETAILS, _CARGO_TYPES };

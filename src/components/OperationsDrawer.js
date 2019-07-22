@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import uuid from 'uuid';
 
 //material ui-general
 import { withStyles } from "@material-ui/core/styles";
@@ -25,11 +26,11 @@ import ExpandMore from '@material-ui/icons/ExpandMore';
 
 //user generated
 //import companyData from '../assets/trainslist';
-import { _TRAIN_DETAILS } from '../assets/constants'
+import { _TRAIN_DETAILS, _CARGO_TYPES, _TRIP_LENGTHS } from '../assets/constants'
 import ContractList from './ContractList';
 import TrainListItem from './TrainListItem';
 
-const companyData = JSON.parse(localStorage.getItem('companyData'));
+let companyData = {trains: [], contracts: []};
 const drawerWidth = 250;
 const styles = theme => ({
     root: {
@@ -125,6 +126,9 @@ class OperationsDrawer extends PureComponent {
         this.handleContractDialogOpen=this.handleContractDialogOpen.bind(this);
         this.handleContractDialogClose=this.handleContractDialogClose.bind(this);
         this.handleTrainDialogOpen=this.handleTrainDialogOpen.bind(this);
+        this.getContractOffer=this.getContractOffer.bind(this);
+        this.getRandomCity=this.getRandomCity.bind(this);
+        this.syncLocalStorage=this.syncLocalStorage.bind(this);
         this.state = {
           openTrainNested: false,
           openCurrentNested: false,
@@ -132,7 +136,10 @@ class OperationsDrawer extends PureComponent {
           contractDialogObj: ''
         };
       }
-    
+      componentWillMount() {
+        this.getContractOffer();
+        //setInterval(() => getContractOffer(), 600000)
+      }
       handleCurrentClick() {
         this.setState({ openCurrentNested : !this.state.openCurrentNested });
       }
@@ -160,14 +167,45 @@ class OperationsDrawer extends PureComponent {
       handleTrainDialogOpen(trainObj) {
         this.props.routeHistory.push(`/funfactstrains/trains/${trainObj.pathName}`);
       }
+      getRandomCity() {
+          const cityArr = Object.keys(_TRIP_LENGTHS);
+          cityArr.push(Object.keys(_TRIP_LENGTHS['NewYork'])[0]);
+            return cityArr[Math.floor(Math.random()*cityArr.length)]
+        }
+      getContractOffer() {
+          const newCargo = _CARGO_TYPES[Math.floor(Math.random()*_CARGO_TYPES.length)].name;
+          const from = this.getRandomCity();
+          let to = this.getRandomCity();
+          while (from===to) {
+              to = this.getRandomCity();
+          }
+          
+          const newContract = {
+              id: uuid(),
+              pathName: uuid(),              
+              from: from,
+              to: to,
+              cargo: newCargo,
+              units: 1,
+              status: 'offered'
+          }
+          companyData.contracts.push(newContract);
+          this.syncLocalStorage();
+      }
+      syncLocalStorage() {
+        localStorage.setItem(
+            'companyData', 
+            JSON.stringify(companyData))
+        ;
+    }
     render() { 
         const { classes } = this.props;      
         const contracts = companyData.contracts;
         const currentContracts = contracts.
             filter(contract => contract.status === 'accepted' || contract.status === 'started').
-            map(contract => 
+            map(acceptedContract => 
                 <ListItem  
-                    key={contract.id} 
+                    key={acceptedContract.id} 
                     className={classes.nested}
                     button
                     onClick={this.handleClick}
@@ -175,16 +213,15 @@ class OperationsDrawer extends PureComponent {
                     <ListItemIcon>
                         <LabelIcon className={classes.labelIcon}/>
                     </ListItemIcon>
-                    <ContractList contractObj={contract} handleContractDialogOpen={this.handleContractDialogOpen} 
+                    <ContractList contractObj={acceptedContract} handleContractDialogOpen={this.handleContractDialogOpen} 
                      listView/>
                 </ListItem>
             )
         ;
         const offers = contracts.
-            filter(contract => contract.status === 'offered').
-            map(contract => 
+            map(offerContract => 
                 <ListItem  
-                    key={contract.id} 
+                    key={offerContract.id} 
                     className={classes.nested}
                     button
                     onClick={this.handleClick}
@@ -193,12 +230,31 @@ class OperationsDrawer extends PureComponent {
                         <LabelIcon className={classes.labelIcon}/>
                     </ListItemIcon>
                     <ContractList 
-                        contractObj={contract} 
+                        contractObj={offerContract} 
                         handleContractDialogOpen={this.handleContractDialogOpen} 
                      />
                 </ListItem>
             )
         ;
+        // const offers = contracts.
+        //     filter(contract => contract.status === 'offered').
+        //     map(offerContract => 
+        //         <ListItem  
+        //             key={offerContract.id} 
+        //             className={classes.nested}
+        //             button
+        //             onClick={this.handleClick}
+        //         >             
+        //             <ListItemIcon>
+        //                 <LabelIcon className={classes.labelIcon}/>
+        //             </ListItemIcon>
+        //             <ContractList 
+        //                 contractObj={offerContract} 
+        //                 handleContractDialogOpen={this.handleContractDialogOpen} 
+        //              />
+        //         </ListItem>
+        //     )
+        // ;
 
         const trainListItems = _TRAIN_DETAILS.map(train =>  
             <ListItem  
@@ -242,6 +298,7 @@ class OperationsDrawer extends PureComponent {
                     </Typography>
                     <div className={classes.buttons}>
                     <Button
+                        key={uuid()}
                         variant='contained'
                         className={classes.button}
                         color='secondary'
@@ -250,26 +307,14 @@ class OperationsDrawer extends PureComponent {
                         Build Route
                     </Button>
                     <Button
+                        key={uuid()}
                         variant='contained'
                         className={classes.button}
                         color='primary'
                     >
                         Buy Train
                     </Button>
-                    <Button
-                        variant='contained'
-                        className={classes.button}
-                        color='primary'
-                    >
-                        View My Contracts
-                    </Button>
-                    <Button
-                        variant='contained'
-                        className={classes.button}
-                        color='primary'
-                    >
-                        View Contract Offers
-                    </Button>
+                    
                     <Divider />
                     <List
                         component="nav"

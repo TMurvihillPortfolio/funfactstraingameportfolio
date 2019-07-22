@@ -13,7 +13,7 @@ class ContractList extends Component {
     }
     render() { 
         const contract = this.props.contractObj;
-        
+        console.log('conlist', this.props);
         return ( 
             <div onClick={this.handleclick}>
                 {`${contract.cargo.toUpperCase()} -- ${contract.from} to ${contract.to}`}

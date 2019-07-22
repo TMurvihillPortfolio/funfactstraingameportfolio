@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import {withStyles} from '@material-ui/core';
 import NavBar from './NavBar';
 import Divider from '@material-ui/core/Divider';
-import companyData from '../assets/trainslist';
+//import companyData from '../assets/trainslist';
 import Button from '@material-ui/core/Button';
 import uuid from 'uuid';
 import { _TRIP_LENGTHS as tripLengths } from '../assets/constants';
 import { _CARGO_TYPES as cargoTypes } from '../assets/constants';
 
+const companyData = JSON.parse(localStorage.getItem('companyData'));
 const styles = {
     TrainInfoCardCSS: {
         backgroundColor: 'lightsalmon',
@@ -38,11 +39,22 @@ class ContractInfoCard extends Component {
         this.getButtonText = this.getButtonText.bind(this);
         this.startTrain = this.startTrain.bind(this);
         this.getLengthOfTrip = this.getLengthOfTrip.bind(this);
+        this.updateContractStatus = this.updateContractStatus.bind(this);
+        this.syncLocalStorage = this.syncLocalStorage.bind(this);
         this.state = {
             status : 'offered'
         };
     }
+    componentWillMount() {
+        console.log('wilmoun', this.props);
+    }
+    updateContractStatus() {
+        const contract = companyData.contracts.find(contract => contract.id === this.props.contractObj.id);
+        contract.status = 'started';
+        this.syncLocalStorage();       
+    }
     getCargoObj() {
+        console.log(this.props.contractObj);
         const cargoType = this.props.contractObj.cargo;
         const cargoIndex = cargoTypes
             .findIndex(cargo => cargo.name === cargoType);
@@ -50,7 +62,8 @@ class ContractInfoCard extends Component {
     }
     handleClick() {
         if (this.state.status==='offered') {
-            this.setState({ status: 'accepted' });
+            this.setState({ status: 'accepted' }, this.syncLocalStorage());
+
         }
         if (this.state.status==='accepted') {
             this.setState({ status: 'started' }, this.startTrain());
@@ -59,7 +72,7 @@ class ContractInfoCard extends Component {
     getButtonText() {
         if (this.state.status==='offered') return 'Accept Contract'; 
         if (this.state.status==='accepted') return 'Start Train'; 
-        if (this.state.status==='started') return 'In Progress'; //NOT YET IMPLEMENTED -- add time left
+        if (this.state.status==='started') return 'In Progress'; 
     }
     getLengthOfTrip() {
         //Get trip distance between cities, data found in constants.js (_TRIP_LENGTHS)
@@ -98,6 +111,12 @@ class ContractInfoCard extends Component {
         //return result
         return distance;        
     }
+    syncLocalStorage() {
+        localStorage.setItem(
+            'companyData', 
+            JSON.stringify(companyData))
+        ;
+    }
     startTrain() {
         let activeTrains = JSON.parse(localStorage.getItem('funFactsActiveTrains'));
         const newObj = {
@@ -107,15 +126,19 @@ class ContractInfoCard extends Component {
             right: 0,
             lengthOfTrip: this.getLengthOfTrip()
         }
+        //update trains in state and storage
         const newArray=[...activeTrains, newObj];
         localStorage.setItem('funFactsActiveTrains', JSON.stringify(newArray));
         this.props.history.push('/funfactstrains/trainoperations');
+        //update contracts local storage
+        this.updateContractStatus('inProgress');
     }
     render() {        
         const myCargo = this.getCargoObj();
         const { image, cargoFacts } = myCargo;
         const { classes } = this.props;
-        const { cargo, from, to, status, contractId } = this.props.contractObj;
+        console.log('coninfo', this.props);
+        const { cargo, from, to, contractId } = this.props.contractObj;
         const funFacts = cargoFacts.map(fact => 
             <li 
                 key={`${contractId}${fact}`} 

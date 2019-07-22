@@ -83,6 +83,7 @@ class StatusWindow extends Component {
     }
     render() { 
         localStorage.setItem('myData', JSON.stringify(companyData));      
+        let activeTrains;
         const stringit = JSON.parse(localStorage.getItem('myData'));
         const { contracts } = companyData;
        
@@ -95,7 +96,7 @@ class StatusWindow extends Component {
         
         //prepare an array that mixes infor from two props
         const fullArray = this.state.activeTrains.map(train => {
-            const tempArray = []
+            const tempArray = [];
             contracts.map(contract => {
                 //console.log('contractid', contract.id);
                 //console.log('train.contractID', train.contractId)
@@ -108,29 +109,28 @@ class StatusWindow extends Component {
                     tempArray.push(train);
                 }
             });
+
             return tempArray;
         });
-        // fullArray.map(train => {
-        //     if (train[0].to) {
-        //         console.log(train, train[0].to);
-        //     }
-        // });
-        const activeTrains = fullArray.map((train,index) => 
-            <div key={index} className={classes.progress}>
-                <div className={classes.progressTo}>{train[0].to}</div>                
-                <div className={classes.progressTrain}>
-                    <ActiveTrain 
-                        right={this.state.activeTrains[index].right}
-                        top={this.state.activeTrains[index].top}                       
-                        updatePositions={this.updatePositions}
-                        className={classes.activeTrain}
-                    />
+        if (fullArray.length > 0 && fullArray[0] !== [] ) {
+            activeTrains = fullArray.map((train,index) => 
+                <div key={index} className={classes.progress}>
+                    <div className={classes.progressTo}>{train[0].to}</div>                
+                    <div className={classes.progressTrain}>
+                        <ActiveTrain 
+                            right={this.state.activeTrains[index].right}
+                            top={this.state.activeTrains[index].top}                       
+                            updatePositions={this.updatePositions}
+                            className={classes.activeTrain}
+                        />
+                    </div>
+                    
+                    <div className={classes.progressFrom}>{train[0].from}</div>
+                    <div className={classes.progressCargo}>{train[0].cargo}</div>
                 </div>
-                
-                <div className={classes.progressFrom}>{train[0].from}</div>
-                <div className={classes.progressCargo}>{train[0].cargo}</div>
-            </div>
-        );
+            );
+        }
+        
         
         return ( 
             <div className={classes.root}> <h2>Active Trains</h2>

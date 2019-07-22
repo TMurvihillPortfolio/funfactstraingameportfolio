@@ -5,10 +5,9 @@ import TrainInfoCard from './TrainInfoCard';
 import ContractInfoCard from './ContractInfoCard';
 import TrainOperations from './TrainOperations';
 import CompanyManagement from './CompanyManagement';
-//import companyData from '../assets/trainslist';
 import { _TRAIN_DETAILS } from '../assets/constants';
 
-const companyData = JSON.parse(localStorage.getItem('companyData'));
+let companyData; 
 
 class App extends PureComponent {
   constructor(props) {
@@ -16,7 +15,8 @@ class App extends PureComponent {
     this.state = {  }
   }
   render() {
-    const { contracts } = companyData;
+    companyData = JSON.parse(localStorage.getItem('companyData'));
+    let { contracts } = companyData;
     const trains = _TRAIN_DETAILS;
     const getTrain = props => {
       let name = props.match.params.trainpathname;
@@ -24,11 +24,17 @@ class App extends PureComponent {
       return <TrainInfoCard trainObj={trains[trainIndex]} history={props.history} />
     }
     const getContract = routeProps => {
+      //refresh contract data
+      contracts = JSON.parse(localStorage.getItem('companyData')).contracts;
+      
+      //match pathname to contract data
       const name = routeProps.match.params.contractpathname;
-      const contractIndex = contracts.findIndex(contract => contract.pathName === name);
+      const contractIndex = contracts.findIndex(contract => contract.pathName == name);
+      
+      //call contract info screen with contractObj
       return <ContractInfoCard contractObj={contracts[contractIndex]} history={routeProps.history}/>
     }
-    
+        
     return ( 
       <div className="App">
           <Switch>

@@ -1,3 +1,28 @@
+//***** command to seed local storage */
+
+// localStorage.setItem('companyData', JSON.stringify({
+//     trains: 
+//         [ 
+//             {
+//                 id: '0001-illcent201'
+//             },
+//             {
+//                 id: '0002-jennylind'
+//             }
+//         ],
+//     contracts: 
+//         [
+//             {
+//                 id: 'f859306a-cce8-47b9-9a65-f9363396116d',
+//                 pathName: 'coal1_chicago_newyork16',
+//                 from: 'Chicago',
+//                 to: 'NewYork',
+//                 payment: '16',
+//                 units: '1',
+//                 cargo: 'coal',
+//                 status: 'offered'
+//             }]}))
+
 export default {
     trains: 
         [ 
