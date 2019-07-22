@@ -8,7 +8,7 @@ import uuid from 'uuid';
 import { _TRIP_LENGTHS as tripLengths } from '../assets/constants';
 import { _CARGO_TYPES as cargoTypes } from '../assets/constants';
 
-const companyData = JSON.parse(localStorage.getItem('companyData'));
+let companyData; 
 const styles = {
     TrainInfoCardCSS: {
         backgroundColor: 'lightsalmon',
@@ -49,21 +49,26 @@ class ContractInfoCard extends Component {
         console.log('wilmoun', this.props);
     }
     updateContractStatus() {
+        companyData = JSON.parse(localStorage.getItem('companyData'));
         const contract = companyData.contracts.find(contract => contract.id === this.props.contractObj.id);
         contract.status = 'started';
+        console.log('after', companyData);
         this.syncLocalStorage();       
     }
     getCargoObj() {
         console.log(this.props.contractObj);
-        const cargoType = this.props.contractObj.cargo;
+       const cargoType = this.props.contractObj.cargo;
         const cargoIndex = cargoTypes
             .findIndex(cargo => cargo.name === cargoType);
         return cargoTypes[cargoIndex];
     }
     handleClick() {
+        companyData = JSON.parse(localStorage.getItem('companyData'));
         if (this.state.status==='offered') {
+            console.log('inhandleclick', companyData);
+            const ind = companyData.contracts.findIndex(contract => this.props.contractObj.id === contract.id);
+            companyData.contracts[ind].status = 'accepted'; 
             this.setState({ status: 'accepted' }, this.syncLocalStorage());
-
         }
         if (this.state.status==='accepted') {
             this.setState({ status: 'started' }, this.startTrain());
@@ -129,15 +134,19 @@ class ContractInfoCard extends Component {
         //update trains in state and storage
         const newArray=[...activeTrains, newObj];
         localStorage.setItem('funFactsActiveTrains', JSON.stringify(newArray));
-        this.props.history.push('/funfactstrains/trainoperations');
-        //update contracts local storage
-        this.updateContractStatus('inProgress');
+        //this.props.history.push('/funfactstrains/trainoperations');
+
+        //update local storage
+        const ind = companyData.contracts.findIndex(contract => this.props.contractObj.id === contract.id);
+        companyData.contracts[ind].status = 'started'; 
+        this.syncLocalStorage();
+            
     }
     render() {        
         const myCargo = this.getCargoObj();
         const { image, cargoFacts } = myCargo;
         const { classes } = this.props;
-        console.log('coninfo', this.props);
+        console.log('compinfoprops', this.props);
         const { cargo, from, to, contractId } = this.props.contractObj;
         const funFacts = cargoFacts.map(fact => 
             <li 

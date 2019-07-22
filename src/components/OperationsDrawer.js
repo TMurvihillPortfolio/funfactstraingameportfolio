@@ -29,6 +29,7 @@ import ExpandMore from '@material-ui/icons/ExpandMore';
 import { _TRAIN_DETAILS, _CARGO_TYPES, _TRIP_LENGTHS } from '../assets/constants'
 import ContractList from './ContractList';
 import TrainListItem from './TrainListItem';
+import { handleDrawerCloseClick } from '../assets/helpers.js'
 
 let companyData = {trains: [], contracts: []};
 const drawerWidth = 250;
@@ -173,6 +174,8 @@ class OperationsDrawer extends PureComponent {
             return cityArr[Math.floor(Math.random()*cityArr.length)]
         }
       getContractOffer() {
+        companyData = JSON.parse(localStorage.getItem('companyData'));
+        console.log('offer', companyData);
           const newCargo = _CARGO_TYPES[Math.floor(Math.random()*_CARGO_TYPES.length)].name;
           const from = this.getRandomCity();
           let to = this.getRandomCity();
@@ -219,6 +222,7 @@ class OperationsDrawer extends PureComponent {
             )
         ;
         const offers = contracts.
+            filter(contract => contract.status === 'offered').
             map(offerContract => 
                 <ListItem  
                     key={offerContract.id} 
@@ -236,25 +240,6 @@ class OperationsDrawer extends PureComponent {
                 </ListItem>
             )
         ;
-        // const offers = contracts.
-        //     filter(contract => contract.status === 'offered').
-        //     map(offerContract => 
-        //         <ListItem  
-        //             key={offerContract.id} 
-        //             className={classes.nested}
-        //             button
-        //             onClick={this.handleClick}
-        //         >             
-        //             <ListItemIcon>
-        //                 <LabelIcon className={classes.labelIcon}/>
-        //             </ListItemIcon>
-        //             <ContractList 
-        //                 contractObj={offerContract} 
-        //                 handleContractDialogOpen={this.handleContractDialogOpen} 
-        //              />
-        //         </ListItem>
-        //     )
-        // ;
 
         const trainListItems = _TRAIN_DETAILS.map(train =>  
             <ListItem  
