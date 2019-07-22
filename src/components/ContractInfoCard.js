@@ -6,6 +6,7 @@ import companyData from '../assets/trainslist';
 import Button from '@material-ui/core/Button';
 import uuid from 'uuid';
 import { _TRIP_LENGTHS as tripLengths } from '../assets/constants';
+import { _CARGO_TYPES as cargoTypes } from '../assets/constants';
 
 const styles = {
     TrainInfoCardCSS: {
@@ -43,9 +44,9 @@ class ContractInfoCard extends Component {
     }
     getCargoObj() {
         const cargoType = this.props.contractObj.cargo;
-        const cargoIndex = companyData[0].cargoTypes
+        const cargoIndex = cargoTypes
             .findIndex(cargo => cargo.name === cargoType);
-        return companyData[0].cargoTypes[cargoIndex];
+        return cargoTypes[cargoIndex];
     }
     handleClick() {
         if (this.state.status==='offered') {

@@ -5,8 +5,10 @@ import TrainInfoCard from './TrainInfoCard';
 import ContractInfoCard from './ContractInfoCard';
 import TrainOperations from './TrainOperations';
 import CompanyManagement from './CompanyManagement';
-import companyData from '../assets/trainslist';
+//import companyData from '../assets/trainslist';
 import { _TRAIN_DETAILS } from '../assets/constants';
+
+const companyData = JSON.parse(localStorage.getItem('companyData'));
 
 class App extends PureComponent {
   constructor(props) {
@@ -14,7 +16,7 @@ class App extends PureComponent {
     this.state = {  }
   }
   render() {
-    const { contracts } = companyData[0];
+    const { contracts } = companyData;
     const trains = _TRAIN_DETAILS;
     const getTrain = props => {
       let name = props.match.params.trainpathname;

@@ -24,11 +24,12 @@ import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 
 //user generated
-import companyData from '../assets/trainslist';
+//import companyData from '../assets/trainslist';
 import { _TRAIN_DETAILS } from '../assets/constants'
 import ContractList from './ContractList';
 import TrainListItem from './TrainListItem';
 
+const companyData = JSON.parse(localStorage.getItem('companyData'));
 const drawerWidth = 250;
 const styles = theme => ({
     root: {
@@ -160,11 +161,8 @@ class OperationsDrawer extends PureComponent {
         this.props.routeHistory.push(`/funfactstrains/trains/${trainObj.pathName}`);
       }
     render() { 
-        const { classes } = this.props;       
-        const contracts = companyData[0].contracts;
-        const trainIds = companyData[0].trains;
-        const testit = _TRAIN_DETAILS;
-        console.log('traindeets', _TRAIN_DETAILS);
+        const { classes } = this.props;      
+        const contracts = companyData.contracts;
         const currentContracts = contracts.
             filter(contract => contract.status === 'accepted' || contract.status === 'started').
             map(contract => 
@@ -201,6 +199,7 @@ class OperationsDrawer extends PureComponent {
                 </ListItem>
             )
         ;
+
         const trainListItems = _TRAIN_DETAILS.map(train =>  
             <ListItem  
                     key={train.id} 

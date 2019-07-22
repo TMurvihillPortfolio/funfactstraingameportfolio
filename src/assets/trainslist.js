@@ -1,13 +1,4 @@
-import uuid from 'uuid';
-import illinoisCentral201 from '../img/illinoisCentral201.jpg';
-import jennyLind from '../img/jennylind.jpg';
-
-import wheat from '../img/wheat.jpg';
-import textiles from '../img/textiles.jpg';
-import coal from '../img/coal.jpg';
-import milk from '../img/milk.jpg';
-
-export default [{
+export default {
     trains: 
         [ 
             {
@@ -60,44 +51,6 @@ export default [{
                 status: 'accepted' //offered, accepted, started               
             }
         ],
-        cargoTypes: [
-            {         
-                name: 'coal',
-                image: coal,
-                cargoFacts:  [
-                    'FunFact one about coal',
-                    'FunFact two about coal',
-                    'FunFact three about coal'
-                ]
-            },
-            {
-                name: 'wheat',
-                image: wheat,
-                cargoFacts:  [
-                    'FunFact one about wheat',
-                    'FunFact two about wheat',
-                    'FunFact three about wheat'
-                ]
-            },
-            {
-                name: 'milk',
-                image: milk,
-                cargoFacts:  [
-                    'FunFact one about milk',
-                    'FunFact two about milk',
-                    'FunFact three about milk'
-                ]
-            },
-            {
-                name: 'textiles',
-                image: textiles,
-                cargoFacts:  [
-                    'Sewing machines emerged in the 19th century[56] streamlining clothing production.',
-                    'In the early 1800s advances in transportation resulted in increasing quantities of textiles produced in far-away factories rather than produced locally.',
-                    'The vast majority of the people working in these factories were women.'
-                ]
-            }
-        ],
         activeTrains: [
             {
                 id: 1,
@@ -128,9 +81,7 @@ export default [{
                 lengthOfTrip: 180
             },
         ]  
-}]
-
-
+}
 // export default [
 //     {assets: [{
 //         trains: [    

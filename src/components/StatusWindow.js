@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { withStyles } from "@material-ui/core/styles";
-import companyData from '../assets/trainslist';
+//import companyData from '../assets/trainslist';
 import ActiveTrain from './ActiveTrain';
 import {_DRAWER_WIDTH as drawerWidth} from '../assets/constants';
 
-
+const companyData = JSON.parse(localStorage.getItem('companyData'));
 const styles = {
     root: {
         height: '200px',
@@ -82,9 +82,9 @@ class StatusWindow extends Component {
         );     
     }
     render() { 
-        localStorage.setItem('myData', JSON.stringify(companyData[0]));      
+        localStorage.setItem('myData', JSON.stringify(companyData));      
         const stringit = JSON.parse(localStorage.getItem('myData'));
-        const { contracts } = companyData[0];
+        const { contracts } = companyData;
        
         //debugger;
         //const bigArray = [...this.state.activeTrains];

@@ -60,5 +60,43 @@ const _TRIP_LENGTHS = {
         Atlanta: 746
     }
 }
+const _CARGO_TYPES = [
+    {         
+        name: 'coal',
+        image: coal,
+        cargoFacts:  [
+            'Anthracite (or "hard" coal), clean and smokeless, became the preferred fuel in cities, replacing wood by about 1850.',
+            'After 1850 soft coal, which is cheaper but dirtier, came into demand for railway locomotives and stationary steam engines.',
+            'Coal output soared until 1918 going from 8.4 million short tons in 1850 to 40 million in 1870, 270 million in 1900, and peaking at 680 million short tons in 1918.'
+        ]
+    },
+    {
+        name: 'wheat',
+        image: wheat,
+        cargoFacts:  [
+            'FunFact one about wheat',
+            'FunFact two about wheat',
+            'FunFact three about wheat'
+        ]
+    },
+    {
+        name: 'milk',
+        image: milk,
+        cargoFacts:  [
+            'FunFact one about milk',
+            'FunFact two about milk',
+            'FunFact three about milk'
+        ]
+    },
+    {
+        name: 'textiles',
+        image: textiles,
+        cargoFacts:  [
+            'Sewing machines emerged in the 19th century[56] streamlining clothing production.',
+            'In the early 1800s advances in transportation resulted in increasing quantities of textiles produced in far-away factories rather than produced locally.',
+            'The vast majority of the people working in these factories were women.'
+        ]
+    }
+];
 
-export { _DRAWER_WIDTH, _TRIP_LENGTHS, _TRAIN_DETAILS };
+export { _DRAWER_WIDTH, _TRIP_LENGTHS, _TRAIN_DETAILS, _CARGO_TYPES };
