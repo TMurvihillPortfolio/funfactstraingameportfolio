@@ -2,12 +2,22 @@ import React, { PureComponent } from 'react';
 import {withStyles} from '@material-ui/core';
 import NavBar from './NavBar';
 
+import clsx from 'clsx';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
+
+
+
 const styles = {
     TrainInfoCardCSS: {
         backgroundColor: 'lightsalmon',
         padding: '50px'
     },
     trainNameCSS: {
+        marginTop: '100px',
         marginBottom: '40px',
         borderRadius: '7px'
     },
@@ -30,13 +40,14 @@ class TrainInfoCard extends PureComponent {
     }
     render() { 
         const { classes } = this.props;
-        console.log('props', this.props);
         const { trainName, trainImage, trainFacts, trainId } = this.props.trainObj;
         const factList = trainFacts.map(fact => 
             <li key={`${trainId}${fact}`} className={classes.factItem}><h4>{fact}</h4></li>);
         return ( 
             <div className={classes.trainNameCSS}>
-                <NavBar />
+                <AppBar >
+                    <NavBar />
+                </AppBar>
                 <h1>{trainName}</h1>
                 <img 
                     src={trainImage} 
@@ -47,6 +58,7 @@ class TrainInfoCard extends PureComponent {
                      <h2>Fun Facts</h2>
                      {factList}
                  </ul>
+                 
             </div>
          );
     }

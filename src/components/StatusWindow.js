@@ -42,7 +42,11 @@ const styles = {
 class StatusWindow extends Component {
     constructor(props) {
         super(props);
-        const funFactsActiveTrains = [...JSON.parse(localStorage.getItem('funFactsActiveTrains'))];
+        let funFactsActiveTrains;
+        if (localStorage.getItem('funFactsActiveTrains') !== null) {
+            funFactsActiveTrains = [...JSON.parse(localStorage.getItem('funFactsActiveTrains'))];
+        }
+        
         this.updatePositions=this.updatePositions.bind(this); 
         this.completeActiveTrain=this.completeActiveTrain.bind(this); 
         this.syncLocalStorage=this.syncLocalStorage.bind(this); 
@@ -82,65 +86,55 @@ class StatusWindow extends Component {
         );     
     }
     render() { 
-        localStorage.setItem('myData', JSON.stringify(companyData));      
         let activeTrains;
-        const stringit = JSON.parse(localStorage.getItem('myData'));
         const { contracts } = companyData;
-       
-        //debugger;
-        //const bigArray = [...this.state.activeTrains];
-        //bigArray.map(ob => console.log(ob));
-        //console.log('here', bigArray);
 
         const {classes} = this.props;
-        //prepare an array that mixes infor from two props
-        // const fullArray = this.state.activeTrains.map(train => {
-        //     const tempArray = [];
-        //     contracts.map(contract => {
-        //         //console.log('contractid', contract.id);
-        //         //console.log('train.contractID', train.contractId)
-        //         if (train.contractId === contract.id) {
-        //             train.from = contract.from;
-        //             train.to = contract.to;
-        //             train.cargo = contract.cargo;
-        //           //  console.log('fulltrain', train);
-        //             //console.log('to', train.to);
-        //             tempArray.push(train);
-        //         }
-        //     });
+        if (this.state.activeTrains) {
+            //prepare an array that mixes infor from two props
+            const fullArray = this.state.activeTrains.map(train => {
+                const tempArray = [];
+                contracts.map(contract => {
+                   if (train.contractId === contract.id) {
+                        train.from = contract.from;
+                        train.to = contract.to;
+                        train.cargo = contract.cargo;
+                        //  console.log('fulltrain', train);
+                        //console.log('to', train.to);
+                        tempArray.push(train);
+                    }
+                });
 
-        //     return tempArray;
-        // });
-        // console.log(fullArray);
-        // if (fullArray.length > 0 && fullArray[0] !== [] ) {
-        //     activeTrains = fullArray.map((train,index) => 
-        //         <div key={index} className={classes.progress}>
-        //             <div className={classes.progressTo}>{train[0].to}</div>                
-        //             <div className={classes.progressTrain}>
-        //                 <ActiveTrain 
-        //                     right={this.state.activeTrains[index].right}
-        //                     top={this.state.activeTrains[index].top}                       
-        //                     updatePositions={this.updatePositions}
-        //                     className={classes.activeTrain}
-        //                 />
-        //             </div>
-                    
-        //             <div className={classes.progressFrom}>{train[0].from}</div>
-        //             <div className={classes.progressCargo}>{train[0].cargo}</div>
-        //         </div>
-        //     );
-        // }
-        
-        
+                return tempArray;
+            });
+            if (fullArray.length > 0 && fullArray[0] !== [] ) {
+                activeTrains = fullArray.map((train,index) => 
+                    <div key={index} className={classes.progress}>
+                        <div className={classes.progressTo}>{train[0].to}</div>                
+                        <div className={classes.progressTrain}>
+                            <ActiveTrain 
+                                right={this.state.activeTrains[index].right}
+                                top={this.state.activeTrains[index].top}                       
+                                updatePositions={this.updatePositions}
+                                className={classes.activeTrain}
+                            />
+                        </div>
+                        
+                        <div className={classes.progressFrom}>{train[0].from}</div>
+                        <div className={classes.progressCargo}>{train[0].cargo}</div>
+                    </div>
+                );
+            }
+        }       
         return ( 
             <div className={classes.root}> <h2>Active Trains</h2>
-                {/* <div>
+                <div>
                     {activeTrains?activeTrains:<h4 style={
                         {textAlign: 'center', marginLeft: '-25px'}
                     }>
                         No Active Trains at this time.
                     </h4>} 
-                </div> */}
+                </div>
             </div>           
         );
     }

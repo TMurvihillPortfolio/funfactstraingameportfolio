@@ -5,6 +5,7 @@ import TrainInfoCard from './TrainInfoCard';
 import ContractInfoCard from './ContractInfoCard';
 import TrainOperations from './TrainOperations';
 import CompanyManagement from './CompanyManagement';
+import BuildRoute from './BuildRoute';
 import { _TRAIN_DETAILS } from '../assets/constants';
 
 let companyData; 
@@ -38,9 +39,11 @@ class App extends PureComponent {
     return ( 
       <div className="App">
           <Switch>
-            <Route exact path='/' render={(routeProps) => <TrainOperations {...routeProps} />}/>        
+            <Route exact path='/' render={(routeProps) => <TrainOperations {...routeProps} />}/>       
+            <Route exact path='/funfactstrains' render={(routeProps) => <TrainOperations {...routeProps} />}/>       
             <Route exact path='/funfactstrains/trainoperations' render={(routeProps) => <TrainOperations {...routeProps}/>}/>        
             <Route exact path='/funfactstrains/companymanagement' render={(routeProps) => <CompanyManagement {...routeProps}/>}/>       
+            <Route exact path='/funfactstrains/buildroute' render={(routeProps) => <BuildRoute {...routeProps}/>}/>       
             <Route exact path='/funfactstrains/trains/:trainpathname' render={getTrain}/>     
             <Route exact path='/funfactstrains/contracts/:contractpathname' render={getContract}/>
           </Switch>

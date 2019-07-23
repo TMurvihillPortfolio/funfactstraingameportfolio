@@ -45,9 +45,6 @@ class ContractInfoCard extends Component {
             status : 'offered'
         };
     }
-    componentWillMount() {
-        console.log('wilmoun', this.props);
-    }
     updateContractStatus() {
         companyData = JSON.parse(localStorage.getItem('companyData'));
         const contract = companyData.contracts.find(contract => contract.id === this.props.contractObj.id);
@@ -56,8 +53,7 @@ class ContractInfoCard extends Component {
         this.syncLocalStorage();       
     }
     getCargoObj() {
-        console.log(this.props.contractObj);
-       const cargoType = this.props.contractObj.cargo;
+        const cargoType = this.props.contractObj.cargo;
         const cargoIndex = cargoTypes
             .findIndex(cargo => cargo.name === cargoType);
         return cargoTypes[cargoIndex];
@@ -124,6 +120,7 @@ class ContractInfoCard extends Component {
     }
     startTrain() {
         let activeTrains = JSON.parse(localStorage.getItem('funFactsActiveTrains'));
+        let newArray;
         const newObj = {
             id: uuid(),
             contractId: this.props.contractObj.id,
@@ -132,9 +129,14 @@ class ContractInfoCard extends Component {
             lengthOfTrip: this.getLengthOfTrip()
         }
         //update trains in state and storage
-        const newArray=[...activeTrains, newObj];
+        if (activeTrains) {
+            newArray=[...activeTrains, newObj];
+        } else {
+            newArray=[newObj];
+        }
+        
         localStorage.setItem('funFactsActiveTrains', JSON.stringify(newArray));
-        //this.props.history.push('/funfactstrains/trainoperations');
+        this.props.history.push('/funfactstrains/trainoperations');
 
         //update local storage
         const ind = companyData.contracts.findIndex(contract => this.props.contractObj.id === contract.id);
@@ -146,7 +148,6 @@ class ContractInfoCard extends Component {
         const myCargo = this.getCargoObj();
         const { image, cargoFacts } = myCargo;
         const { classes } = this.props;
-        console.log('compinfoprops', this.props);
         const { cargo, from, to, contractId } = this.props.contractObj;
         const funFacts = cargoFacts.map(fact => 
             <li 

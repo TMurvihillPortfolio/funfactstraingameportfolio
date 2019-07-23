@@ -73,7 +73,6 @@ const styles = theme => ({
         padding: '20px'
     },
     drawerHeader: {
-        textAlign: 'left' ,
         padding: '20px',
         fontFamily: 'Algerian, sans-serif',
         fontSize: '24px',
@@ -175,25 +174,28 @@ class OperationsDrawer extends PureComponent {
         }
       getContractOffer() {
         companyData = JSON.parse(localStorage.getItem('companyData'));
-        console.log('offer', companyData);
-          const newCargo = _CARGO_TYPES[Math.floor(Math.random()*_CARGO_TYPES.length)].name;
-          const from = this.getRandomCity();
-          let to = this.getRandomCity();
-          while (from===to) {
-              to = this.getRandomCity();
-          }
+        if (companyData.contracts.length >= 10) {
+            return;
+        }
+        
+        const newCargo = _CARGO_TYPES[Math.floor(Math.random()*_CARGO_TYPES.length)].name;
+        const from = this.getRandomCity();
+        let to = this.getRandomCity();
+        while (from===to) {
+            to = this.getRandomCity();
+        }
           
-          const newContract = {
-              id: uuid(),
-              pathName: uuid(),              
-              from: from,
-              to: to,
-              cargo: newCargo,
-              units: 1,
-              status: 'offered'
-          }
-          companyData.contracts.push(newContract);
-          this.syncLocalStorage();
+        const newContract = {
+            id: uuid(),
+            pathName: uuid(),              
+            from: from,
+            to: to,
+            cargo: newCargo,
+            units: 1,
+            status: 'offered'
+        }
+        companyData.contracts.push(newContract);
+        this.syncLocalStorage();
       }
       syncLocalStorage() {
         localStorage.setItem(
