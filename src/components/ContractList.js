@@ -9,7 +9,7 @@ class ContractList extends Component {
     state = {  }
 
     handleclick() {
-        this.props.handleContractDialogOpen(this.props.contractObj);
+        this.props.handleContractListItemClick(this.props.contractObj);
     }
     render() { 
         const contract = this.props.contractObj;

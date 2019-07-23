@@ -9,7 +9,7 @@ class TrainListItem extends Component {
     state = {  }
 
     handleclick() {
-        this.props.handleTrainDialogOpen(this.props.trainObj);
+        this.props.handleTrainListItemClick(this.props.trainObj);
     }
     render() { 
         const train = this.props.trainObj;
