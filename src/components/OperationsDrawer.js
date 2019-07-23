@@ -119,10 +119,12 @@ class OperationsDrawer extends PureComponent {
     constructor(props) {
         super(props);
         this.handleTrainClick=this.handleTrainClick.bind(this);
+        this.handleBuyTrainClick=this.handleBuyTrainClick.bind(this);
         this.handleCurrentClick=this.handleCurrentClick.bind(this);
         this.handleOfferClick=this.handleOfferClick.bind(this);
         this.handleDrawerCloseClick=this.handleDrawerCloseClick.bind(this);
         this.handleContractClick=this.handleContractClick.bind(this);
+        this.handleBuildClick=this.handleBuildClick.bind(this);
         this.handleContractDialogOpen=this.handleContractDialogOpen.bind(this);
         this.handleContractDialogClose=this.handleContractDialogClose.bind(this);
         this.handleTrainDialogOpen=this.handleTrainDialogOpen.bind(this);
@@ -130,6 +132,7 @@ class OperationsDrawer extends PureComponent {
         this.getRandomCity=this.getRandomCity.bind(this);
         this.syncLocalStorage=this.syncLocalStorage.bind(this);
         this.state = {
+          openBuyTrainNested: false,
           openTrainNested: false,
           openCurrentNested: false,
           openOfferNested: false,
@@ -149,6 +152,9 @@ class OperationsDrawer extends PureComponent {
       handleTrainClick() {
         this.setState({ openTrainNested : !this.state.openTrainNested });
       }    
+      handleBuyTrainClick() {
+        this.setState({ openBuyTrainNested : !this.state.openBuyTrainNested });
+      }    
       handleDrawerCloseClick = () => {
         this.props.handleDrawerClose();
       };
@@ -160,7 +166,9 @@ class OperationsDrawer extends PureComponent {
       handleContractDialogOpen(contractObj) {
         this.props.routeHistory.push(`/funfactstrains/contracts/${contractObj.pathName}`);
       }
-    
+      handleBuildClick() {
+        this.props.routeHistory.push(`/funfactstrains/buildroute`);
+      }   
       handleContractDialogClose() {
         this.setState({ openContractDialog: false });
       }
@@ -177,7 +185,6 @@ class OperationsDrawer extends PureComponent {
         if (companyData.contracts.length >= 10) {
             return;
         }
-        
         const newCargo = _CARGO_TYPES[Math.floor(Math.random()*_CARGO_TYPES.length)].name;
         const from = this.getRandomCity();
         let to = this.getRandomCity();
@@ -205,7 +212,15 @@ class OperationsDrawer extends PureComponent {
     }
     render() { 
         const { classes } = this.props;      
-        const contracts = companyData.contracts;
+        const contracts = companyData.contracts;       
+        const compTrains = []       
+        companyData.trains.map(train => {
+            _TRAIN_DETAILS.map(trainDeets => {
+                if (trainDeets.trainId===train.id) {
+                    compTrains.push(trainDeets);
+                }
+            })
+        });
         const currentContracts = contracts.
             filter(contract => contract.status === 'accepted' || contract.status === 'started').
             map(acceptedContract => 
@@ -243,19 +258,33 @@ class OperationsDrawer extends PureComponent {
             )
         ;
 
+        const buyTrainListItems = compTrains.map(train =>  
+            <ListItem  
+                key={train.id} 
+                className={classes.nested}
+                button
+                onClick={this.handleClick}
+            >             
+                <ListItemIcon>
+                    <LabelIcon className={classes.labelIcon}/>
+                </ListItemIcon>
+                <TrainListItem trainObj={train} handleTrainDialogOpen={this.handleTrainDialogOpen} 
+                    listView/>
+            </ListItem>
+        );
         const trainListItems = _TRAIN_DETAILS.map(train =>  
             <ListItem  
-                    key={train.id} 
-                    className={classes.nested}
-                    button
-                    onClick={this.handleClick}
-                >             
-                    <ListItemIcon>
-                        <LabelIcon className={classes.labelIcon}/>
-                    </ListItemIcon>
-                    <TrainListItem trainObj={train} handleTrainDialogOpen={this.handleTrainDialogOpen} 
-                     listView/>
-                </ListItem>
+                key={train.id} 
+                className={classes.nested}
+                button
+                onClick={this.handleClick}
+            >             
+                <ListItemIcon>
+                    <LabelIcon className={classes.labelIcon}/>
+                </ListItemIcon>
+                <TrainListItem trainObj={train} handleTrainDialogOpen={this.handleTrainDialogOpen} 
+                    listView/>
+            </ListItem>
         );
        
         return ( 
@@ -289,19 +318,26 @@ class OperationsDrawer extends PureComponent {
                         variant='contained'
                         className={classes.button}
                         color='secondary'
-                        onClick={this.handleContractClick}
+                        onClick={this.handleBuildClick}
                     >
                         Build Route
                     </Button>
-                    <Button
-                        key={uuid()}
-                        variant='contained'
-                        className={classes.button}
-                        color='primary'
-                    >
-                        Buy Train
-                    </Button>
-                    
+                    <List>
+                    <ListItem button onClick={this.handleBuyTrainClick}>
+                        <ListItemIcon>
+                            <TrainIcon />
+                        </ListItemIcon>
+                        <ListItemText primary="Buy Trains" />
+                        {this.state.openBuyTrainNested ? <ExpandLess /> : <ExpandMore />}
+                        </ListItem>
+                        
+                        <Collapse in={this.state.openBuyTrainNested} timeout="auto" unmountOnExit>
+                        
+                        <List component="div" disablePadding onClick={this.handleBuyTrainClick}>                
+                            {trainListItems}
+                        </List>
+                        </Collapse>
+                    </List>
                     <Divider />
                     <List
                         component="nav"
@@ -348,7 +384,7 @@ class OperationsDrawer extends PureComponent {
                         <Collapse in={this.state.openTrainNested} timeout="auto" unmountOnExit>
                         
                         <List component="div" disablePadding>                
-                            {trainListItems}
+                            {buyTrainListItems}
                         </List>
                         </Collapse>
                     </List>
