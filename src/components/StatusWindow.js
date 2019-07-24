@@ -4,7 +4,7 @@ import { withStyles } from "@material-ui/core/styles";
 import ActiveTrain from './ActiveTrain';
 import {_DRAWER_WIDTH as drawerWidth} from '../assets/constants';
 
-const companyData = JSON.parse(localStorage.getItem('companyData'));
+let companyData = JSON.parse(localStorage.getItem('companyData'));
 const styles = {
     root: {
         height: '200px',
@@ -50,6 +50,7 @@ class StatusWindow extends Component {
         this.updatePositions=this.updatePositions.bind(this); 
         this.completeActiveTrain=this.completeActiveTrain.bind(this); 
         this.syncLocalStorage=this.syncLocalStorage.bind(this); 
+        this.syncLocalCompanyStorage=this.syncLocalCompanyStorage.bind(this); 
         this.state = {
             activeTrains: funFactsActiveTrains || false         
          }
@@ -64,26 +65,45 @@ class StatusWindow extends Component {
             JSON.stringify(this.state.activeTrains))
         ;
     }
+    syncLocalCompanyStorage() {
+        localStorage.setItem(
+            'companyData', 
+            JSON.stringify(companyData))
+        ;
+    }
     updatePositions() {
         let deleteId = -1;
+        let deleteContractId = '';
         const newTrains = this.state.activeTrains.map(train => {
             let newRight = train.right += 400/train.lengthOfTrip;
-            if (train.right >= 400) {
-                deleteId = train.id;               
+            if (train.right >= 200) {
+                deleteId = train.id;
+                deleteContractId = train.contractId;              
             }
             return {...train, right: newRight};
         });
         if (deleteId===-1) {
             this.setState({ activeTrains: newTrains },this.syncLocalStorage);
         } else {
-            this.completeActiveTrain(deleteId);
+            this.completeActiveTrain(deleteId, deleteContractId);
         }       
     }
-    completeActiveTrain(deleteId) {
+    completeActiveTrain(deleteId, deleteContractId) {
+        console.log(this.state.activeTrains);
+        console.log(deleteId);
         this.setState(
             st => ({ activeTrains: st.activeTrains.filter(train => train.id !== deleteId) }),
             this.syncLocalStorage
-        );     
+        );
+        companyData = JSON.parse(localStorage.getItem('companyData'));
+        //const deleteObj = this.state.activeTrains.filter(train => train.id === deleteId);
+        //const contractId = deleteObj.contractId;
+        console.log(companyData);
+        let newArray = companyData.contracts.filter(contract => contract.id !== deleteContractId);
+        console.log(newArray);
+        companyData.contracts = newArray;
+        this.syncLocalCompanyStorage();
+
     }
     render() { 
         let activeTrains;

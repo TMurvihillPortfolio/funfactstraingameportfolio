@@ -61,7 +61,6 @@ class ContractInfoCard extends Component {
     handleClick() {
         companyData = JSON.parse(localStorage.getItem('companyData'));
         if (this.state.status==='offered') {
-            console.log('inhandleclick', companyData);
             const ind = companyData.contracts.findIndex(contract => this.props.contractObj.id === contract.id);
             companyData.contracts[ind].status = 'accepted'; 
             this.setState({ status: 'accepted' }, this.syncLocalStorage());
@@ -69,6 +68,7 @@ class ContractInfoCard extends Component {
         if (this.state.status==='accepted') {
             this.setState({ status: 'started' }, this.startTrain());
         }
+        
     }
     getButtonText() {
         if (this.state.status==='offered') return 'Accept Contract'; 

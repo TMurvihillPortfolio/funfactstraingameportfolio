@@ -25,9 +25,10 @@ import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 
 //user generated
-import { _TRAIN_DETAILS, _CARGO_TYPES, _TRIP_LENGTHS } from '../assets/constants'
+import { _TRAIN_DETAILS, _CARGO_TYPES, _TRIP_LENGTHS } from '../assets/constants';
 import ContractList from './ContractList';
 import TrainListItem from './TrainListItem';
+import { getContractOffer } from '../assets/helpers';
 
 let companyData = {trains: [], contracts: []};
 const drawerWidth = 250;
@@ -126,9 +127,7 @@ class OperationsDrawer extends PureComponent {
         this.handleBuildClick=this.handleBuildClick.bind(this);    
         this.handleContractListItemClick=this.handleContractListItemClick.bind(this);
         this.handleTrainListItemClick=this.handleTrainListItemClick.bind(this);       
-        //helpers
-        this.getContractOffer=this.getContractOffer.bind(this);
-        this.getRandomCity=this.getRandomCity.bind(this);
+        
         //data handling
         this.syncLocalStorage=this.syncLocalStorage.bind(this);
         
@@ -136,33 +135,38 @@ class OperationsDrawer extends PureComponent {
           openBuyTrainNested: false,
           openTrainNested: false,
           openCurrentNested: false,
-          openOfferNested: false,
-          contractDialogObj: ''
+          openOfferNested: false
         };
     }
     componentWillMount() {
-        this.getContractOffer();
+        companyData = JSON.parse(localStorage.getItem('companyData'));
+        getContractOffer(companyData);
         //setInterval(() => getContractOffer(), 600000)
     }
 
     //***handle list/drawer open/close clicks***//
     handleDrawerCloseClick = () => {
+        companyData = JSON.parse(localStorage.getItem('companyData'));
         this.props.handleDrawerClose();
     }
     handleBuyTrainClick() {
+        companyData = JSON.parse(localStorage.getItem('companyData'));
         this.setState({ openBuyTrainNested : !this.state.openBuyTrainNested });
     }
     handleCurrentClick() {
+        companyData = JSON.parse(localStorage.getItem('companyData'));
         this.setState({ openCurrentNested : !this.state.openCurrentNested });
     }
     handleOfferClick() {
+        companyData = JSON.parse(localStorage.getItem('companyData'));
         this.setState({ openOfferNested : !this.state.openOfferNested });
     }
     handleTrainClick() {
+        companyData = JSON.parse(localStorage.getItem('companyData'));
         this.setState({ openTrainNested : !this.state.openTrainNested });
     }    
       
-    //***handle button/list item click***/ 
+    //***handle button/list-item click***/ 
     handleBuildClick() {
         this.props.routeHistory.push(`/funfactstrains/buildroute`);
     }     
@@ -171,37 +175,6 @@ class OperationsDrawer extends PureComponent {
     }
     handleTrainListItemClick(trainObj) {
         this.props.routeHistory.push(`/funfactstrains/trains/${trainObj.pathName}`);
-    }
-      
-    //***helper functions***/
-    getRandomCity() {
-          const cityArr = Object.keys(_TRIP_LENGTHS);
-          cityArr.push(Object.keys(_TRIP_LENGTHS['NewYork'])[0]);
-            return cityArr[Math.floor(Math.random()*cityArr.length)]
-        }
-    getContractOffer() {
-    companyData = JSON.parse(localStorage.getItem('companyData'));
-    if (companyData.contracts.length >= 10) {
-        return;
-    }
-    const newCargo = _CARGO_TYPES[Math.floor(Math.random()*_CARGO_TYPES.length)].name;
-    const from = this.getRandomCity();
-    let to = this.getRandomCity();
-    while (from===to) {
-        to = this.getRandomCity();
-    }
-        
-    const newContract = {
-        id: uuid(),
-        pathName: uuid(),              
-        from: from,
-        to: to,
-        cargo: newCargo,
-        units: 1,
-        status: 'offered'
-    }
-    companyData.contracts.push(newContract);
-    this.syncLocalStorage();
     }
 
     //***data updating***/

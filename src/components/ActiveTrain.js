@@ -111,7 +111,7 @@ class ActiveTrain extends PureComponent {
     componentDidMount() {
         // UPDATE PARENT STATE
         this.updatePositions = setInterval(() =>{
-            this.props.updatePositions()}, 3000);
+            this.props.updatePositions()}, 500);
     }
     
     componentWillUnmount() {

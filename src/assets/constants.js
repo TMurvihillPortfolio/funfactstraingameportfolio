@@ -1,8 +1,6 @@
-
 import illinoisCentral201 from '../img/illinoisCentral201.jpg';
 import jennyLind from '../img/jennylind.jpg';
 import jupiter from '../img/jupiter.jpg';
-
 import wheat from '../img/wheat.jpg';
 import textiles from '../img/textiles.jpg';
 import coal from '../img/coal.jpg';
@@ -67,9 +65,9 @@ const _CARGO_TYPES = [
         name: 'milk',
         image: milk,
         cargoFacts:  [
-            'FunFact one about milk',
-            'FunFact two about milk',
-            'FunFact three about milk'
+            'Railroads connecting rural dairy-producing areas to cities scheduled daily milk trains (sometimes called milk runs) to pick up loaded milk cars from collection points along their route.',
+            'Milk trains usually arrived at their destination cities in the late evening so the milk could be unloaded and processed for delivery the following morning.',
+            'A returning train of empty milk cars departed the city in the early morning hours and was often the last scheduled passenger train serving those rural areas.'
         ]
     },
     {
