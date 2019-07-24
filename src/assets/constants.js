@@ -12,7 +12,8 @@ const _TRAIN_DETAILS = [
         trainId: '0001-illcent201',
         trainName: 'Illinois Central 201',
         pathName: 'illinoiscentral201',
-        trainImage: illinoisCentral201,       
+        trainImage: illinoisCentral201,
+        trainCost: 200,     
         trainFacts: [ 
             'Casey Jones was one of its engineers',
             'On display at Illinois Railway Museum',
@@ -24,6 +25,7 @@ const _TRAIN_DETAILS = [
         trainName: 'Jenny Lind',
         pathName: 'jennylind',
         trainImage: jennyLind,
+        trainCost: 150,
         trainFacts: [
             'Named after Jenny Lind, who was a famous opera singer of the period.',
             'Due to advancements in suspension, it steamed freely and was economical on fuel.',
@@ -35,6 +37,7 @@ const _TRAIN_DETAILS = [
         trainName: 'Jupiter',
         pathName: 'jupiter',
         trainImage: jupiter,
+        trainCost: 300,
         trainFacts: [
             'Built in 1868 by the Schenectady Locomotive Works of New York.',
             'Dismantled and sailed to San Francisco where it was reassembled and put into service.',
@@ -56,9 +59,9 @@ const _CARGO_TYPES = [
         name: 'wheat',
         image: wheat,
         cargoFacts:  [
-            'FunFact one about wheat',
-            'FunFact two about wheat',
-            'FunFact three about wheat'
+            'In 1830, it took four people and two oxen, working 10 hours a day, to produce 200 bushels.',
+            'By 1852, the Galena and Chicago Union railroad supplied Chicago over half of its wheat. This statistic changed the way people thought about the environment and its railways because railways through the countryside provided Chicagoans with increased wealth.',
+            'Transcontinental railroads were built in the South (Southern Pacific, Santa Fe) and in the North along the Canada–US border (Northern Pacific, Great Northern), accelerating the settlement of the West by carrying pioneers and supplies westward, and cattle, wheat and minerals eastward.'
         ]
     },
     {

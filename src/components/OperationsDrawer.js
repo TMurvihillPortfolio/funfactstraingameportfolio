@@ -25,7 +25,7 @@ import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 
 //user generated
-import { _TRAIN_DETAILS, _CARGO_TYPES, _TRIP_LENGTHS } from '../assets/constants';
+import { _TRAIN_DETAILS } from '../assets/constants';
 import ContractList from './ContractList';
 import TrainListItem from './TrainListItem';
 
@@ -112,8 +112,7 @@ const styles = theme => ({
     }
 });
 
-class OperationsDrawer extends PureComponent {
-    
+class OperationsDrawer extends PureComponent {   
     constructor(props) {
         super(props);
         //handle list/drawer open/close clicks
@@ -122,7 +121,7 @@ class OperationsDrawer extends PureComponent {
         this.handleBuyTrainClick=this.handleBuyTrainClick.bind(this);
         this.handleCurrentClick=this.handleCurrentClick.bind(this);
         this.handleOfferClick=this.handleOfferClick.bind(this);
-        //handle button or list item clicks
+        //handle button/list-item clicks
         this.handleBuildClick=this.handleBuildClick.bind(this);    
         this.handleContractListItemClick=this.handleContractListItemClick.bind(this);
         this.handleTrainListItemClick=this.handleTrainListItemClick.bind(this);       
@@ -179,6 +178,7 @@ class OperationsDrawer extends PureComponent {
         ;
     }
     render() { 
+        companyData = JSON.parse(localStorage.getItem('companyData'));
         const { classes } = this.props;      
         const contracts = companyData.contracts;       
         const compTrains = []       
@@ -189,9 +189,9 @@ class OperationsDrawer extends PureComponent {
                 }
             })
         });
-        const currentContracts = contracts.
-            filter(contract => contract.status === 'accepted' || contract.status === 'started').
-            map(acceptedContract => 
+        const currentContracts = contracts
+            .filter(contract => contract.status === 'accepted' || contract.status === 'started')
+            .map(acceptedContract => 
                 <ListItem  
                     key={acceptedContract.id} 
                     className={classes.nested}
@@ -206,9 +206,9 @@ class OperationsDrawer extends PureComponent {
                 </ListItem>
             )
         ;
-        const offers = contracts.
-            filter(contract => contract.status === 'offered').
-            map(offerContract => 
+        const offers = contracts
+            .filter(contract => contract.status === 'offered')
+            .map(offerContract => 
                 <ListItem  
                     key={offerContract.id} 
                     className={classes.nested}
@@ -295,7 +295,7 @@ class OperationsDrawer extends PureComponent {
                         <ListItemIcon>
                             <TrainIcon />
                         </ListItemIcon>
-                        <ListItemText primary="Buy Trains" />
+                        <ListItemText primary="Buy/Sell Trains" />
                         {this.state.openBuyTrainNested ? <ExpandLess /> : <ExpandMore />}
                         </ListItem>
                         

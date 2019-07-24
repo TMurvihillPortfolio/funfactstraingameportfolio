@@ -63,7 +63,6 @@ class ContractInfoCard extends Component {
         if (contract.status==='offered') {
             const ind = companyData.contracts.findIndex(contract => this.props.contractObj.id === contract.id);
             companyData.contracts[ind].status = 'accepted';
-            console.log(companyData.contracts[ind]); 
             this.syncLocalStorage();
         } else if (contract.status==='accepted') {
             this.startTrain();

@@ -21,7 +21,13 @@
 //                 units: '1',
 //                 cargo: 'coal',
 //                 status: 'offered'
-//             }]}))
+//             }
+//          ],
+//          financials: {
+//                 cash: 1000,
+//                 loan: 2000
+//          }
+//         }))
 
 export default {
     trains: 

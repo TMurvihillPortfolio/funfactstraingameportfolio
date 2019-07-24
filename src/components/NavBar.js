@@ -94,7 +94,7 @@ class NavBar extends PureComponent {
                     <NavLink to='/funfactstrains/companymanagement'>Company Management</NavLink>
                     <NavLink to='/funfactstrains/buildroute'>Build Route</NavLink>                    
                     <div>
-                        <ul className={classes.selectContainer} onClick={this.handleDropDownClick}>Buy Trains
+                        <ul className={classes.selectContainer} onClick={this.handleDropDownClick}>Buy/Sell Trains
                             <div className={classes.selectItemsShow} id="selectMenu">
                                 <li className={classes.selectItems} onClick={this.closeMenu} value="jennylind"><NavLink style={{ fontSize: '16px' }} to='/funfactstrains/trains/jennylind'>Jenny Lind</NavLink> </li>
                                 <li className={classes.selectItems} onClick={this.closeMenu} value="illinois201"><NavLink style={{ fontSize: '16px' }} to='/funfactstrains/trains/illinoiscentral201'>Ill Cent 201</NavLink> </li>

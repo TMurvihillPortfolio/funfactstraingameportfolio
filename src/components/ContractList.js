@@ -12,8 +12,7 @@ class ContractList extends Component {
         this.state = {
            contractObj: companyData.contracts.find(contract => contract.id === this.props.contractId)
         };
-        console.log(this.state.contractObj);
-      }
+    }
     state = {  }
 
     handleclick() {
