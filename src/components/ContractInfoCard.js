@@ -42,7 +42,6 @@ class ContractInfoCard extends Component {
         this.updateContractStatus = this.updateContractStatus.bind(this);
         this.syncLocalStorage = this.syncLocalStorage.bind(this);
         this.state = {
-            status : 'offered'
         };
     }
     updateContractStatus() {
@@ -60,20 +59,23 @@ class ContractInfoCard extends Component {
     }
     handleClick() {
         companyData = JSON.parse(localStorage.getItem('companyData'));
-        if (this.state.status==='offered') {
+        const contract = companyData.contracts.find(contract => contract.id === this.props.contractObj.id);
+        if (contract.status==='offered') {
             const ind = companyData.contracts.findIndex(contract => this.props.contractObj.id === contract.id);
-            companyData.contracts[ind].status = 'accepted'; 
-            this.setState({ status: 'accepted' }, this.syncLocalStorage());
-        }
-        if (this.state.status==='accepted') {
-            this.setState({ status: 'started' }, this.startTrain());
-        }
-        
+            companyData.contracts[ind].status = 'accepted';
+            console.log(companyData.contracts[ind]); 
+            this.syncLocalStorage();
+        } else if (contract.status==='accepted') {
+            this.startTrain();
+        } 
+        this.setState({ change : true });     
     }
     getButtonText() {
-        if (this.state.status==='offered') return 'Accept Contract'; 
-        if (this.state.status==='accepted') return 'Start Train'; 
-        if (this.state.status==='started') return 'In Progress'; 
+        companyData = JSON.parse(localStorage.getItem('companyData'));
+        const contract = companyData.contracts.find(contract => contract.id === this.props.contractObj.id);
+        if (contract.status==='offered') return 'Accept Contract'; 
+        if (contract.status==='accepted') return 'Start Train'; 
+        if (contract.status==='started') return 'In Progress'; 
     }
     getLengthOfTrip() {
         //Get trip distance between cities, data found in constants.js (_TRIP_LENGTHS)
@@ -134,15 +136,15 @@ class ContractInfoCard extends Component {
         } else {
             newArray=[newObj];
         }
-        
-        localStorage.setItem('funFactsActiveTrains', JSON.stringify(newArray));
-        this.props.history.push('/funfactstrains/trainoperations');
 
         //update local storage
         const ind = companyData.contracts.findIndex(contract => this.props.contractObj.id === contract.id);
         companyData.contracts[ind].status = 'started'; 
-        this.syncLocalStorage();
-            
+        this.syncLocalStorage();       
+        localStorage.setItem('funFactsActiveTrains', JSON.stringify(newArray));
+        
+        //back to train operations
+        this.props.history.push('/funfactstrains/trainoperations');                  
     }
     render() {        
         const myCargo = this.getCargoObj();

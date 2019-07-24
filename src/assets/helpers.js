@@ -1,6 +1,13 @@
 import uuid from 'uuid';
 import { _TRAIN_DETAILS, _CARGO_TYPES, _TRIP_LENGTHS } from '../assets/constants'
 
+function syncLocalStorage(companyData) {
+    localStorage.setItem(
+        'companyData', 
+        JSON.stringify(companyData))
+    ;
+}
+
 function getRandomCity() {
     const cityArr = Object.keys(_TRIP_LENGTHS);
     cityArr.push(Object.keys(_TRIP_LENGTHS['NewYork'])[0]);
@@ -21,7 +28,7 @@ function getContractOffer() {
     let to = getRandomCity();
     //make sure from and to cities are different
     while (from===to) {
-        to = this.getRandomCity();
+        to = getRandomCity();
     }
     //create new contract object
     const newContract = {
@@ -35,6 +42,6 @@ function getContractOffer() {
     }
     //update data
     companyData.contracts.push(newContract);
-    this.syncLocalStorage();
+    syncLocalStorage(companyData);
 }
 export { getRandomCity, getContractOffer };

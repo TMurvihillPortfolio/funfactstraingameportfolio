@@ -28,7 +28,6 @@ import ExpandMore from '@material-ui/icons/ExpandMore';
 import { _TRAIN_DETAILS, _CARGO_TYPES, _TRIP_LENGTHS } from '../assets/constants';
 import ContractList from './ContractList';
 import TrainListItem from './TrainListItem';
-import { getContractOffer } from '../assets/helpers';
 
 let companyData = {trains: [], contracts: []};
 const drawerWidth = 250;
@@ -138,11 +137,6 @@ class OperationsDrawer extends PureComponent {
           openOfferNested: false
         };
     }
-    componentWillMount() {
-        companyData = JSON.parse(localStorage.getItem('companyData'));
-        getContractOffer(companyData);
-        //setInterval(() => getContractOffer(), 600000)
-    }
 
     //***handle list/drawer open/close clicks***//
     handleDrawerCloseClick = () => {
@@ -207,7 +201,7 @@ class OperationsDrawer extends PureComponent {
                     <ListItemIcon>
                         <LabelIcon className={classes.labelIcon}/>
                     </ListItemIcon>
-                    <ContractList contractObj={acceptedContract} handleContractListItemClick={this.handleContractListItemClick} 
+                    <ContractList contractId={acceptedContract.id} handleContractListItemClick={this.handleContractListItemClick} 
                      listView/>
                 </ListItem>
             )
@@ -225,7 +219,7 @@ class OperationsDrawer extends PureComponent {
                         <LabelIcon className={classes.labelIcon}/>
                     </ListItemIcon>
                     <ContractList 
-                        contractObj={offerContract} 
+                        contractId={offerContract.id} 
                         handleContractListItemClick={this.handleContractListItemClick} 
                      />
                 </ListItem>

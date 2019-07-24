@@ -11,8 +11,8 @@ import NavBar from './NavBar';
 import OperationsDrawer from './OperationsDrawer';
 import StatusWindow from './StatusWindow';
 import {_DRAWER_WIDTH as drawerWidth} from '../assets/constants';
+import { getContractOffer } from '../assets/helpers';
 
-//const drawerWidth = 250;
 const styles = theme => ({
     root: {
         height: '900px',
@@ -91,6 +91,7 @@ const styles = theme => ({
       marginLeft: '30px'
     }
 });
+let companyData = {trains: [], contracts: []};
 
 class TrainOperations extends PureComponent {
   constructor(props) {
@@ -100,6 +101,11 @@ class TrainOperations extends PureComponent {
     this.state = {
       open: true    
     };
+  }
+  componentWillMount() {
+    companyData = JSON.parse(localStorage.getItem('companyData'));
+    getContractOffer(companyData);
+    //setInterval(() => getContractOffer(), 600000)
   }
   handleDrawerOpen = () => {
     this.setState({ open: true });

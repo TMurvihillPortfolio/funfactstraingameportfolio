@@ -107,13 +107,13 @@ class StatusWindow extends Component {
     }
     render() { 
         let activeTrains;
-        const { contracts } = companyData;
-
+        const contracts = Array.from(companyData.contracts);        
         const {classes} = this.props;
         if (this.state.activeTrains) {
             //prepare an array that mixes infor from two props
             const fullArray = this.state.activeTrains.map(train => {
                 const tempArray = [];
+                
                 contracts.map(contract => {
                    if (train.contractId === contract.id) {
                         train.from = contract.from;
@@ -127,6 +127,7 @@ class StatusWindow extends Component {
 
                 return tempArray;
             });
+            console.log(fullArray);
             if (fullArray.length > 0 && fullArray[0] !== [] ) {
                 activeTrains = fullArray.map((train,index) => 
                     <div key={index} className={classes.progress}>

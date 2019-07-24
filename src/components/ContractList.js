@@ -1,21 +1,31 @@
 import React, { Component } from 'react';
 
+
+        
 class ContractList extends Component {
     constructor(props) {
         super(props);
+        let companyData = JSON.parse(localStorage.getItem('companyData'));
+        let contractObj = companyData.contracts.find(contract => contract.id === this.props.contractId);
+        
         this.handleclick=this.handleclick.bind(this);
-        this.state = {};
+        this.state = {
+           contractObj: companyData.contracts.find(contract => contract.id === this.props.contractId)
+        };
+        console.log(this.state.contractObj);
       }
     state = {  }
 
     handleclick() {
-        this.props.handleContractListItemClick(this.props.contractObj);
+        //update data
+        this.companyData = JSON.parse(localStorage.getItem('companyData'));
+        this.state.contractObj = this.companyData.contracts.find(contract => contract.id === this.props.contractId);
+        this.props.handleContractListItemClick(this.state.contractObj);
     }
     render() { 
-        const contract = this.props.contractObj;
         return ( 
             <div onClick={this.handleclick}>
-                {`${contract.cargo.toUpperCase()} -- ${contract.from} to ${contract.to}`}
+                {`${this.state.contractObj.cargo.toUpperCase()} -- ${this.state.contractObj.from} to ${this.state.contractObj.to} ${this.state.contractObj.status === 'started' ? '(in progress)' : ''}`}
             </div>
          );
     }

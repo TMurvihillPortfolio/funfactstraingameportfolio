@@ -2,3 +2,4 @@
 - when train completes add a note that flashes from the bottom
 - refactor operations drawer
 - make sure not two of the exact same contract path name
+- create sync data helper and use it everywhere
