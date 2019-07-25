@@ -34,8 +34,7 @@ class CompanyManagement extends PureComponent {
             <div>
                 <NavBar />
                 <h1 className={classes.TrainOperationsHeader}>CompanyManagement</h1>            
-                <h1 className={classes.TrainOperationsHeader} style={{fontSize: '24px'}}>Under Construction</h1>            
-                <StatusWindow key='001'/>  
+                <h1 className={classes.TrainOperationsHeader} style={{fontSize: '24px'}}>Under Construction</h1>              
                 <img 
                     src={underConstruction} 
                     alt='1800s railroad construction' 

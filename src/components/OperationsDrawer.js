@@ -1,9 +1,7 @@
 import React, { PureComponent } from 'react';
-import uuid from 'uuid';
 
 //material ui-general
 import { withStyles } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
 import Drawer from '@material-ui/core/Drawer';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
@@ -14,19 +12,17 @@ import DraftsIcon from '@material-ui/icons/Drafts';
 import TrainIcon from '@material-ui/icons/Train';
 import DescriptionIcon from '@material-ui/icons/Description';
 import LabelIcon from '@material-ui/icons/Label';
+import LocoIcon from '../img/locoIcon.png';
+import TracksIcon from '../img/tracksIcon.png';
 //Required for lists
 import ListSubheader from '@material-ui/core/ListSubheader';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import Collapse from '@material-ui/core/Collapse';
-import ExpandLess from '@material-ui/icons/ExpandLess';
-import ExpandMore from '@material-ui/icons/ExpandMore';
 
 //user generated
 import { _TRAIN_DETAILS } from '../assets/constants';
-import ContractList from './ContractList';
+import ContractListItem from './ContractListItem';
 import TrainListItem from './TrainListItem';
 import DrawerList from './DrawerList';
 
@@ -63,9 +59,6 @@ const styles = theme => ({
       hide: {
         display: 'none',
       },
-    TrainOperations: {
-        
-    },
     drawer: {
         width: `${drawerWidth}px`,
         overflow: 'hidden',
@@ -96,6 +89,15 @@ const styles = theme => ({
     },
     nested: {
       paddingLeft: theme.spacing(4),
+    },
+    locoIcon: {
+        height: '25px',
+        opacity: '0.7'
+    },
+    tracksIcon: {
+        height: '30px',
+        opacity: '0.7',
+        transform: 'translateX(-14px)'
     },
     labelIcon: {
       opacity: '0.4',
@@ -184,9 +186,9 @@ class OperationsDrawer extends PureComponent {
         const contracts = companyData.contracts;       
         const compTrains = []       
         companyData.trains.map(train => {
-            _TRAIN_DETAILS.map(trainDeets => {
-                if (trainDeets.trainId===train.id) {
-                    compTrains.push(trainDeets);
+            _TRAIN_DETAILS.map(trainDetail => {
+                if (trainDetail.trainId===train.id) {
+                    compTrains.push(trainDetail);
                 }
             })
         });
@@ -202,7 +204,7 @@ class OperationsDrawer extends PureComponent {
                     <ListItemIcon>
                         <LabelIcon className={classes.labelIcon}/>
                     </ListItemIcon>
-                    <ContractList contractId={acceptedContract.id} handleContractListItemClick={this.handleContractListItemClick} 
+                    <ContractListItem contractId={acceptedContract.id} handleContractListItemClick={this.handleContractListItemClick} 
                      listView/>
                 </ListItem>
             )
@@ -219,7 +221,7 @@ class OperationsDrawer extends PureComponent {
                     <ListItemIcon>
                         <LabelIcon className={classes.labelIcon}/>
                     </ListItemIcon>
-                    <ContractList 
+                    <ContractListItem 
                         contractId={offerContract.id} 
                         handleContractListItemClick={this.handleContractListItemClick} 
                      />
@@ -234,7 +236,7 @@ class OperationsDrawer extends PureComponent {
                 button
                 onClick={this.handleClick}
             >             
-                <ListItemIcon>
+                <ListItemIcon>                    
                     <LabelIcon className={classes.labelIcon}/>
                 </ListItemIcon>
                 <TrainListItem trainObj={train} handleTrainListItemClick={this.handleTrainListItemClick} 
@@ -299,8 +301,24 @@ class OperationsDrawer extends PureComponent {
                     </div>
                     <div className={classes.buttons}>
                     <List>
-                        <DrawerList listItems={buildRouteItems} listIcon={<TrainIcon/>} listTitle="Build Routes"/>
-                        <DrawerList listItems={trainListItems} listIcon={<TrainIcon/>} listTitle="Buy/Sell Trains"/>
+                        <DrawerList 
+                            listItems={buildRouteItems} 
+                            listIcon={<img 
+                                src={TracksIcon} 
+                                className={classes.tracksIcon} 
+                                alt='traintracks icon' />
+                            } 
+                            listTitle="Build Routes"
+                        />
+                        <DrawerList 
+                            listItems={trainListItems} 
+                            listIcon={<img 
+                                src={LocoIcon} 
+                                className={classes.locoIcon} 
+                                alt='locomotive icon' />
+                            } 
+                            listTitle="Buy/Sell Trains"
+                        />
                     </List>
                     
                     <Divider />
@@ -317,7 +335,7 @@ class OperationsDrawer extends PureComponent {
                     >
                         <DrawerList listItems={currentContracts} listIcon={<DescriptionIcon />} listTitle="Current Contracts"/>
                         <DrawerList listItems={offers} listIcon={<DraftsIcon />} listTitle="Current Offers"/>
-                        <DrawerList listItems={companyTrainListItems} listIcon={<TrainIcon />} listTitle="Purchased Trains"/>
+                        <DrawerList listItems={companyTrainListItems} listIcon={<img src={LocoIcon} className={classes.locoIcon} alt='locomotive icon' />} listTitle="Purchased Trains"/>
                     </List>
 
                     <Divider />

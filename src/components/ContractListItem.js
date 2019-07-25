@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-
-
-        
-class ContractList extends Component {
+      
+class ContractListItem extends Component {
     constructor(props) {
         super(props);
         let companyData = JSON.parse(localStorage.getItem('companyData'));
@@ -30,4 +28,4 @@ class ContractList extends Component {
     }
 }
  
-export default ContractList;
+export default ContractListItem;

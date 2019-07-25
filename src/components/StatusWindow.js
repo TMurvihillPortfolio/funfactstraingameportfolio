@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { withStyles } from "@material-ui/core/styles";
-//import companyData from '../assets/trainslist';
 import ActiveTrain from './ActiveTrain';
 import {_DRAWER_WIDTH as drawerWidth} from '../assets/constants';
 
@@ -49,13 +48,14 @@ class StatusWindow extends Component {
         
         this.updatePositions=this.updatePositions.bind(this); 
         this.completeActiveTrain=this.completeActiveTrain.bind(this); 
-        this.syncLocalStorage=this.syncLocalStorage.bind(this); 
+        this.syncLocalActiveTrainStorage=this.syncLocalActiveTrainStorage.bind(this); 
         this.syncLocalCompanyStorage=this.syncLocalCompanyStorage.bind(this); 
+        this.deleteContractFromStorage=this.deleteContractFromStorage.bind(this);
         this.state = {
             activeTrains: funFactsActiveTrains || false         
          }
     }
-    syncLocalStorage() {
+    syncLocalActiveTrainStorage() {
         localStorage.setItem(
             'funFactsActiveTrains', 
             JSON.stringify(this.state.activeTrains))
@@ -86,11 +86,14 @@ class StatusWindow extends Component {
             this.completeActiveTrain(deleteId, deleteContractId, lengthOfTrip);
         }       
     }
+    deleteContractFromStorage() {
+
+    }
     completeActiveTrain(deleteId, deleteContractId, lengthOfTrip) {
         const payment = Math.round(lengthOfTrip*.25);
         this.setState(
             st => ({ activeTrains: st.activeTrains.filter(train => train.id !== deleteId) }),
-            this.syncLocalStorage
+            this.syncLocalActiveTrainStorage
         );
         companyData = JSON.parse(localStorage.getItem('companyData'));
         let newArray = companyData.contracts.filter(contract => contract.id !== deleteContractId);
