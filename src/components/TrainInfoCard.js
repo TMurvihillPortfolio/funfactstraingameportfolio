@@ -49,7 +49,6 @@ class TrainInfoCard extends PureComponent {
         //initialize variables
         const { trainCost, trainId } = this.props.trainObj;
         companyData = JSON.parse(localStorage.getItem('companyData'));
-        console.log('statepurch', this.state.purchased);
         if (this.state.purchased === -1) {
             //check if enough money
             if (companyData.financials.cash >= trainCost) {
@@ -60,7 +59,6 @@ class TrainInfoCard extends PureComponent {
                 return alert('Not enough cash available to purchase train.');
             }
         } else {
-            console.log('elsein');
             companyData.financials.cash += trainCost;
             const newArray = companyData.trains.filter(train => train.id !== this.props.trainObj.trainId)
             companyData.trains = newArray;
@@ -74,12 +72,9 @@ class TrainInfoCard extends PureComponent {
     render() { 
         const { classes } = this.props;
         const { trainName, trainImage, trainFacts, trainId, trainCost } = this.props.trainObj;
-        companyData = JSON.parse(localStorage.getItem('companyData'));
-        
+        companyData = JSON.parse(localStorage.getItem('companyData'));        
         const purchased = companyData.trains.findIndex(train => train.id === trainId);
         this.state.purchased = purchased;
-        console.log(purchased);
-        
         const factList = trainFacts.map(fact => 
             <li key={`${trainId}${fact}`} className={classes.factItem}><h4>{fact}</h4></li>);
         return ( 

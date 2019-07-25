@@ -27,9 +27,9 @@ const _TRAIN_DETAILS = [
         trainImage: jennyLind,
         trainCost: 150,
         trainFacts: [
-            'Named after Jenny Lind, who was a famous opera singer of the period.',
+            'Standard gauge locomotive buit in 1847',
             'Due to advancements in suspension, it steamed freely and was economical on fuel.',
-            'Standard gauge locomotive buit in 1847'
+            'Named after Jenny Lind, who was a famous opera singer of the period.'           
         ]
     },
     {
@@ -41,7 +41,7 @@ const _TRAIN_DETAILS = [
         trainFacts: [
             'Built in 1868 by the Schenectady Locomotive Works of New York.',
             'Dismantled and sailed to San Francisco where it was reassembled and put into service.',
-            'The Jupiter was one of the locomotives that met when the trans-continental (USA) railroad was completed in 1869.'
+            'One of the locomotives that met when the trans-continental (USA) railroad was completed in 1869.'
         ]
     }
 ]

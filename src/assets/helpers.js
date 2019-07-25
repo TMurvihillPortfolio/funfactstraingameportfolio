@@ -1,5 +1,5 @@
 import uuid from 'uuid';
-import { _TRAIN_DETAILS, _CARGO_TYPES, _TRIP_LENGTHS } from '../assets/constants'
+import { _CARGO_TYPES, _TRIP_LENGTHS } from '../assets/constants'
 
 function syncLocalStorage(companyData) {
     localStorage.setItem(

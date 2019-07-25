@@ -120,7 +120,7 @@ class ContractInfoCard extends Component {
         ;
     }
     startTrain() {
-        let activeTrains = JSON.parse(localStorage.getItem('funFactsActiveTrains'));
+        let activeTrains = JSON.parse(localStorage.getItem('funFactsActiveTrains')) || [];
         let newArray;
         const newObj = {
             id: uuid(),
@@ -130,17 +130,13 @@ class ContractInfoCard extends Component {
             lengthOfTrip: this.getLengthOfTrip()
         }
         //update trains in state and storage
-        if (activeTrains) {
-            newArray=[...activeTrains, newObj];
-        } else {
-            newArray=[newObj];
-        }
+        activeTrains.push(newObj);
 
         //update local storage
         const ind = companyData.contracts.findIndex(contract => this.props.contractObj.id === contract.id);
         companyData.contracts[ind].status = 'started'; 
         this.syncLocalStorage();       
-        localStorage.setItem('funFactsActiveTrains', JSON.stringify(newArray));
+        localStorage.setItem('funFactsActiveTrains', JSON.stringify(activeTrains));
         
         //back to train operations
         this.props.history.push('/funfactstrains/trainoperations');                  
@@ -158,18 +154,15 @@ class ContractInfoCard extends Component {
                 <p>{fact}</p>
             </li>
         );
-        // const factList = contractFacts.map(fact => 
-        //     <li key={`${fact}`} className={classes.factItem}><h4>{fact}</h4></li>);
         return ( 
-            // <div className={classes.trainNameCSS}>
             <div >
                 <NavBar />
                 <h1>{cargo.toUpperCase()}</h1>
                 <h1>{from} to {to}</h1>
-                
+                <h3>Payment: {`$${Math.round(this.getLengthOfTrip(from, to)*.25)}.00`}</h3>               
                 <img 
                     src={image} 
-                    alt='engraving of steam contract' 
+                    alt='contract cargo' 
                     className={classes.trainImageCSS}
                 />
                 <h2><Button
