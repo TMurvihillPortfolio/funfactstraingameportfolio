@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 
 //material ui-general
 import { withStyles } from "@material-ui/core/styles";
@@ -115,7 +115,7 @@ const styles = theme => ({
     }
 });
 
-class OperationsDrawer extends PureComponent {   
+class OperationsDrawer extends Component {   
     constructor(props) {
         super(props);
         //handle list/drawer open/close clicks
@@ -128,9 +128,6 @@ class OperationsDrawer extends PureComponent {
         this.handleBuildClick=this.handleBuildClick.bind(this);    
         this.handleContractListItemClick=this.handleContractListItemClick.bind(this);
         this.handleTrainListItemClick=this.handleTrainListItemClick.bind(this);       
-        
-        //data handling
-        this.syncLocalStorage=this.syncLocalStorage.bind(this);
         
         this.state = {
           openBuyTrainNested: false,
@@ -173,13 +170,6 @@ class OperationsDrawer extends PureComponent {
         this.props.routeHistory.push(`/funfactstrains/trains/${trainObj.pathName}`);
     }
 
-    //***data updating***/
-    syncLocalStorage() {
-        localStorage.setItem(
-            'companyData', 
-            JSON.stringify(companyData))
-        ;
-    }
     render() { 
         companyData = JSON.parse(localStorage.getItem('companyData'));
         const { classes } = this.props;      
@@ -228,7 +218,6 @@ class OperationsDrawer extends PureComponent {
                 </ListItem>
             )
         ;
-
         const companyTrainListItems = compTrains.map(train =>  
             <ListItem  
                 key={train.id} 

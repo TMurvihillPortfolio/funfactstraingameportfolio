@@ -1,6 +1,7 @@
-- make function to convert info to pathnames instead of a separate field for the pathname
 - when train completes add a note that flashes from the bottom
 - refactor operations drawer
-- make sure not two of the exact same contract path name
 - create sync data helper and use it everywhere
 - fix hover effect on navbar
+- refactor into jss files
+- when train completes, needs to come off of lists (use state?)
+- on contactinfocard, if you press button twice quickly, things break

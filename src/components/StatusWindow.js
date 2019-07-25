@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { withStyles } from "@material-ui/core/styles";
 import ActiveTrain from './ActiveTrain';
 import {_DRAWER_WIDTH as drawerWidth} from '../assets/constants';
+import { syncLocalCompanyStorage } from '../assets/helpers';
 
 let companyData = JSON.parse(localStorage.getItem('companyData'));
 const styles = {
@@ -45,7 +46,7 @@ class StatusWindow extends Component {
         if (localStorage.getItem('funFactsActiveTrains') !== null) {
             funFactsActiveTrains = [...JSON.parse(localStorage.getItem('funFactsActiveTrains'))];
         }
-        
+        console.log(funFactsActiveTrains);
         this.updatePositions=this.updatePositions.bind(this); 
         this.completeActiveTrain=this.completeActiveTrain.bind(this); 
         this.syncLocalActiveTrainStorage=this.syncLocalActiveTrainStorage.bind(this); 
@@ -101,6 +102,9 @@ class StatusWindow extends Component {
         companyData.financials.cash += payment;
         this.syncLocalCompanyStorage();
     }
+    componentWillUnmount() {
+        this.syncLocalActiveTrainStorage();
+    }
     render() { 
         let activeTrains;
         const contracts = Array.from(companyData.contracts);        
@@ -125,8 +129,6 @@ class StatusWindow extends Component {
                 });
                 return tempArray;
             });
-            console.log('status-- for intermittent bug', fullArray);
-            fullArray.map((train,idx) => console.log(train[idx]));
             if (fullArray.length > 0 && fullArray[0].length > 0 ) {
                 activeTrains = fullArray.map((train,index) => 
                     <div key={index} className={classes.progress}>
