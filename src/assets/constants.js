@@ -117,5 +117,5 @@ const _CITY_ABBR = {
     Boston: 'bos',
     Washington: 'was',
     Atlanta: 'atl'
-};
+}; 
 export { _DRAWER_WIDTH, _TRIP_LENGTHS, _TRAIN_DETAILS, _CARGO_TYPES, _CITY_ABBR };

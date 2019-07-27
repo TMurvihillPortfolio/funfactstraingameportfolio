@@ -1,5 +1,6 @@
 import React, { PureComponent } from "react";
 import styles from '../styles/TrainOperationsStyles';
+//material-ui imports
 import { withStyles } from "@material-ui/core/styles";
 import clsx from 'clsx';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -7,6 +8,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+//coder created
 import NavBar from './NavBar';
 import OperationsDrawer from './OperationsDrawer';
 import StatusWindow from './StatusWindow';
@@ -20,13 +22,14 @@ class TrainOperations extends PureComponent {
     this.handleDrawerOpen=this.handleDrawerOpen.bind(this);
     this.handleDrawerClose=this.handleDrawerClose.bind(this);
     this.state = {
-      open: true    
+      open: true,
+      companyData: localStorage.getItem('companyData') || {trains: [], contracts: []}    
     };
   }
   componentWillMount() {
     companyData = JSON.parse(localStorage.getItem('companyData'));
     getContractOffer(companyData);
-    //setInterval(() => getContractOffer(), 600000)
+    setInterval(() => getContractOffer(), 180000)
   }
   handleDrawerOpen = () => {
     this.setState({ open: true });

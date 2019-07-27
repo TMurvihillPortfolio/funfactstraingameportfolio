@@ -1,6 +1,6 @@
 - refactor operations drawer
 - create sync data helper and use it everywhere
-- refactor into jss files
 - when train completes, needs to come off of lists (use state?)
 - on contactinfocard, if you press button twice quickly, things break
-- make responsive 
+- make responsive
+- redo so everything in state
