@@ -1,4 +1,3 @@
-- when train completes add a note that flashes from the bottom
 - refactor operations drawer
 - create sync data helper and use it everywhere
 - fix hover effect on navbar

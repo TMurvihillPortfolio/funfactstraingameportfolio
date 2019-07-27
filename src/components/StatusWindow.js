@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { withStyles } from "@material-ui/core/styles";
 import ActiveTrain from './ActiveTrain';
 import {_DRAWER_WIDTH as drawerWidth} from '../assets/constants';
-import { syncLocalCompanyStorage } from '../assets/helpers';
 
 let companyData = JSON.parse(localStorage.getItem('companyData'));
 const styles = {
@@ -12,7 +11,7 @@ const styles = {
         position: 'fixed',
         bottom: 0,
         right: 0,
-        //border: '7px double #a74227',
+        border: '7px double #a74227',
         borderRadius: '10px',
         backgroundImage: 'linear-gradient(rgba(250,244,216,.8), rgba(250,244,216,.8))'
     },
@@ -34,10 +33,24 @@ const styles = {
     progressFrom: {
         flex: '1',
     },
-    // activeTrain: {
-    //     position: 'relative'
-    // }
+    notification: {
+        backgroundColor: 'teal',
+        width: 'fit-content',
+        height: '40px',
+        color: 'whitesmoke',
+        position: 'absolute',
+        bottom: '0',
+        left: '0',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: '5px 10px',
+        margin: '10px',
+        borderRadius: '4px',
+        transform: 'translateY(60px)',
+        transition: 'all 2s ease-in-out'
 
+    }
 }
 class StatusWindow extends Component {
     constructor(props) {
@@ -51,7 +64,7 @@ class StatusWindow extends Component {
         this.completeActiveTrain=this.completeActiveTrain.bind(this); 
         this.syncLocalActiveTrainStorage=this.syncLocalActiveTrainStorage.bind(this); 
         this.syncLocalCompanyStorage=this.syncLocalCompanyStorage.bind(this); 
-        this.deleteContractFromStorage=this.deleteContractFromStorage.bind(this);
+        this.showNotification=this.showNotification.bind(this);
         this.state = {
             activeTrains: funFactsActiveTrains || false         
          }
@@ -74,7 +87,7 @@ class StatusWindow extends Component {
         let lengthOfTrip = 0;
         const newTrains = this.state.activeTrains.map(train => {
             let newRight = train.right += 400/train.lengthOfTrip;
-            if (train.right >= 200) {
+            if (train.right >= 50) {
                 deleteId = train.id;
                 deleteContractId = train.contractId; 
                 lengthOfTrip = train.lengthOfTrip;             
@@ -87,10 +100,15 @@ class StatusWindow extends Component {
             this.completeActiveTrain(deleteId, deleteContractId, lengthOfTrip);
         }       
     }
-    deleteContractFromStorage() {
-
+    showNotification(deleteContractId) {
+        const notification = document.querySelector('#notification');
+        const completedContract = companyData.contracts.find(contract => contract.id === deleteContractId);
+        notification.innerText = `${completedContract.cargo.toUpperCase()}--${completedContract.from} to ${completedContract.to} completed its run.`;
+        notification.style.transform = 'translateY(0)';
+        setTimeout(() => notification.style.transform = 'translateY(60px)', 4000);
     }
     completeActiveTrain(deleteId, deleteContractId, lengthOfTrip) {
+        this.showNotification(deleteContractId);
         const payment = Math.round(lengthOfTrip*.25);
         this.setState(
             st => ({ activeTrains: st.activeTrains.filter(train => train.id !== deleteId) }),
@@ -101,6 +119,7 @@ class StatusWindow extends Component {
         companyData.contracts = newArray;
         companyData.financials.cash += payment;
         this.syncLocalCompanyStorage();
+        
     }
     componentWillUnmount() {
         this.syncLocalActiveTrainStorage();
@@ -156,6 +175,9 @@ class StatusWindow extends Component {
                     }>
                         No Active Trains at this time.
                     </h4>} 
+                </div>
+                <div className={classes.notification} id='notification'>
+                    Train completed run.
                 </div>
             </div>           
         );

@@ -121,7 +121,6 @@ class ContractInfoCard extends Component {
     }
     startTrain() {
         let activeTrains = JSON.parse(localStorage.getItem('funFactsActiveTrains')) || [];
-        let newArray;
         const newObj = {
             id: uuid(),
             contractId: this.props.contractObj.id,
