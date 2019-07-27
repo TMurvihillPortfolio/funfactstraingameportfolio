@@ -9,14 +9,14 @@ const styles = {
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
-        minHeight: '64px',
         marginLeft: '-15px'
     },
     logo: {
+        height: '100%',
         '& img': {
-            height: '65px',
+            height: '100%',
             width: '100px',
-            margin: '-25px 15px -25px -23px'
+            // margin: '-25px 15px -25px -23px'
         }       
     }, 
     links: {
@@ -29,13 +29,12 @@ const styles = {
             padding: '5px 15px',
             color: '#f7f6f5',
             borderBottom: '1px solid transparent',
-            transition: 'all 0.3s ease-in-out'
+            transition: 'all 1s ease-in-out'
             
         },
         '& a:hover': {
-            borderBottom: '1px solid #f7f6f5'
-        },
-        
+            textDecoration: 'underline'
+        }      
     },
     selectContainer: {
         listStyle: 'none',
@@ -45,7 +44,10 @@ const styles = {
         position: 'relative',
         marginRight: '25px',
         marginLeft: '-25px',
-        color: 'whitesmoke'
+        color: 'whitesmoke',
+        '&:hover': {
+            textDecoration: 'underline'
+        }
     },
     selectItemsShow: {
         display: 'none',
@@ -87,9 +89,9 @@ class NavBar extends PureComponent {
     render() { 
         const { classes } = this.props;
         return ( 
-            <nav className={classes.NavBar}>
-                <NavLink className={classes.logo} to='/'><img src={logowText} alt='logo Fun Facts Train Game'/></NavLink>
-                <div className={classes.links}>    
+            <nav className={classes.NavBar}>               
+                <div className={classes.links}> 
+                    <NavLink className={classes.logo} to='/'><img src={logowText} alt='logo Fun Facts Train Game'/></NavLink>   
                     <NavLink to='/funfactstrains/trainoperations'>Train Operations</NavLink>
                     <NavLink to='/funfactstrains/companymanagement'>Company Management</NavLink>
                     <NavLink to='/funfactstrains/buildroute'>Build Route</NavLink>                    

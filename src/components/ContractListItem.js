@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
+import { _CITY_ABBR } from '../assets/constants';
       
 class ContractListItem extends Component {
     constructor(props) {
         super(props);
         let companyData = JSON.parse(localStorage.getItem('companyData'));
-        let contractObj = companyData.contracts.find(contract => contract.id === this.props.contractId);
         
         this.handleclick=this.handleclick.bind(this);
         this.state = {
@@ -12,7 +12,6 @@ class ContractListItem extends Component {
         };
     }
     state = {  }
-
     handleclick() {
         //update data
         this.companyData = JSON.parse(localStorage.getItem('companyData'));
@@ -25,7 +24,7 @@ class ContractListItem extends Component {
         this.state.contractObj = this.companyData.contracts.find(contract => contract.id === this.props.contractId);
         return ( 
             <div onClick={this.handleclick}>
-                {`${this.state.contractObj.cargo.toUpperCase()} -- ${this.state.contractObj.from} to ${this.state.contractObj.to} ${this.state.contractObj.status === 'started' ? '(in progress)' : ''}`}
+                {`${this.state.contractObj.cargo.toUpperCase()} -- ${(_CITY_ABBR[this.state.contractObj.from]).toUpperCase()} to ${(_CITY_ABBR[this.state.contractObj.to]).toUpperCase()} ${this.state.contractObj.status === 'started' ? '(in progress)' : ''}`}
             </div>
          );
     }
