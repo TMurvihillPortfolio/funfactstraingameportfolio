@@ -6,7 +6,7 @@ class TrainListItem extends Component {
         this.handleclick=this.handleclick.bind(this);
         this.state = {};
       }
-    state = {  }
+    state = {}
 
     handleclick() {
         this.props.handleTrainListItemClick(this.props.trainObj);

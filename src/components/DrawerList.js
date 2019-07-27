@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 //Required for lists
-import ListSubheader from '@material-ui/core/ListSubheader';
-import TrainIcon from '@material-ui/icons/Train';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -14,12 +12,9 @@ class DrawerList extends Component {
     constructor(props) {
         super(props);
         this.handleClick=this.handleClick.bind(this);
-        this.state = { 
-            openBuyTrainNested: false,
-         }
+        this.state = {}
     }
     handleClick() {
-        //companyData = JSON.parse(localStorage.getItem('companyData'));
         this.setState({ openNested : !this.state.openNested });
     }
     render() {
@@ -31,13 +26,11 @@ class DrawerList extends Component {
                     </ListItemIcon>
                     <ListItemText primary={this.props.listTitle} />
                     {this.state.openNested ? <ExpandLess /> : <ExpandMore />}
-                </ListItem>
-                    
-                <Collapse in={this.state.openNested} timeout="auto" unmountOnExit>
-                
-                <List component="div" disablePadding onClick={this.handleBuyTrainClick}>                
-                    {this.props.listItems}
-                </List>
+                </ListItem>                   
+                <Collapse in={this.state.openNested} timeout="auto" unmountOnExit>               
+                    <List component="div" disablePadding onClick={this.handleBuyTrainClick}>                
+                        {this.props.listItems}
+                    </List>
                 </Collapse>
             </div>
          );

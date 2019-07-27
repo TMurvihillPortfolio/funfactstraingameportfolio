@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import styles from '../styles/TrainInfoCardStyles';
 import {withStyles} from '@material-ui/core';
 import NavBar from './NavBar';
 import AppBar from '@material-ui/core/AppBar';
@@ -7,37 +8,6 @@ import Divider from '@material-ui/core/Divider';
 import { _TRAIN_DETAILS } from '../assets/constants';
 
 let companyData = JSON.parse(localStorage.getItem('companyData'));
-const styles = {
-    TrainInfoCardCSS: {
-        backgroundColor: 'lightsalmon',
-        padding: '50px'
-    },
-    trainNameCSS: {
-        marginTop: '100px',
-        marginBottom: '40px',
-        borderRadius: '7px'
-    },
-    trainImageCSS: {
-        borderRadius: '7px',
-        margin: '40px',
-        boxShadow: '10px 10px 15px 4px #333'
-    },
-    factList: {
-        listStyle: 'none',
-        marginLeft: '-40px'
-    },
-    factItem: {       
-    },
-    button: {
-        color: '#f3f2fa',
-        margin: 'auto',
-        marginBottom: '30px',
-        backgroundColor: '#857cad',
-        '&:hover': {
-            backgroundColor: '#5f5592'
-        }
-    },
-}
 
 class TrainInfoCard extends PureComponent {
     constructor(props) {
@@ -66,8 +36,7 @@ class TrainInfoCard extends PureComponent {
         }
                
         //update data                   
-        localStorage.setItem('companyData', JSON.stringify(companyData));
-        
+        localStorage.setItem('companyData', JSON.stringify(companyData));       
     }
     render() { 
         const { classes } = this.props;

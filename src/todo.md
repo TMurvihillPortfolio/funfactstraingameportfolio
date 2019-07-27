@@ -3,5 +3,4 @@
 - refactor into jss files
 - when train completes, needs to come off of lists (use state?)
 - on contactinfocard, if you press button twice quickly, things break
-- make abbreviations for city names
-- make responsive
+- make responsive 

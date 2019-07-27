@@ -92,17 +92,11 @@
 
 
 import React, { PureComponent } from 'react';
+import styles from '../styles/ActiveTrainStyles';
 import { withStyles } from "@material-ui/core/styles";
 
 import trainOnMap from '../img/redtraincrop.png';
 
-
-const styles = {
-    trainOnMap: {
-        height: '8px', 
-        position: 'absolute'
-    }
-}
 class ActiveTrain extends PureComponent {
     constructor(props) {
         super(props);

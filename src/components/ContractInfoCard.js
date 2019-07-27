@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import styles from '../styles/ContractInfoCardStyles';
 import {withStyles} from '@material-ui/core';
 import NavBar from './NavBar';
 import Divider from '@material-ui/core/Divider';
@@ -9,27 +10,6 @@ import { _TRIP_LENGTHS as tripLengths } from '../assets/constants';
 import { _CARGO_TYPES as cargoTypes } from '../assets/constants';
 
 let companyData; 
-const styles = {
-    TrainInfoCardCSS: {
-        backgroundColor: 'lightsalmon',
-        padding: '50px'
-    },
-    trainNameCSS: {
-        marginBottom: '40px',
-        borderRadius: '7px'
-    },
-    trainImageCSS: {
-        borderRadius: '7px',
-        margin: '40px',
-        boxShadow: '10px 10px 15px 4px #333'
-    },
-    factList: {
-        listStyle: 'none'
-    },
-    factItem: {   
-        textAlign: 'center'    
-    }
-}
 
 class ContractInfoCard extends Component {
     constructor(props) {
