@@ -1,13 +1,11 @@
 import React, { PureComponent } from 'react';
 import styles from '../styles/TrainInfoCardStyles';
 import {withStyles} from '@material-ui/core';
-import NavBar from './NavBar';
 import AppBar from '@material-ui/core/AppBar';
 import Button from "@material-ui/core/Button";
 import Divider from '@material-ui/core/Divider';
+import NavBar from './NavBar';
 import { _TRAIN_DETAILS } from '../assets/constants';
-
-let companyData = JSON.parse(localStorage.getItem('companyData'));
 
 class TrainInfoCard extends PureComponent {
     constructor(props) {
@@ -16,42 +14,30 @@ class TrainInfoCard extends PureComponent {
         this.state = {  }
     }
     handleBuyClick() {
-        //initialize variables
-        const { trainCost, trainId } = this.props.trainObj;
-        companyData = JSON.parse(localStorage.getItem('companyData'));
-        if (this.state.purchased === -1) {
-            //check if enough money
-            if (companyData.financials.cash >= trainCost) {
-                companyData.financials.cash -= trainCost;
-                companyData.trains.push({ id: trainId });
-                this.setState({ purchased : 1  });
-            } else {
-                return alert('Not enough cash available to purchase train.');
-            }
-        } else {
-            companyData.financials.cash += trainCost;
-            const newArray = companyData.trains.filter(train => train.id !== this.props.trainObj.trainId)
-            companyData.trains = newArray;
-            this.setState({ purchased : -1 });
-        }
-               
-        //update data                   
-        localStorage.setItem('companyData', JSON.stringify(companyData));       
+        const purchased = (this.props.companyTrains === undefined || (this.props.companyTrains.findIndex(train => train.id === this.props.trainObj.trainId) === -1)) ? false : true;
+        this.props.buySellTrain(this.props.trainObj, purchased);
     }
     render() { 
-        const { classes } = this.props;
+        console.log('traininfoprops', this.props);
+        const { classes, companyTrains } = this.props;
         const { trainName, trainImage, trainFacts, trainId, trainCost } = this.props.trainObj;
-        companyData = JSON.parse(localStorage.getItem('companyData'));        
-        const purchased = companyData.trains.findIndex(train => train.id === trainId);
-        this.state.purchased = purchased;
+        const purchased = (companyTrains === undefined || (companyTrains.findIndex(train => train.id === trainId) === -1)) ? false : true;
+        console.log('trainindo', purchased);
         const factList = trainFacts.map(fact => 
-            <li key={`${trainId}${fact}`} className={classes.factItem}><h4>{fact}</h4></li>);
+            <li 
+                key={`${trainId}${fact}`} 
+                className={classes.factItem}
+            >
+            <h4>{fact}</h4>
+            </li>
+        );
         return ( 
             <div className={classes.trainNameCSS}>
                 <AppBar >
                     <NavBar />
                 </AppBar>
                 <h1>{trainName}</h1>
+                <h3>{`$${trainCost}.00`}</h3>
                 <img 
                     src={trainImage} 
                     alt='engraving of steam train' 
@@ -64,7 +50,7 @@ class TrainInfoCard extends PureComponent {
                             color='primary'
                             onClick={this.handleBuyClick}
                     >
-                            {purchased > -1 ? 'Sell Train' : 'Buy Train'}
+                            {purchased ? 'Sell Train' : 'Buy Train'}
                     </Button>
                 </div>
                 <Divider />

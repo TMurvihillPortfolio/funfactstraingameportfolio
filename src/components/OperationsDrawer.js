@@ -27,10 +27,6 @@ import ContractListItem from './ContractListItem';
 import TrainListItem from './TrainListItem';
 import DrawerList from './DrawerList';
 
-let companyData = {trains: [], contracts: []};
-
-
-
 class OperationsDrawer extends Component {   
     constructor(props) {
         super(props);
@@ -55,23 +51,18 @@ class OperationsDrawer extends Component {
 
     //***handle list/drawer open/close clicks***//
     handleDrawerCloseClick = () => {
-        companyData = JSON.parse(localStorage.getItem('companyData'));
         this.props.handleDrawerClose();
     }
     handleBuyTrainClick() {
-        companyData = JSON.parse(localStorage.getItem('companyData'));
         this.setState({ openBuyTrainNested : !this.state.openBuyTrainNested });
     }
     handleCurrentClick() {
-        companyData = JSON.parse(localStorage.getItem('companyData'));
         this.setState({ openCurrentNested : !this.state.openCurrentNested });
     }
     handleOfferClick() {
-        companyData = JSON.parse(localStorage.getItem('companyData'));
         this.setState({ openOfferNested : !this.state.openOfferNested });
     }
     handleTrainClick() {
-        companyData = JSON.parse(localStorage.getItem('companyData'));
         this.setState({ openTrainNested : !this.state.openTrainNested });
     }    
       
@@ -87,17 +78,23 @@ class OperationsDrawer extends Component {
     }
 
     render() { 
-        companyData = JSON.parse(localStorage.getItem('companyData'));
-        const { classes } = this.props;      
-        const contracts = companyData.contracts;       
-        const compTrains = []       
-        companyData.trains.map(train => {
-            _TRAIN_DETAILS.map(trainDetail => {
-                if (trainDetail.trainId===train.id) {
-                    compTrains.push(trainDetail);
-                }
-            })
-        });
+        const { classes, companyData } = this.props;
+        const { contracts, trains } = this.props.companyData[0];
+        console.log('opsdrawercompdata', companyData);
+        console.log('opsdrawertrains', trains);
+        const compTrains = [];
+              
+        if (trains !== undefined) {     
+            trains.map(train => {
+                _TRAIN_DETAILS.map(trainDetail => {
+                    if (trainDetail.trainId===train.id) {
+                        compTrains.push(trainDetail);
+                    }
+                })
+            });
+        }
+        console.log(contracts);
+
         const currentContracts = contracts
             .filter(contract => contract.status === 'accepted' || contract.status === 'started')
             .map(acceptedContract => 
@@ -115,6 +112,9 @@ class OperationsDrawer extends Component {
                 </ListItem>
             )
         ;
+        console.log('opsdra',contracts);
+        contracts
+            .filter(contract => contract.status === 'offered').map(offerContract => console.log(offerContract.id));
         const offers = contracts
             .filter(contract => contract.status === 'offered')
             .map(offerContract => 
@@ -175,7 +175,6 @@ class OperationsDrawer extends Component {
                 "Under Construction--All routes available."
             </ListItem>
         ;
-       
         return ( 
             <div>
                 <Drawer
@@ -202,7 +201,7 @@ class OperationsDrawer extends Component {
                         What's your move?
                     </Typography>
                     <div>
-                        <h3>Cash: {`$${companyData.financials.cash}.00`}</h3>
+                        <h3>Cash: {`$${companyData[0].financials.cash}.00`}</h3>
                     </div>
                     <div className={classes.buttons}>
                     <List>

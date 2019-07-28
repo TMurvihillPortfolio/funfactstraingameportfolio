@@ -13,8 +13,9 @@ import NavBar from './NavBar';
 import OperationsDrawer from './OperationsDrawer';
 import StatusWindow from './StatusWindow';
 import { getContractOffer } from '../assets/helpers';
+import { _INITIAL_COMPANYDATA } from '../assets/constants';
 
-let companyData = {trains: [], contracts: []};
+// let companyData = {trains: [], contracts: []};
 
 class TrainOperations extends PureComponent {
   constructor(props) {
@@ -22,13 +23,11 @@ class TrainOperations extends PureComponent {
     this.handleDrawerOpen=this.handleDrawerOpen.bind(this);
     this.handleDrawerClose=this.handleDrawerClose.bind(this);
     this.state = {
-      open: true,
-      companyData: localStorage.getItem('companyData') || {trains: [], contracts: []}    
+      open: true
     };
   }
-  componentWillMount() {
-    companyData = JSON.parse(localStorage.getItem('companyData'));
-    getContractOffer(companyData);
+  componentWillUpdate() {
+    getContractOffer();
     setInterval(() => getContractOffer(), 180000)
   }
   handleDrawerOpen = () => {
@@ -38,8 +37,10 @@ class TrainOperations extends PureComponent {
     this.setState({ open: false });
   }; 
   render() { 
-    const { classes } = this.props;
-    const { open } = this.state;
+    const { classes, companyData } = this.props;
+    const { open, activeTrains } = this.state;
+    console.log('statedatatrops', companyData);
+    if (activeTrains !== null) console.log('stateactivetrops', activeTrains);
         
     return (
       <div className={classes.drawerContainer}>
@@ -63,10 +64,10 @@ class TrainOperations extends PureComponent {
           <NavBar />
         </Toolbar>
       </AppBar>
-        {open ? <OperationsDrawer routeHistory={this.props.history} handleDrawerClose={this.handleDrawerClose}/> : ''}
+        {open ? <OperationsDrawer routeHistory={this.props.history} handleDrawerClose={this.handleDrawerClose} companyData={companyData}/> : ''}
         <div className={classes.root}>
             <h1 className={open?classes.TrainOperationsHeaderOpen:classes.TrainOperationsHeaderOpenClosed}>Train Operations</h1>            
-            <StatusWindow key='001'/>
+            {/* <StatusWindow key='001'/> */}
         </div> 
       </div>
     );

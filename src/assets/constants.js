@@ -117,5 +117,31 @@ const _CITY_ABBR = {
     Boston: 'bos',
     Washington: 'was',
     Atlanta: 'atl'
-}; 
-export { _DRAWER_WIDTH, _TRIP_LENGTHS, _TRAIN_DETAILS, _CARGO_TYPES, _CITY_ABBR };
+};
+const _INITIAL_COMPANYDATA = [{
+    trains: [],
+    contracts:  [
+            {
+                id: 'f859306a-cce8-47b9-9a65-f9363396116d',
+                pathName: 'coal1_chicago_newyork16',
+                from: 'Chicago',
+                to: 'NewYork',
+                payment: '16',
+                units: '1',
+                cargo: 'coal',
+                status: 'offered'
+            }
+        ],
+    financials: {
+            cash: 10000,
+            loan: 2000
+        }
+}]   
+export { 
+    _DRAWER_WIDTH, 
+    _TRIP_LENGTHS, 
+    _TRAIN_DETAILS, 
+    _CARGO_TYPES, 
+    _CITY_ABBR, 
+    _INITIAL_COMPANYDATA
+};

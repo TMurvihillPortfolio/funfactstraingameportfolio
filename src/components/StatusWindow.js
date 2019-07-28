@@ -9,10 +9,9 @@ class StatusWindow extends Component {
     constructor(props) {
         super(props);
         let funFactsActiveTrains;
-        if (localStorage.getItem('funFactsActiveTrains') !== null) {
-            funFactsActiveTrains = [...JSON.parse(localStorage.getItem('funFactsActiveTrains'))];
-        }
-        console.log(funFactsActiveTrains);
+        // if (localStorage.getItem('funFactsActiveTrains') !== null) {
+        //     funFactsActiveTrains = [...JSON.parse(localStorage.getItem('funFactsActiveTrains'))];
+        // }
         this.updatePositions=this.updatePositions.bind(this); 
         this.completeActiveTrain=this.completeActiveTrain.bind(this); 
         this.syncLocalActiveTrainStorage=this.syncLocalActiveTrainStorage.bind(this); 
@@ -79,7 +78,7 @@ class StatusWindow extends Component {
     }
     render() { 
         let activeTrains;
-        const contracts = Array.from(companyData.contracts);        
+        const contracts = Array.from(companyData[0].contracts);        
         const {classes} = this.props;
         if (this.state.activeTrains) {
             //prepare an array that mixes infor from two props
