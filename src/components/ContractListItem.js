@@ -4,28 +4,20 @@ import { _CITY_ABBR } from '../assets/constants';
 class ContractListItem extends Component {
     constructor(props) {
         super(props);
-        let companyData = JSON.parse(localStorage.getItem('companyData'));
-        
         this.handleclick=this.handleclick.bind(this);
-        
-        // this.state = {
-        //    contractObj: companyData.contracts.find(contract => contract.id === this.props.contractId)
-        // };
     }
-    state = {  }
+    state = {}
     handleclick() {
-        //update data
-        this.companyData = JSON.parse(localStorage.getItem('companyData'));
-        this.props.contractObj = this.companyData.contracts.find(contract => contract.id === this.props.contractId);
-        this.props.handleContractListItemClick(this.state.contractObj);
+        this.props.handleContractListItemClick(this.props.contractObj);
     }
     render() { 
         if (this.props.contractObj === undefined || this.props.contractObj === null) {return 'Train Completed Run.';}
-        this.companyData = JSON.parse(localStorage.getItem('companyData'));
-        this.state.contractObj = this.companyData.contracts.find(contract => contract.id === this.props.contractId);
         return ( 
             <div onClick={this.handleclick}>
-                {`${this.state.contractObj.cargo.toUpperCase()} -- ${(_CITY_ABBR[this.state.contractObj.from]).toUpperCase()} to ${(_CITY_ABBR[this.state.contractObj.to]).toUpperCase()} ${this.state.contractObj.status === 'started' ? '(in progress)' : ''}`}
+                {`${this.props.contractObj.cargo.toUpperCase()} -- 
+                    ${(_CITY_ABBR[this.props.contractObj.from]).toUpperCase()} to 
+                    ${(_CITY_ABBR[this.props.contractObj.to]).toUpperCase()} 
+                    ${this.props.contractObj.status === 'started' ? '(in progress)' : ''}`}
             </div>
          );
     }

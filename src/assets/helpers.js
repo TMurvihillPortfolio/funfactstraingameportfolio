@@ -16,7 +16,7 @@ function syncLocalActiveTrainStorage(activeTrains) {
 function getPathName(companyData, cargo, units, to, from) {
     const pathName =  `_${cargo}${units}_${to}_${from}`;
     //check for duplicates
-    companyData.contracts.map(contract => {
+    companyData[0].contracts.map(contract => {
         if (contract.pathName === pathName) {
             pathName = `pathName${uuid()}`;
         }
@@ -28,12 +28,10 @@ function getRandomCity() {
     cityArr.push(Object.keys(_TRIP_LENGTHS['NewYork'])[0]);
     return cityArr[Math.floor(Math.random()*cityArr.length)]
 }
-function getContractOffer() {
-    //refresh data
-    let companyData = JSON.parse(localStorage.getItem('companyData'));
+function getContractOffer(companyData) {
     
     //if enough contracts, return
-    if (companyData.contracts.length >= 6) {
+    if (companyData[0].contracts.length >= 6) {
         return;
     }
 
@@ -60,7 +58,7 @@ function getContractOffer() {
         status: 'offered'
     }
     //update data
-    companyData.contracts.push(newContract);
-    syncLocalCompanyStorage(companyData);
+    companyData[0].contracts.push(newContract);
+    return companyData;
 }
 export { getRandomCity, getContractOffer, syncLocalCompanyStorage, syncLocalActiveTrainStorage };

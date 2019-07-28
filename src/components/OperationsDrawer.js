@@ -112,7 +112,7 @@ class OperationsDrawer extends Component {
                 </ListItem>
             )
         ;
-        console.log('opsdra',contracts);
+        contracts.map(contract => console.log(contract.id));
         contracts
             .filter(contract => contract.status === 'offered').map(offerContract => console.log(offerContract.id));
         const offers = contracts
@@ -129,6 +129,7 @@ class OperationsDrawer extends Component {
                     </ListItemIcon>
                     <ContractListItem 
                         contractId={offerContract.id} 
+                        contractObj={offerContract}
                         handleContractListItemClick={this.handleContractListItemClick} 
                      />
                 </ListItem>
@@ -175,6 +176,7 @@ class OperationsDrawer extends Component {
                 "Under Construction--All routes available."
             </ListItem>
         ;
+        console.log('offers', offers);
         return ( 
             <div>
                 <Drawer

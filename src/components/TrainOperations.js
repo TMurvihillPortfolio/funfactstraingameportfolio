@@ -12,7 +12,6 @@ import MenuIcon from '@material-ui/icons/Menu';
 import NavBar from './NavBar';
 import OperationsDrawer from './OperationsDrawer';
 import StatusWindow from './StatusWindow';
-import { getContractOffer } from '../assets/helpers';
 import { _INITIAL_COMPANYDATA } from '../assets/constants';
 
 // let companyData = {trains: [], contracts: []};
@@ -26,10 +25,6 @@ class TrainOperations extends PureComponent {
       open: true
     };
   }
-  componentWillUpdate() {
-    getContractOffer();
-    setInterval(() => getContractOffer(), 180000)
-  }
   handleDrawerOpen = () => {
     this.setState({ open: true });
   };
@@ -39,7 +34,6 @@ class TrainOperations extends PureComponent {
   render() { 
     const { classes, companyData } = this.props;
     const { open, activeTrains } = this.state;
-    console.log('statedatatrops', companyData);
     if (activeTrains !== null) console.log('stateactivetrops', activeTrains);
         
     return (
