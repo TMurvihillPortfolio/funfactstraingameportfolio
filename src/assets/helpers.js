@@ -1,13 +1,13 @@
 import uuid from 'uuid';
 import { _CARGO_TYPES, _TRIP_LENGTHS } from '../assets/constants'
 
-function syncLocalCompanyStorage(companyData) {
+function syncLocalStorageCompanyData(companyData) {
     localStorage.setItem(
         'companyData', 
         JSON.stringify(companyData))
     ;
 }
-function syncLocalActiveTrainStorage(activeTrains) {
+function syncLocalStorageActiveTrains(activeTrains) {
     localStorage.setItem(
         'funFactsActiveTrains', 
         JSON.stringify(activeTrains))
@@ -99,7 +99,7 @@ function getLengthOfTrip(from, to) {
 export { 
     getRandomCity, 
     getContractOffer, 
-    syncLocalCompanyStorage, 
-    syncLocalActiveTrainStorage,
+    syncLocalStorageCompanyData, 
+    syncLocalStorageActiveTrains,
     getLengthOfTrip
  };

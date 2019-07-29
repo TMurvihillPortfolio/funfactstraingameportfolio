@@ -6,7 +6,7 @@ import textiles from '../img/textiles.jpg';
 import coal from '../img/coal.jpg';
 import milk from '../img/milk.jpg';
 
-const _DRAWER_WIDTH = 240;
+const _DRAWER_WIDTH = 250;
 const _TRAIN_DETAILS = [
     {
         trainId: '0001-illcent201',

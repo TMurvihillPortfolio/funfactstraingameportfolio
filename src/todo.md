@@ -1,6 +1,6 @@
 - refactor operations drawer
-- create sync data helper and use it everywhere
-- when train completes, needs to come off of lists (use state?)
-- on contactinfocard, if you press button twice quickly, things break
+
 - make responsive
-- redo so everything in state
+- deployed through netlify
+- get site deployed to a take2tech subdirectory
+- https://kind-shockley-95e57f.netlify.com/

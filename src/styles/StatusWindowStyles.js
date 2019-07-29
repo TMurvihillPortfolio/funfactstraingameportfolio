@@ -1,8 +1,7 @@
-import {_DRAWER_WIDTH as drawerWidth} from '../assets/constants';
 export default {
     root: {
         height: '200px',
-        width: `calc(100% - ${drawerWidth+45}px)`,
+        width: '800px',
         position: 'fixed',
         bottom: 0,
         right: 0,

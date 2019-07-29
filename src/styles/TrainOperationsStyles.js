@@ -19,7 +19,7 @@ export default theme => ({
         backgroundColor: '#a74227'
       },
       appBarShift: {
-        width: `calc(100% - ${drawerWidth+50}px)`,
+        width: `calc(100% - ${drawerWidth}px)`,
         marginLeft: drawerWidth-100,
         transition: theme.transitions.create(['margin', 'width'], {
           easing: theme.transitions.easing.easeOut,

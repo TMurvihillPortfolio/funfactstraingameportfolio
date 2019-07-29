@@ -8,7 +8,15 @@ import TrainOperations from './TrainOperations';
 import CompanyManagement from './CompanyManagement';
 import BuildRoute from './BuildRoute';
 import { _TRAIN_DETAILS, _INITIAL_COMPANYDATA } from '../assets/constants';
-import { getContractOffer, getLengthOfTrip } from '../assets/helpers';
+import 
+  { 
+    getContractOffer, 
+    getLengthOfTrip,
+    syncLocalStorageActiveTrains,
+    syncLocalStorageCompanyData 
+  } 
+  from '../assets/helpers'
+;
 
 class App extends Component {
   constructor(props) {
@@ -76,7 +84,7 @@ class App extends Component {
     }
     //update state with new object
     activeTrains.push(newObj);       
-    this.setState({ activeTrains : activeTrains }, console.log('newtrast', this.state.activeTrains));    
+    this.updateActiveTrains(activeTrains);
     //back to train operations
     routeHistory.push('/funfactstrains/trainoperations');                  
   } 
@@ -101,6 +109,10 @@ class App extends Component {
   }
   updateActiveTrains(activeTrains) {
     this.setState({ activeTrains : activeTrains });
+  }
+  componentWillUnmount() {
+    syncLocalStorageActiveTrains(JSON.stringify(this.state.companyData));
+    syncLocalStorageCompanyData(JSON.stringify(this.state.activeTrains));
   }
   render() {
     let companyTrains, contracts, activeTrains;
