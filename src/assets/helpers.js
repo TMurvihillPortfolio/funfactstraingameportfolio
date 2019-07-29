@@ -14,7 +14,7 @@ function syncLocalActiveTrainStorage(activeTrains) {
     ;
 }
 function getPathName(companyData, cargo, units, to, from) {
-    const pathName =  `_${cargo}${units}_${to}_${from}`;
+    let pathName =  `_${cargo}${units}_${to}_${from}`;
     //check for duplicates
     companyData[0].contracts.map(contract => {
         if (contract.pathName === pathName) {

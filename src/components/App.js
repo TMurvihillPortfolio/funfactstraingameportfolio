@@ -14,6 +14,7 @@ class App extends Component {
     super(props);
     this.buySellTrain=this.buySellTrain.bind(this);
     this.updateCompanyData=this.updateCompanyData.bind(this);
+    this.updateContract=this.updateContract.bind(this);
     this.state = { 
       companyData: JSON.parse(localStorage.getItem('companyData')) || _INITIAL_COMPANYDATA,
       activeTrains: JSON.parse(localStorage.getItem('funFactsActiveTrains')) || null
@@ -31,23 +32,42 @@ class App extends Component {
     if (!purchased) {
        //check if enough money
         if (companyData[0].financials.cash >= trainCost) {
+            //purchase train-update cash
             let newArray = [...this.state.companyData];
             newArray[0].financials.cash -= trainCost;
+            //add train to state
             newArray[0].trains.push({ id: trainId });
-            this.setState({ companyData: newArray });
+            this.updateCompanyData(newArray);
         } else {
             return alert('Not enough cash available to purchase train.');
         }
     } else {
-        let newArray = [...this.state.companyData];
+        //sell train-update cash
+        const newArray = [...this.state.companyData];
         newArray[0].financials.cash += trainCost;
-        let newTrainsArray = newArray[0].trains.filter(train => train.id !== trainId);
+        //remove train from state
+        const newTrainsArray = newArray[0].trains.filter(train => train.id !== trainId);
         newArray[0].trains = newTrainsArray;
-        this.setState({ companyData : newArray });
+        this.updateCompanyData(newArray);
     }
   }
   updateCompanyData(companyData) {
     this.setState({ companyData : companyData });
+  }
+  updateContract(contractObj) {
+    const companyDataCopy = [...this.state.companyData];
+    const compContracts = companyDataCopy[0].contracts;
+    const newContractArray = compContracts.map(contract => {
+      let returnValue = {...contract};
+    
+      if (contract.id == contractObj.id) {
+        returnValue = contractObj;
+      }
+    
+      return returnValue
+    });
+    companyDataCopy[0].contracts = newContractArray;
+    this.updateCompanyData(companyDataCopy);
   }
   render() {
     let companyTrains;
@@ -66,9 +86,8 @@ class App extends Component {
       const contractIndex = contracts.findIndex(contract => contract.pathName == name);
       
       //call contract info screen with contractObj
-      return <ContractInfoCard contractObj={contracts[contractIndex]} history={routeProps.history}/>
+      return <ContractInfoCard contractObj={contracts[contractIndex]} updateContract={this.updateContract} history={routeProps.history}/>
     }
-        
     return ( 
       <div className="App">
           <Switch>

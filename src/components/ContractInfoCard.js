@@ -25,11 +25,10 @@ class ContractInfoCard extends Component {
         };
     }
     updateContractStatus() {
-        companyData = JSON.parse(localStorage.getItem('companyData'));
-        const contract = companyData.contracts.find(contract => contract.id === this.props.contractObj.id);
+        const contract = this.props.contractObj;
         contract.status = 'started';
         console.log('after', companyData);
-        this.syncLocalStorage();       
+        this.props.updateContract(contract);      
     }
     getCargoObj() {
         const cargoType = this.props.contractObj.cargo;
@@ -38,20 +37,21 @@ class ContractInfoCard extends Component {
         return cargoTypes[cargoIndex];
     }
     handleClick() {
-        companyData = JSON.parse(localStorage.getItem('companyData'));
-        const contract = companyData.contracts.find(contract => contract.id === this.props.contractObj.id);
+        console.log('handleclickcontractobj', this.props.contractObj);
+        const contract = Object.assign({}, this.props.contractObj);
+        console.log('hndclagt', contract);
         if (contract.status==='offered') {
-            const ind = companyData.contracts.findIndex(contract => this.props.contractObj.id === contract.id);
-            companyData.contracts[ind].status = 'accepted';
-            this.syncLocalStorage();
+            contract.status='accepted';
+            this.props.updateContract(contract);
         } else if (contract.status==='accepted') {
+            contract.status='started';
+            this.props.updateContract(contract);
             this.startTrain();
         } 
         this.setState({ change : true });     
     }
     getButtonText() {
-        companyData = JSON.parse(localStorage.getItem('companyData'));
-        const contract = companyData.contracts.find(contract => contract.id === this.props.contractObj.id);
+        const contract = this.props.contractObj;
         if (contract.status==='offered') return 'Accept Contract'; 
         if (contract.status==='accepted') return 'Start Train'; 
         if (contract.status==='started') return 'In Progress'; 
@@ -112,9 +112,7 @@ class ContractInfoCard extends Component {
         activeTrains.push(newObj);
 
         //update local storage
-        const ind = companyData.contracts.findIndex(contract => this.props.contractObj.id === contract.id);
-        companyData.contracts[ind].status = 'started'; 
-        this.syncLocalStorage();       
+             
         localStorage.setItem('funFactsActiveTrains', JSON.stringify(activeTrains));
         
         //back to train operations
