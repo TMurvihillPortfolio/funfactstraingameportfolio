@@ -11,7 +11,6 @@ class ContractListItem extends Component {
         this.props.handleContractListItemClick(this.props.contractObj);
     }
     render() { 
-        if (this.props.contractObj === undefined || this.props.contractObj === null) {return 'Train Completed Run.';}
         return ( 
             <div onClick={this.handleclick}>
                 {`${this.props.contractObj.cargo.toUpperCase()} -- 

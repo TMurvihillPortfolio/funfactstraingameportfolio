@@ -104,7 +104,7 @@ class OperationsDrawer extends Component {
                     <ListItemIcon>
                         <LabelIcon className={classes.labelIcon}/>
                     </ListItemIcon>
-                    <ContractListItem contractId={acceptedContract.id} handleContractListItemClick={this.handleContractListItemClick} 
+                    <ContractListItem contractObj={acceptedContract} handleContractListItemClick={this.handleContractListItemClick} 
                      listView/>
                 </ListItem>
             )

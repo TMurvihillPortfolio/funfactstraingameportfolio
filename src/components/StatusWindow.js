@@ -39,7 +39,7 @@ class StatusWindow extends Component {
         let lengthOfTrip = 0;
         const newTrains = this.props.activeTrains.map(train => {
             let newRight = train.right += 400/train.lengthOfTrip;
-            if (train.right >= 10) {
+            if (train.right >= 400) {
                 deleteId = train.id;
                 deleteContractId = train.contractId; 
                 lengthOfTrip = train.lengthOfTrip;             

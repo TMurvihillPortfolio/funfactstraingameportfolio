@@ -61,4 +61,45 @@ function getContractOffer(companyData) {
     companyData[0].contracts.push(newContract);
     return companyData;
 }
-export { getRandomCity, getContractOffer, syncLocalCompanyStorage, syncLocalActiveTrainStorage };
+function getLengthOfTrip(from, to) {
+    //Get trip distance between cities, data found in constants.js (_TRIP_LENGTHS)
+    function getDistance(city1, city2) {
+        for(let key in _TRIP_LENGTHS) {
+            if(key === city1) {
+                let cityList = _TRIP_LENGTHS[key];
+                for(let city in cityList) {
+                    if(city === city2) {
+                        return cityList[city];
+                    }
+                }
+            }
+        }
+        //if distance not found, switch city order and find again       
+        city1 = to;
+        city2 = from;
+        const distance = getDistance(city1, city2)
+        return distance !== undefined ? distance : 'Distance not found';
+    }
+    //Initialize variables
+    let distance;
+    let city1 = from;
+    let city2 = to;
+    
+    //find for distance
+    distance = getDistance(city1, city2); 
+    
+    //Error handling NOT YET IMPLEMENTED
+    if (distance===undefined) {           
+        return 'Distance between cities not found';
+    }
+
+    //return result
+    return distance;        
+}
+export { 
+    getRandomCity, 
+    getContractOffer, 
+    syncLocalCompanyStorage, 
+    syncLocalActiveTrainStorage,
+    getLengthOfTrip
+ };

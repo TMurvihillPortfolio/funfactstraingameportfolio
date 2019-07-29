@@ -5,8 +5,8 @@ import NavBar from './NavBar';
 import Divider from '@material-ui/core/Divider';
 //import companyData from '../assets/trainslist';
 import Button from '@material-ui/core/Button';
-import { _TRIP_LENGTHS as tripLengths } from '../assets/constants';
 import { _CARGO_TYPES as cargoTypes } from '../assets/constants';
+import { getLengthOfTrip } from '../assets/helpers';
 
 let companyData; 
 
@@ -16,7 +16,6 @@ class ContractInfoCard extends Component {
         this.getCargoObj = this.getCargoObj.bind(this);
         this.handleClick = this.handleClick.bind(this);
         this.getButtonText = this.getButtonText.bind(this);
-        this.getLengthOfTrip = this.getLengthOfTrip.bind(this);
         this.updateContractStatus = this.updateContractStatus.bind(this);
         this.syncLocalStorage = this.syncLocalStorage.bind(this);
         this.state = {
@@ -35,7 +34,6 @@ class ContractInfoCard extends Component {
         return cargoTypes[cargoIndex];
     }
     handleClick() {
-        console.log(this.props.contractObj);
         //Make copy of contract object
         const contract = Object.assign({}, this.props.contractObj);
         //update value
@@ -54,43 +52,6 @@ class ContractInfoCard extends Component {
         if (contract.status==='offered') return 'Accept Contract'; 
         if (contract.status==='accepted') return 'Start Train'; 
         if (contract.status==='started') return 'In Progress'; 
-    }
-    getLengthOfTrip() {
-        //Get trip distance between cities, data found in constants.js (_TRIP_LENGTHS)
-        function getDistance(city1, city2) {
-            for(let key in tripLengths) {
-                if(key === city1) {
-                    let cityList = tripLengths[key];
-                    for(let city in cityList) {
-                        if(city === city2) {
-                            return cityList[city];
-                        }
-                    }
-                }
-            }
-        }
-        //Initialize variables
-        let distance;
-        let city1 = this.props.contractObj.from;
-        let city2 = this.props.contractObj.to;
-        
-        //find for distance
-        distance = getDistance(city1, city2);
-
-        //if distance not found, switch city order and find again
-        if (distance===undefined) {
-            city1 = this.props.contractObj.to;
-            city2 = this.props.contractObj.from;
-            distance = getDistance(city1, city2);
-        } 
-        
-        //Error handling NOT YET IMPLEMENTED
-        if (distance===undefined) {           
-            return 'Distance between cities not found';
-        }
-
-        //return result
-        return distance;        
     }
     syncLocalStorage() {
         localStorage.setItem(
@@ -117,7 +78,7 @@ class ContractInfoCard extends Component {
                 <NavBar />
                 <h1>{cargo.toUpperCase()}</h1>
                 <h1>{from} to {to}</h1>
-                <h3>Payment: {`$${Math.round(this.getLengthOfTrip(from, to)*.25)}.00`}</h3>               
+                <h3>Payment: {`$${Math.round(getLengthOfTrip(from, to)*.25)}.00`}</h3>               
                 <img 
                     src={image} 
                     alt='contract cargo' 

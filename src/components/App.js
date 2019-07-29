@@ -8,7 +8,7 @@ import TrainOperations from './TrainOperations';
 import CompanyManagement from './CompanyManagement';
 import BuildRoute from './BuildRoute';
 import { _TRAIN_DETAILS, _INITIAL_COMPANYDATA } from '../assets/constants';
-import { getContractOffer } from '../assets/helpers';
+import { getContractOffer, getLengthOfTrip } from '../assets/helpers';
 
 class App extends Component {
   constructor(props) {
@@ -72,7 +72,7 @@ class App extends Component {
         contractId: contractObj.id,
         top: 8,
         right: 0,
-        lengthOfTrip: 350 //NOT YET IMPLEMENTED this.getLengthOfTrip()
+        lengthOfTrip: getLengthOfTrip(contractObj.from, contractObj.to)
     }
     //update state with new object
     activeTrains.push(newObj);       

@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react';
 import { withStyles } from "@material-ui/core/styles";
 import NavBar from './NavBar';
-import StatusWindow from './StatusWindow';
 import underConstruction from '../img/underConstruction.jpg';
 
 const styles = {
