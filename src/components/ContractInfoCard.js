@@ -5,7 +5,6 @@ import NavBar from './NavBar';
 import Divider from '@material-ui/core/Divider';
 //import companyData from '../assets/trainslist';
 import Button from '@material-ui/core/Button';
-import uuid from 'uuid';
 import { _TRIP_LENGTHS as tripLengths } from '../assets/constants';
 import { _CARGO_TYPES as cargoTypes } from '../assets/constants';
 
@@ -17,7 +16,6 @@ class ContractInfoCard extends Component {
         this.getCargoObj = this.getCargoObj.bind(this);
         this.handleClick = this.handleClick.bind(this);
         this.getButtonText = this.getButtonText.bind(this);
-        this.startTrain = this.startTrain.bind(this);
         this.getLengthOfTrip = this.getLengthOfTrip.bind(this);
         this.updateContractStatus = this.updateContractStatus.bind(this);
         this.syncLocalStorage = this.syncLocalStorage.bind(this);
@@ -46,7 +44,7 @@ class ContractInfoCard extends Component {
         } else if (contract.status==='accepted') {
             contract.status='started';
             this.props.updateContract(contract);
-            this.startTrain();
+            this.props.startTrain(this.props.contractObj, this.props.history);
         } 
         this.setState({ change : true });     
     }
@@ -99,25 +97,7 @@ class ContractInfoCard extends Component {
             JSON.stringify(companyData))
         ;
     }
-    startTrain() {
-        let activeTrains = JSON.parse(localStorage.getItem('funFactsActiveTrains')) || [];
-        const newObj = {
-            id: uuid(),
-            contractId: this.props.contractObj.id,
-            top: 8,
-            right: 0,
-            lengthOfTrip: this.getLengthOfTrip()
-        }
-        //update trains in state and storage
-        activeTrains.push(newObj);
-
-        //update local storage
-             
-        localStorage.setItem('funFactsActiveTrains', JSON.stringify(activeTrains));
-        
-        //back to train operations
-        this.props.history.push('/funfactstrains/trainoperations');                  
-    }
+    
     render() {        
         const myCargo = this.getCargoObj();
         const { image, cargoFacts } = myCargo;
