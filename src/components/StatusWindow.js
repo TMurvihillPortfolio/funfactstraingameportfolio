@@ -37,9 +37,9 @@ class StatusWindow extends Component {
         let deleteId = -1;
         let deleteContractId = '';
         let lengthOfTrip = 0;
-        const newTrains = this.state.activeTrains.map(train => {
+        const newTrains = this.props.activeTrains.map(train => {
             let newRight = train.right += 400/train.lengthOfTrip;
-            if (train.right >= 50) {
+            if (train.right >= 10) {
                 deleteId = train.id;
                 deleteContractId = train.contractId; 
                 lengthOfTrip = train.lengthOfTrip;             
@@ -47,42 +47,57 @@ class StatusWindow extends Component {
             return {...train, right: newRight};
         });
         if (deleteId===-1) {
-            this.setState({ activeTrains: newTrains },this.syncLocalStorage);
+            this.props.updateActiveTrains(newTrains);
         } else {
             this.completeActiveTrain(deleteId, deleteContractId, lengthOfTrip);
         }       
     }
     showNotification(deleteContractId) {
+        const contracts = this.props.companyData[0].contracts;
         const notification = document.querySelector('#notification');
-        const completedContract = companyData.contracts.find(contract => contract.id === deleteContractId);
+        const completedContract = contracts.find(
+            contract => contract.id === deleteContractId
+        );
         notification.innerText = `${completedContract.cargo.toUpperCase()}--${completedContract.from} to ${completedContract.to} completed its run.`;
         notification.style.transform = 'translateY(0)';
         setTimeout(() => notification.style.transform = 'translateY(60px)', 4000);
     }
     completeActiveTrain(deleteId, deleteContractId, lengthOfTrip) {
+        // show completed notification
         this.showNotification(deleteContractId);
-        const payment = Math.round(lengthOfTrip*.25);
-        this.setState(
-            st => ({ activeTrains: st.activeTrains.filter(train => train.id !== deleteId) }),
-            this.syncLocalActiveTrainStorage
-        );
-        companyData = JSON.parse(localStorage.getItem('companyData'));
-        let newArray = companyData.contracts.filter(contract => contract.id !== deleteContractId);
-        companyData.contracts = newArray;
-        companyData.financials.cash += payment;
-        this.syncLocalCompanyStorage();
+
+        // update activeTrains
+        const newTrains = this.props.activeTrains.filter(train => train.id !== deleteId);
+        this.props.updateActiveTrains(newTrains);
         
+        //copy companyData
+        const companyDataCopy = this.props.companyData;
+
+        //update cash
+        const payment = Math.round(lengthOfTrip*.25);
+        companyDataCopy[0].financials.cash += payment;
+
+        // delete contract
+        const newContractArray = companyDataCopy[0].contracts.filter(
+            contract => contract.id !== deleteContractId
+        );
+        companyDataCopy[0].contracts = newContractArray;
+        
+        // update state
+        this.props.updateCompanyData(companyDataCopy);       
     }
     componentWillUnmount() {
         this.syncLocalActiveTrainStorage();
     }
     render() { 
-        let activeTrains;
-        const contracts = Array.from(companyData[0].contracts);        
-        const {classes} = this.props;
-        if (this.state.activeTrains) {
+        const { classes, activeTrains, companyData } = this.props;
+        const { contracts } = companyData[0];
+        let activeTrainsDisplay;
+        console.log(activeTrains);
+        activeTrains.map(train=>console.log(train.id));
+        if (activeTrains !== undefined && activeTrains.length > 0) {
             //prepare an array that mixes infor from two props
-            const fullArray = this.state.activeTrains.map(train => {
+            const fullArray = activeTrains.map(train => {
                 const tempArray = [];
                 let tempTrain = {};               
                 contracts.map(contract => {
@@ -101,13 +116,13 @@ class StatusWindow extends Component {
                 return tempArray;
             });
             if (fullArray.length > 0 && fullArray[0].length > 0 ) {
-                activeTrains = fullArray.map((train,index) => 
+                activeTrainsDisplay = fullArray.map((train,index) => 
                     <div key={index} className={classes.progress}>
                         <div className={classes.progressTo}>{train[0].to}</div>                
                         <div className={classes.progressTrain}>
                             <ActiveTrain 
-                                right={this.state.activeTrains[index].right}
-                                top={this.state.activeTrains[index].top}                       
+                                right={activeTrains[index].right}
+                                top={activeTrains[index].top}                       
                                 updatePositions={this.updatePositions}
                                 className={classes.activeTrain}
                             />
@@ -122,7 +137,7 @@ class StatusWindow extends Component {
         return ( 
             <div className={classes.root}> <h2>Active Trains</h2>
                 <div>
-                    {activeTrains?activeTrains:<h4 style={
+                    {activeTrainsDisplay?activeTrainsDisplay:<h4 style={
                         {textAlign: 'center', marginLeft: '-25px'}
                     }>
                         No Active Trains at this time.

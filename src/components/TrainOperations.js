@@ -14,8 +14,6 @@ import OperationsDrawer from './OperationsDrawer';
 import StatusWindow from './StatusWindow';
 import { _INITIAL_COMPANYDATA } from '../assets/constants';
 
-// let companyData = {trains: [], contracts: []};
-
 class TrainOperations extends PureComponent {
   constructor(props) {
     super(props);
@@ -32,10 +30,8 @@ class TrainOperations extends PureComponent {
     this.setState({ open: false });
   }; 
   render() { 
-    const { classes, companyData } = this.props;
-    const { open, activeTrains } = this.state;
-    if (activeTrains !== null) console.log('stateactivetrops', activeTrains);
-        
+    const { classes, companyData, activeTrains } = this.props;
+    const { open } = this.state;
     return (
       <div className={classes.drawerContainer}>
         <CssBaseline />
@@ -61,7 +57,12 @@ class TrainOperations extends PureComponent {
         {open ? <OperationsDrawer routeHistory={this.props.history} handleDrawerClose={this.handleDrawerClose} companyData={companyData}/> : ''}
         <div className={classes.root}>
             <h1 className={open?classes.TrainOperationsHeaderOpen:classes.TrainOperationsHeaderOpenClosed}>Train Operations</h1>            
-            {/* <StatusWindow key='001'/> */}
+            <StatusWindow 
+              activeTrains={activeTrains} 
+              companyData={this.props.companyData} 
+              updateActiveTrains={this.props.updateActiveTrains} 
+              updateCompanyData={this.props.updateCompanyData}
+            />
         </div> 
       </div>
     );

@@ -17,15 +17,23 @@ class App extends Component {
     this.startTrain=this.startTrain.bind(this);
     this.updateCompanyData=this.updateCompanyData.bind(this);
     this.updateContract=this.updateContract.bind(this);
+    this.updateActiveTrains=this.updateActiveTrains.bind(this);
     this.state = { 
       companyData: JSON.parse(localStorage.getItem('companyData')) || _INITIAL_COMPANYDATA,
       activeTrains: JSON.parse(localStorage.getItem('funFactsActiveTrains')) || []
     }
   }
   componentDidMount() {
+    //add contract offer to state
     const newCompanyData = getContractOffer(this.state.companyData);
-    const updateData = () => (setInterval(() => getContractOffer(this.state.companyData), 180000), this.updateCompanyData(updateData));
     this.updateCompanyData(newCompanyData);
+
+    //call add new contract every 6 seconds
+    const updateData = () => (
+      setInterval(
+        () => getContractOffer(this.state.companyData), 180000
+      ), this.updateCompanyData(updateData)
+    );
   }
   buySellTrain(trainObj, purchased) {
     //initialize variables
@@ -61,7 +69,7 @@ class App extends Component {
     //create new object
     const newObj = {
         id: uuid(),
-        contractId: contractObj.Id,
+        contractId: contractObj.id,
         top: 8,
         right: 0,
         lengthOfTrip: 350 //NOT YET IMPLEMENTED this.getLengthOfTrip()
@@ -91,11 +99,15 @@ class App extends Component {
   updateCompanyData(companyData) {
     this.setState({ companyData : companyData });
   }
+  updateActiveTrains(activeTrains) {
+    this.setState({ activeTrains : activeTrains });
+  }
   render() {
-    let companyTrains;
-    let contracts;
+    let companyTrains, contracts, activeTrains;
     this.state.companyData[0].trains === undefined ? companyTrains = [] : companyTrains = [...this.state.companyData[0].trains];
     this.state.companyData[0].contracts === undefined ? contracts = [] : contracts = [...this.state.companyData[0].contracts];
+    this.state.activeTrains === undefined ? activeTrains = [] : activeTrains = [...this.state.activeTrains];
+    
     const trains = _TRAIN_DETAILS;
     const getTrain = props => {
       let name = props.match.params.trainpathname;
@@ -125,9 +137,9 @@ class App extends Component {
     return ( 
       <div className="App">
           <Switch>
-            <Route exact path='/' render={(routeProps) => <TrainOperations companyData={this.state.companyData} {...routeProps} updateCompanyData={this.updateCompanyData}/>}/>       
-            <Route exact path='/funfactstrains' render={(routeProps) => <TrainOperations companyData={this.state.companyData} {...routeProps} updateCompanyData={this.updateCompanyData}/>}/>       
-            <Route exact path='/funfactstrains/trainoperations' render={(routeProps) => <TrainOperations companyData={this.state.companyData} {...routeProps} updateCompanyData={this.updateCompanyData}/>}/>        
+            <Route exact path='/' render={(routeProps) => <TrainOperations companyData={this.state.companyData} activeTrains={this.state.activeTrains} updateActiveTrains={this.updateActiveTrains} {...routeProps} updateCompanyData={this.updateCompanyData}/>}/>       
+            <Route exact path='/funfactstrains' render={(routeProps) => <TrainOperations companyData={this.state.companyData} activeTrains={this.state.activeTrains} updateActiveTrains={this.updateActiveTrains} {...routeProps} updateCompanyData={this.updateCompanyData}/>}/>       
+            <Route exact path='/funfactstrains/trainoperations' render={(routeProps) => <TrainOperations companyData={this.state.companyData} activeTrains={activeTrains} updateActiveTrains={this.updateActiveTrains} {...routeProps} updateCompanyData={this.updateCompanyData}/>}/>        
             <Route exact path='/funfactstrains/companymanagement' render={(routeProps) => <CompanyManagement {...routeProps}/>}/>       
             <Route exact path='/funfactstrains/buildroute' render={(routeProps) => <BuildRoute {...routeProps}/>}/>       
             <Route exact path='/funfactstrains/trains/:trainpathname' render={getTrain}/>     

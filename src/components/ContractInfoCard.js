@@ -35,18 +35,19 @@ class ContractInfoCard extends Component {
         return cargoTypes[cargoIndex];
     }
     handleClick() {
-        console.log('handleclickcontractobj', this.props.contractObj);
+        console.log(this.props.contractObj);
+        //Make copy of contract object
         const contract = Object.assign({}, this.props.contractObj);
-        console.log('hndclagt', contract);
+        //update value
         if (contract.status==='offered') {
             contract.status='accepted';
             this.props.updateContract(contract);
+        //update value and start train
         } else if (contract.status==='accepted') {
             contract.status='started';
             this.props.updateContract(contract);
             this.props.startTrain(this.props.contractObj, this.props.history);
-        } 
-        this.setState({ change : true });     
+        }    
     }
     getButtonText() {
         const contract = this.props.contractObj;

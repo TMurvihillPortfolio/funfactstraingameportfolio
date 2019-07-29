@@ -80,8 +80,6 @@ class OperationsDrawer extends Component {
     render() { 
         const { classes, companyData } = this.props;
         const { contracts, trains } = this.props.companyData[0];
-        console.log('opsdrawercompdata', companyData);
-        console.log('opsdrawertrains', trains);
         const compTrains = [];
               
         if (trains !== undefined) {     
@@ -93,8 +91,7 @@ class OperationsDrawer extends Component {
                 })
             });
         }
-        console.log(contracts);
-
+        
         const currentContracts = contracts
             .filter(contract => contract.status === 'accepted' || contract.status === 'started')
             .map(acceptedContract => 
@@ -112,9 +109,6 @@ class OperationsDrawer extends Component {
                 </ListItem>
             )
         ;
-        contracts.map(contract => console.log(contract.id));
-        contracts
-            .filter(contract => contract.status === 'offered').map(offerContract => console.log(offerContract.id));
         const offers = contracts
             .filter(contract => contract.status === 'offered')
             .map(offerContract => 
@@ -176,7 +170,6 @@ class OperationsDrawer extends Component {
                 "Under Construction--All routes available."
             </ListItem>
         ;
-        console.log('offers', offers);
         return ( 
             <div>
                 <Drawer
