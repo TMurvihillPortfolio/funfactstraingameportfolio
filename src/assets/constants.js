@@ -7,6 +7,17 @@ import coal from '../img/coal.jpg';
 import milk from '../img/milk.jpg';
 
 const _DRAWER_WIDTH = 250;
+const _MEDIA_QUERIES = {
+    down(size){
+        const sizes = {
+            xs: '576px',
+            sm: '768px',
+            md: '992px',
+            lg: '1200px'
+        }
+        return `@media (max-width: ${sizes[size]})`
+    }
+}
 const _TRAIN_DETAILS = [
     {
         trainId: '0001-illcent201',
@@ -143,5 +154,6 @@ export {
     _TRAIN_DETAILS, 
     _CARGO_TYPES, 
     _CITY_ABBR, 
-    _INITIAL_COMPANYDATA
+    _INITIAL_COMPANYDATA,
+    _MEDIA_QUERIES
 };

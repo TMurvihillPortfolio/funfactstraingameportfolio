@@ -9,9 +9,6 @@ class StatusWindow extends Component {
     constructor(props) {
         super(props);
         let funFactsActiveTrains;
-        // if (localStorage.getItem('funFactsActiveTrains') !== null) {
-        //     funFactsActiveTrains = [...JSON.parse(localStorage.getItem('funFactsActiveTrains'))];
-        // }
         this.updatePositions=this.updatePositions.bind(this); 
         this.completeActiveTrain=this.completeActiveTrain.bind(this); 
         this.syncLocalActiveTrainStorage=this.syncLocalActiveTrainStorage.bind(this); 

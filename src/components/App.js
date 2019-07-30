@@ -36,10 +36,9 @@ class App extends Component {
       // Cancel the event as stated by the standard.
       event.preventDefault();
       // sync local storage
-      syncLocalStorageActiveTrains(this.state.activeTrains);
-      syncLocalStorageCompanyData(this.state.companyData);
-      // Chrome requires returnValue to be set.
-      event.returnValue = '';
+      //syncLocalStorageActiveTrains(this.state.activeTrains);
+      //syncLocalStorageCompanyData(this.state.companyData);
+      
     });
     //add contract offer to state
     const newCompanyData = getContractOffer(this.state.companyData);
@@ -124,9 +123,12 @@ class App extends Component {
     // syncLocalStorageCompanyData(JSON.stringify(this.state.activeTrains));
   }
   render() {
+    console.log(this.state.companyData);
+    const companyData = this.state.companyData[0];
+    console.log(companyData.contracts);
     let companyTrains, contracts, activeTrains;
-    this.state.companyData[0].trains === undefined ? companyTrains = [] : companyTrains = [...this.state.companyData[0].trains];
-    this.state.companyData[0].contracts === undefined ? contracts = [] : contracts = [...this.state.companyData[0].contracts];
+    companyData.trains === undefined ? companyTrains = [] : companyTrains = [...companyData.trains];
+    companyData.contracts === undefined ? contracts = [] : contracts = [...companyData.contracts];
     this.state.activeTrains === undefined ? activeTrains = [] : activeTrains = [...this.state.activeTrains];
     
     const trains = _TRAIN_DETAILS;

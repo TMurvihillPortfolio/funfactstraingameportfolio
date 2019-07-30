@@ -1,3 +1,4 @@
+import { _MEDIA_QUERIES } from '../assets/constants';
 export default {
     NavBar: {
         backgroundColor: '#a74227',
@@ -13,12 +14,15 @@ export default {
     }, 
     links: {
         display: 'flex',
+        [_MEDIA_QUERIES.down('md')]: {
+            display: 'none'
+        },
         flexDirection: 'row',
         justifyContent: 'space-evenly',
         "& a": {
             textDecoration: 'none',
-            fontSize: '20px',
-            padding: '5px 15px',
+            fontSize: '17px',
+            padding: '5px 12px',
             color: '#f7f6f5',
             borderBottom: '1px solid transparent',
             transition: 'all 1s ease-in-out'           
@@ -29,7 +33,7 @@ export default {
     },
     selectContainer: {
         listStyle: 'none',
-        fontSize: '20px',
+        fontSize: '17px',
         transform: 'translateY(-15px)',
         cursor: 'pointer',
         position: 'relative',
@@ -56,5 +60,25 @@ export default {
         '&:hover': {
             border: 'none'
         }
+    },
+    showMobileMenu: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'flex-end',
+        position: 'absolute',
+        width: '166px',
+        right: '0',
+        textAlign: 'right',      
+        top: '0',
+        backgroundColor: 'lightgrey'
+    },
+    mobileMenu: {
+        display: 'none',
+        [_MEDIA_QUERIES.down('md')]: {
+            display: 'flex'
+        },
+        marginLeft: '500px',
+        position: 'absolute',
+        right: '0'
     }
 }

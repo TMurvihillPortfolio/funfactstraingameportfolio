@@ -80,6 +80,7 @@ class OperationsDrawer extends Component {
     render() { 
         const { classes, companyData } = this.props;
         const { contracts, trains } = this.props.companyData[0];
+        
         const compTrains = [];
               
         if (trains !== undefined) {     
