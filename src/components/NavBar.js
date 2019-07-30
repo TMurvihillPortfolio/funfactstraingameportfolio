@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import styles from '../styles/NavBarStyles';
 import { NavLink } from 'react-router-dom';
-import logowText from '../img/logowText.png';
+import logo from '../img/logo.jpg';
 import {withStyles} from '@material-ui/core';
 
 class NavBar extends PureComponent {
@@ -27,7 +27,7 @@ class NavBar extends PureComponent {
         return ( 
             <nav className={classes.NavBar}>               
                 <div className={classes.links}> 
-                    <NavLink className={classes.logo} to='/'><img src={logowText} alt='logo Fun Facts Train Game'/></NavLink>   
+                    <NavLink className={classes.logo} to='/'><img src={logo} alt='logo Fun Facts Train Game'/></NavLink>   
                     <NavLink to='/funfactstrains/trainoperations'>Train Operations</NavLink>
                     <NavLink to='/funfactstrains/companymanagement'>Company Management</NavLink>
                     <NavLink to='/funfactstrains/buildroute'>Build Route</NavLink>                    

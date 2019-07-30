@@ -32,6 +32,15 @@ class App extends Component {
     }
   }
   componentDidMount() {
+    window.addEventListener('beforeunload', (event) => {
+      // Cancel the event as stated by the standard.
+      event.preventDefault();
+      // sync local storage
+      syncLocalStorageActiveTrains(JSON.stringify(this.state.companyData));
+      syncLocalStorageCompanyData(JSON.stringify(this.state.activeTrains));
+      // Chrome requires returnValue to be set.
+      event.returnValue = '';
+    });
     //add contract offer to state
     const newCompanyData = getContractOffer(this.state.companyData);
     this.updateCompanyData(newCompanyData);

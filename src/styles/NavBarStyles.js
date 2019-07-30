@@ -7,10 +7,8 @@ export default {
         marginLeft: '-15px'
     },
     logo: {
-        height: '100%',
         '& img': {
-            height: '100%',
-            width: '100px',
+            width: '50px',
         }       
     }, 
     links: {
