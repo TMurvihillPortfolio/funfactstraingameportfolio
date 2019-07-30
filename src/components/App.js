@@ -36,8 +36,8 @@ class App extends Component {
       // Cancel the event as stated by the standard.
       event.preventDefault();
       // sync local storage
-      syncLocalStorageActiveTrains(JSON.stringify(this.state.companyData));
-      syncLocalStorageCompanyData(JSON.stringify(this.state.activeTrains));
+      syncLocalStorageActiveTrains(this.state.companyData);
+      syncLocalStorageCompanyData(this.state.activeTrains);
       // Chrome requires returnValue to be set.
       event.returnValue = '';
     });
@@ -120,8 +120,8 @@ class App extends Component {
     this.setState({ activeTrains : activeTrains });
   }
   componentWillUnmount() {
-    syncLocalStorageActiveTrains(JSON.stringify(this.state.companyData));
-    syncLocalStorageCompanyData(JSON.stringify(this.state.activeTrains));
+    // syncLocalStorageActiveTrains(JSON.stringify(this.state.companyData));
+    // syncLocalStorageCompanyData(JSON.stringify(this.state.activeTrains));
   }
   render() {
     let companyTrains, contracts, activeTrains;
