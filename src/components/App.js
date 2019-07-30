@@ -36,8 +36,8 @@ class App extends Component {
       // Cancel the event as stated by the standard.
       event.preventDefault();
       // sync local storage
-      syncLocalStorageActiveTrains(this.state.companyData);
-      syncLocalStorageCompanyData(this.state.activeTrains);
+      syncLocalStorageActiveTrains(this.state.activeTrains);
+      syncLocalStorageCompanyData(this.state.companyData);
       // Chrome requires returnValue to be set.
       event.returnValue = '';
     });
