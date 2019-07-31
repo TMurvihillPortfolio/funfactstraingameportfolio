@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import { withStyles } from "@material-ui/core/styles";
 import NavBar from './NavBar';
 import underConstruction from '../img/underConstruction.jpg';
+import { _MEDIA_QUERIES } from '../assets/constants';
 
 const styles = {
     TrainOperationsHeader: {
@@ -13,12 +14,18 @@ const styles = {
         margin: 'auto',
         marginTop: 0,
         borderRadius: '7px',
+        [_MEDIA_QUERIES.down('sm')]: {
+            fontSize: '14px'
+        }
     },
     trainImageCSS: {
         borderRadius: '7px',
         margin: '40px',
         boxShadow: '10px 10px 15px 4px #333',
-        height: '500px'
+        width: '500px',
+        [_MEDIA_QUERIES.down('sm')]: {
+            width: '200px'
+        }
     }
 }
 

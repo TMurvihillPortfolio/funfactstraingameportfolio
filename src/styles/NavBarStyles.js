@@ -88,7 +88,8 @@ export default {
     mobileMenu: {
         display: 'none',
         [_MEDIA_QUERIES.down('md')]: {
-            display: 'flex'
+            display: 'flex',
+            backgroundColor: '#a74227'
         },
         alignItems: 'center',
         justifyContent: 'flex-end'

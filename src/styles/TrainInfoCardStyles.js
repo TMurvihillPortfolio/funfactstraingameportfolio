@@ -1,3 +1,4 @@
+import { _MEDIA_QUERIES } from '../assets/constants';
 export default {
     TrainInfoCardCSS: {
         backgroundColor: 'lightsalmon',
@@ -9,13 +10,17 @@ export default {
         borderRadius: '7px'
     },
     trainImageCSS: {
+        marginTop: '40px',
+        marginBottom: '40px',
         borderRadius: '7px',
-        margin: '40px',
-        boxShadow: '10px 10px 15px 4px #333'
+        boxShadow: '10px 10px 15px 4px #333',
+        [_MEDIA_QUERIES.down('xs')]: {
+            width: '200px'
+        }
     },
     factList: {
         listStyle: 'none',
-        marginLeft: '-40px'
+        padding: '20px'
     },
     factItem: {       
     },
