@@ -7,7 +7,8 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+
 //coder created
 import NavBar from './NavBar';
 import OperationsDrawer from './OperationsDrawer';
@@ -49,14 +50,15 @@ class TrainOperations extends PureComponent {
             edge="start"
             className={clsx(classes.menuButton, open && classes.hide)}
           >
-            <MenuIcon />
+            <ChevronRightIcon />
+            <p style={{ fontSize: '12px'}}>Train Operations</p>
           </IconButton>
           <NavBar />
         </Toolbar>
       </AppBar>
         {open ? <OperationsDrawer routeHistory={this.props.history} handleDrawerClose={this.handleDrawerClose} companyData={companyData}/> : ''}
         <div className={classes.root}>
-            <h1 className={open?classes.TrainOperationsHeaderOpen:classes.TrainOperationsHeaderOpenClosed}>Train Operations</h1>            
+            {/* <h1 className={open?classes.TrainOperationsHeaderOpen:classes.TrainOperationsHeaderOpenClosed}>Train Operations</h1>             */}
             <StatusWindow 
               activeTrains={activeTrains} 
               companyData={this.props.companyData} 

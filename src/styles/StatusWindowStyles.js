@@ -1,13 +1,23 @@
+import { _MEDIA_QUERIES } from '../assets/constants';
 export default {
     root: {
         height: '200px',
-        width: '800px',
+        width: '650px',
         position: 'fixed',
         bottom: 0,
         right: 0,
         border: '7px double #a74227',
         borderRadius: '10px',
-        backgroundImage: 'linear-gradient(rgba(250,244,216,.8), rgba(250,244,216,.8))'
+        backgroundImage: 'linear-gradient(rgba(250,244,216,.8), rgba(250,244,216,.8))',
+        [_MEDIA_QUERIES.down('md')]: {
+            width: '500px'
+        },
+        [_MEDIA_QUERIES.down('sm')]: {
+            transform: 'rotate(-90deg)',
+            transformOrigin: 'right top',
+            top: '65px',
+            right: '200px'
+        }
     },
     progress: {
         display: 'flex',

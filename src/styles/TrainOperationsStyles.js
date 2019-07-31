@@ -1,4 +1,4 @@
-import {_DRAWER_WIDTH as drawerWidth} from '../assets/constants';
+import { _MEDIA_QUERIES, _DRAWER_WIDTH as drawerWidth} from '../assets/constants';
 import backgroundMap from '../img/usmap1930NewYorkChicagowNames.jpg';
 export default theme => ({
     root: {
@@ -19,8 +19,12 @@ export default theme => ({
         backgroundColor: '#a74227'
       },
       appBarShift: {
-        width: `calc(100% - ${drawerWidth}px)`,
+        width: `calc(100% - ${drawerWidth}px)`,        
         marginLeft: drawerWidth-100,
+        [_MEDIA_QUERIES.down('xs')]: {
+          width: '100%',
+          marginLeft: 0,
+        },
         transition: theme.transitions.create(['margin', 'width'], {
           easing: theme.transitions.easing.easeOut,
           duration: theme.transitions.duration.enteringScreen,
@@ -63,11 +67,23 @@ export default theme => ({
         backgroundColor: '#c79382',
         fontFamily: 'algerian, sans-serif',
         fontSize: '36px',
-        width: `calc(60% - ${drawerWidth}px)`,
+        
+        width: 'fit-content',
+        padding: '7px 10px',
         marginLeft: drawerWidth + 225,
-        marginTop: 0,
+        marginTop: '40px',
+        [_MEDIA_QUERIES.down('md')]: {
+          marginTop: '25px',
+          fontSize: '24px',
+          //width: `calc(50% - ${drawerWidth}px)`,
+        },
+        [_MEDIA_QUERIES.down('sm')]: {
+          marginTop: '-10px',
+          fontSize: '14px',
+          //width: `calc(50% - ${drawerWidth}px)`,
+        },
         borderRadius: '7px',
-    },    
+    },
     nested: {
       paddingLeft: theme.spacing(4),
     },

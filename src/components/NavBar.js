@@ -65,7 +65,7 @@ class NavBar extends PureComponent {
     render() { 
         const { classes } = this.props;
         return (
-            <div>
+            <div className={classes.root}>
             <nav className={classes.NavBar} id='navBar'>               
                 {/* <div className={classes.links} id='links'>  */}
                     {/* <NavLink className={classes.logo} to='/'><img src={logo} alt='logo Fun Facts Train Game'/></NavLink>   

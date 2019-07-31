@@ -1,5 +1,8 @@
 import { _MEDIA_QUERIES } from '../assets/constants';
 export default {
+    root: {
+        width: '100%'
+    },
     NavBar: {
         backgroundColor: '#a74227',
         display: 'flex',
@@ -87,8 +90,7 @@ export default {
         [_MEDIA_QUERIES.down('md')]: {
             display: 'flex'
         },
-        marginLeft: '500px',
-        position: 'absolute',
-        right: '0'
+        alignItems: 'center',
+        justifyContent: 'flex-end'
     }
 }
