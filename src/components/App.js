@@ -7,7 +7,14 @@ import ContractInfoCard from './ContractInfoCard';
 import TrainOperations from './TrainOperations';
 import CompanyManagement from './CompanyManagement';
 import BuildRoute from './BuildRoute';
-import { _TRAIN_DETAILS, _INITIAL_COMPANYDATA } from '../assets/constants';
+import 
+  { 
+    _TRAIN_DETAILS, 
+    _INITIAL_COMPANYDATA, 
+    _CONTRACTOFFER_INTERVAL 
+  } 
+  from '../assets/constants'
+;
 import 
   { 
     getContractOffer, 
@@ -32,24 +39,25 @@ class App extends Component {
     }
   }
   componentDidMount() {
+    //update local storage on window close
     window.addEventListener('beforeunload', (event) => {
       // Cancel the event as stated by the standard.
       event.preventDefault();
       // sync local storage
       syncLocalStorageActiveTrains(this.state.activeTrains);
-      syncLocalStorageCompanyData(this.state.companyData);
-      
+      syncLocalStorageCompanyData(this.state.companyData);      
     });
+
     //add contract offer to state
-    let newCompanyData = getContractOffer(this.state.companyData);
-    
+    let newCompanyData = getContractOffer(this.state.companyData);    
     this.updateCompanyData(newCompanyData);
 
-    //call add new contract every 6 seconds
-      setInterval(
-        () => { 
-          newCompanyData = getContractOffer(this.state.companyData);
-          this.updateCompanyData(newCompanyData); }, 30000);
+    //call add new contract offer at interval set in the constants file
+    setInterval(() => { 
+        newCompanyData = getContractOffer(this.state.companyData);
+        this.updateCompanyData(newCompanyData); 
+      }, _CONTRACTOFFER_INTERVAL
+    );
   }
   buySellTrain(trainObj, purchased) {
     //initialize variables
@@ -59,48 +67,58 @@ class App extends Component {
     if (!purchased) {
        //check if enough money
         if (companyData[0].financials.cash >= trainCost) {
-            //update cash
+            //copy state
             let newArray = [...this.state.companyData];
+            //update cash
             newArray[0].financials.cash -= trainCost;
-            //add train to state
+            //add train
             newArray[0].trains.push({ id: trainId });
+            //update state
             this.updateCompanyData(newArray);
         } else {
             return alert('Not enough cash available to purchase train.');
         }
     //sell train    
     } else {
-        //update cash
-        const newArray = [...this.state.companyData];
-        newArray[0].financials.cash += trainCost;
-        //remove train from state
-        const newTrainsArray = newArray[0].trains.filter(train => train.id !== trainId);
-        newArray[0].trains = newTrainsArray;
-        this.updateCompanyData(newArray);
+      //copy state
+      const newArray = [...this.state.companyData];
+      //update cash
+      newArray[0].financials.cash += trainCost;
+      //remove train
+      newArray[0].trains = newArray[0].trains.filter(train => train.id !== trainId);
+      //update state
+      this.updateCompanyData(newArray);
     }
   }
-  startTrain(contractObj, routeHistory) {
-    //copy state
-    const activeTrains = [...this.state.activeTrains] || [];
-    //create new object
-    const newObj = {
+  startTrain(contractObj, routeHistory) {   
+    //create new active train
+    const newActiveTrain = {
         id: uuid(),
         contractId: contractObj.id,
         top: 8,
         right: 0,
         lengthOfTrip: getLengthOfTrip(contractObj.from, contractObj.to)
     }
-    //update state with new object
-    activeTrains.push(newObj);       
+    //copy state
+    const activeTrains = [...this.state.activeTrains] || [];
+    //add new active train
+    activeTrains.push(newActiveTrain);
+    //update state       
     this.updateActiveTrains(activeTrains);
     //back to train operations
     routeHistory.push('/funfactstrains/trainoperations');                  
   } 
+  updateCompanyData(companyData) {
+    this.setState({ companyData : companyData });
+  }
+  updateActiveTrains(activeTrains) {
+    this.setState({ activeTrains : activeTrains });
+  }
   updateContract(contractObj) {
     //copy state
     const companyDataCopy = [...this.state.companyData];
     const compContracts = companyDataCopy[0].contracts;
-    //create new object
+    //create new contracts object
     const newContractArray = compContracts.map(contract => {
       let returnValue = {...contract};   
       if (contract.id === contractObj.id) {
@@ -108,16 +126,11 @@ class App extends Component {
       }    
       return returnValue
     });
-    //update state with new object
+    //update contracts with new contracts object
     companyDataCopy[0].contracts = newContractArray;
+    //update state
     this.updateCompanyData(companyDataCopy);
-  }
-  updateCompanyData(companyData) {
-    this.setState({ companyData : companyData });
-  }
-  updateActiveTrains(activeTrains) {
-    this.setState({ activeTrains : activeTrains });
-  }
+  } 
   render() {
     const companyData = this.state.companyData[0];
     let companyTrains, contracts, activeTrains;

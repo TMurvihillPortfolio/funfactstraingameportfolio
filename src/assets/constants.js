@@ -7,6 +7,7 @@ import coal from '../img/coal.jpg';
 import milk from '../img/milk.jpg';
 
 const _DRAWER_WIDTH = 250;
+const _CONTRACTOFFER_INTERVAL = 45000;
 const _MEDIA_QUERIES = {
     down(size){
         const sizes = {
@@ -155,5 +156,6 @@ export {
     _CARGO_TYPES, 
     _CITY_ABBR, 
     _INITIAL_COMPANYDATA,
-    _MEDIA_QUERIES
+    _MEDIA_QUERIES,
+    _CONTRACTOFFER_INTERVAL
 };
