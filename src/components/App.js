@@ -36,20 +36,20 @@ class App extends Component {
       // Cancel the event as stated by the standard.
       event.preventDefault();
       // sync local storage
-      //syncLocalStorageActiveTrains(this.state.activeTrains);
-      //syncLocalStorageCompanyData(this.state.companyData);
+      syncLocalStorageActiveTrains(this.state.activeTrains);
+      syncLocalStorageCompanyData(this.state.companyData);
       
     });
     //add contract offer to state
-    const newCompanyData = getContractOffer(this.state.companyData);
+    let newCompanyData = getContractOffer(this.state.companyData);
+    
     this.updateCompanyData(newCompanyData);
 
     //call add new contract every 6 seconds
-    const updateData = () => (
       setInterval(
-        () => getContractOffer(this.state.companyData), 180000
-      ), this.updateCompanyData(updateData)
-    );
+        () => { 
+          newCompanyData = getContractOffer(this.state.companyData);
+          this.updateCompanyData(newCompanyData); }, 30000);
   }
   buySellTrain(trainObj, purchased) {
     //initialize variables
@@ -118,14 +118,8 @@ class App extends Component {
   updateActiveTrains(activeTrains) {
     this.setState({ activeTrains : activeTrains });
   }
-  componentWillUnmount() {
-    // syncLocalStorageActiveTrains(JSON.stringify(this.state.companyData));
-    // syncLocalStorageCompanyData(JSON.stringify(this.state.activeTrains));
-  }
   render() {
-    console.log(this.state.companyData);
     const companyData = this.state.companyData[0];
-    console.log(companyData.contracts);
     let companyTrains, contracts, activeTrains;
     companyData.trains === undefined ? companyTrains = [] : companyTrains = [...companyData.trains];
     companyData.contracts === undefined ? contracts = [] : contracts = [...companyData.contracts];

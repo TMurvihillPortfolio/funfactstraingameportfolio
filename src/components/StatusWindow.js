@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import styles from '../styles/StatusWindowStyles';
 import { withStyles } from "@material-ui/core/styles";
 import ActiveTrain from './ActiveTrain';
+import { _CITY_ABBR } from '../assets/constants';
 
-let companyData = JSON.parse(localStorage.getItem('companyData'));
+//let companyData = JSON.parse(localStorage.getItem('companyData'));
 
 class StatusWindow extends Component {
     constructor(props) {
@@ -11,25 +12,25 @@ class StatusWindow extends Component {
         let funFactsActiveTrains;
         this.updatePositions=this.updatePositions.bind(this); 
         this.completeActiveTrain=this.completeActiveTrain.bind(this); 
-        this.syncLocalActiveTrainStorage=this.syncLocalActiveTrainStorage.bind(this); 
-        this.syncLocalCompanyStorage=this.syncLocalCompanyStorage.bind(this); 
+        // this.syncLocalActiveTrainStorage=this.syncLocalActiveTrainStorage.bind(this); 
+        // this.syncLocalCompanyStorage=this.syncLocalCompanyStorage.bind(this); 
         this.showNotification=this.showNotification.bind(this);
         this.state = {
             activeTrains: funFactsActiveTrains || false         
          }
     }
-    syncLocalActiveTrainStorage() {
-        localStorage.setItem(
-            'funFactsActiveTrains', 
-            JSON.stringify(this.state.activeTrains))
-        ;
-    }
-    syncLocalCompanyStorage() {
-        localStorage.setItem(
-            'companyData', 
-            JSON.stringify(companyData))
-        ;
-    }
+    // syncLocalActiveTrainStorage() {
+    //     localStorage.setItem(
+    //         'funFactsActiveTrains', 
+    //         JSON.stringify(this.state.activeTrains))
+    //     ;
+    // }
+    // syncLocalCompanyStorage(companyData) {
+    //     localStorage.setItem(
+    //         'companyData', 
+    //         JSON.stringify(companyData))
+    //     ;
+    // }
     updatePositions() {
         let deleteId = -1;
         let deleteContractId = '';
@@ -84,14 +85,12 @@ class StatusWindow extends Component {
         this.props.updateCompanyData(companyDataCopy);       
     }
     componentWillUnmount() {
-        this.syncLocalActiveTrainStorage();
+        //this.syncLocalActiveTrainStorage();
     }
     render() { 
         const { classes, activeTrains, companyData } = this.props;
         const { contracts } = companyData[0];
         let activeTrainsDisplay;
-        console.log(activeTrains);
-        activeTrains.map(train=>console.log(train.id));
         if (activeTrains !== undefined && activeTrains.length > 0) {
             //prepare an array that mixes infor from two props
             const fullArray = activeTrains.map(train => {
@@ -103,8 +102,8 @@ class StatusWindow extends Component {
                         tempTrain.contractId = train.contractId;
                         tempTrain.lengthOfTrip = train.lengthOfTrip;
                         tempTrain.right = train.right;
-                        tempTrain.from = contract.from;
-                        tempTrain.to = contract.to;
+                        tempTrain.from = _CITY_ABBR[contract.from].toUpperCase();
+                        tempTrain.to = _CITY_ABBR[contract.to].toUpperCase();
                         tempTrain.cargo = contract.cargo;
                         tempArray.push(tempTrain);
                         tempTrain = [];

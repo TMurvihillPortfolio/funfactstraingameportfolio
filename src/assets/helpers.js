@@ -32,7 +32,7 @@ function getContractOffer(companyData) {
     
     //if enough contracts, return
     if (companyData[0].contracts.length >= 6) {
-        return;
+        return companyData;
     }
 
     //prepare new contract object variables
