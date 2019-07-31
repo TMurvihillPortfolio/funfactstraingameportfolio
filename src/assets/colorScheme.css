@@ -1,3 +1,7 @@
+.test {
+    color: 'teal';
+}
+
 primary #FAEAAA
 primaryLight #fbF6d2
 primaryMed #FDEFB1
@@ -15,6 +19,9 @@ complimentarydark #3e3375
 complimentarylight #dad7e8
 complimentarywhite #f3f2fa
 complimentarymed #5f5592
+
+complimentarAlt #008080, rgb(0,128,128,0.5)
+
 
 
 logocolorsplushred #a74227

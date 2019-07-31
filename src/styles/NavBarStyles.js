@@ -3,6 +3,9 @@ export default {
     NavBar: {
         backgroundColor: '#a74227',
         display: 'flex',
+        [_MEDIA_QUERIES.down('md')]: {
+            display: 'none'
+        },
         justifyContent: 'space-between',
         alignItems: 'center',
         marginLeft: '-15px'
@@ -14,34 +17,40 @@ export default {
     }, 
     links: {
         display: 'flex',
-        [_MEDIA_QUERIES.down('md')]: {
-            display: 'none'
-        },
         flexDirection: 'row',
         justifyContent: 'space-evenly',
+        listStyle: 'none',
         "& a": {
             textDecoration: 'none',
-            fontSize: '17px',
-            padding: '5px 12px',
+            fontSize: '14px',
+            padding: '5px 12px 10px 0',
             color: '#f7f6f5',
             borderBottom: '1px solid transparent',
-            transition: 'all 1s ease-in-out'           
+            transition: 'border 1s ease-in-out'           
         },
         '& a:hover': {
-            textDecoration: 'underline'
+            borderBottom: '1px solid whitesmoke',
+            [_MEDIA_QUERIES.down('md')]: {
+                borderBottom: 'none'
+            }
         }      
     },
     selectContainer: {
         listStyle: 'none',
-        fontSize: '17px',
-        transform: 'translateY(-15px)',
+        fontSize: '14px',
         cursor: 'pointer',
         position: 'relative',
-        marginRight: '25px',
-        marginLeft: '-25px',
         color: 'whitesmoke',
+        marginLeft: '3px',
+        padding: '2px 0 10px',
+        borderBottom: '1px solid transparent',
+        transition: 'border 1s ease-in-out',
+        testAlign: 'center',
         '&:hover': {
-            textDecoration: 'underline'
+            borderBottom: '1px solid whitesmoke',
+            [_MEDIA_QUERIES.down('md')]: {
+                borderBottom: 'none'
+            }
         }
     },
     selectItemsShow: {
@@ -49,10 +58,11 @@ export default {
         flexDirection: 'column',
         position: 'absolute',
         right: '0',
-        backgroundColor: '#c79382',
+        top: '30px',
+        backgroundColor: 'teal',
         width: '140px',
         borderRadius: '4px',
-        padding: '5px 7px'       
+        padding: '5px 7px'  
     },
     selectItems: { 
         fontSize: '14px',
@@ -66,11 +76,11 @@ export default {
         flexDirection: 'column',
         alignItems: 'flex-end',
         position: 'absolute',
-        width: '166px',
+        width: 'fit-content',
         right: '0',
         textAlign: 'right',      
         top: '0',
-        backgroundColor: 'lightgrey'
+        backgroundColor: 'rgb(0,128,128,0.5)'
     },
     mobileMenu: {
         display: 'none',
