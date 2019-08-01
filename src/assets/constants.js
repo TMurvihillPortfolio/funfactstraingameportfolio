@@ -7,7 +7,7 @@ import coal from '../img/coal.jpg';
 import milk from '../img/milk.jpg';
 
 const _DRAWER_WIDTH = 250;
-const _CONTRACTOFFER_INTERVAL = 45000;
+const _CONTRACTOFFER_INTERVAL = 1000;
 const _MEDIA_QUERIES = {
     down(size){
         const sizes = {

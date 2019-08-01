@@ -39,6 +39,9 @@ class App extends Component {
     }
   }
   componentDidMount() {
+    console.log(this.state);
+    this.state.companyData[0].contracts.map(contract => contract.status = 'offered')
+    console.log(this.state);
     //update local storage on window close
     window.addEventListener('beforeunload', (event) => {
       // Cancel the event as stated by the standard.
@@ -51,9 +54,9 @@ class App extends Component {
     //add contract offer to state
     let newCompanyData = getContractOffer(this.state.companyData);    
     this.updateCompanyData(newCompanyData);
-
+  
     //call add new contract offer at interval set in the constants file
-    setInterval(() => { 
+    this.getOffers = setInterval(() => { 
         newCompanyData = getContractOffer(this.state.companyData);
         this.updateCompanyData(newCompanyData); 
       }, _CONTRACTOFFER_INTERVAL
@@ -96,7 +99,7 @@ class App extends Component {
         id: uuid(),
         contractId: contractObj.id,
         top: 8,
-        right: 0,
+        percentageComplete: 0,
         lengthOfTrip: getLengthOfTrip(contractObj.from, contractObj.to)
     }
     //copy state
@@ -130,7 +133,10 @@ class App extends Component {
     companyDataCopy[0].contracts = newContractArray;
     //update state
     this.updateCompanyData(companyDataCopy);
-  } 
+  }
+  componentWillUnmount() {
+    clearInterval(this.getOffers);
+ }
   render() {
     const companyData = this.state.companyData[0];
     let companyTrains, contracts, activeTrains;

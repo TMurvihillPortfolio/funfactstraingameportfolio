@@ -94,35 +94,56 @@
 import React, { PureComponent } from 'react';
 import styles from '../styles/ActiveTrainStyles';
 import { withStyles } from "@material-ui/core/styles";
+import uuid from 'uuid';
 
 import trainOnMap from '../img/redtraincrop.png';
 
 class ActiveTrain extends PureComponent {
     constructor(props) {
         super(props);
+        this.getTrainPosition=this.getTrainPosition.bind(this);
         this.state = {}
     }
     componentDidMount() {
+        console.log(this);
+        const trainProgBar = document.querySelector('#trainProgressBar').getBoundingClientRect();
+        console.log(trainProgBar);
         // UPDATE PARENT STATE
         this.updatePositions = setInterval(() =>{
-            this.props.updatePositions()}, 500);
+            this.props.updatePositions(trainProgBar.width)}, 2000);
     }
+    getTrainPosition(trainId) {
+        // const trainProgressBarWidth = document.querySelector('#trainProgressBar').getBoundingClientRect().width;
+        // const trainProgressBarRight = document.querySelector('#trainProgressBar').getBoundingClientRect().right;
+        
     
+        // const trainPosition = trainProgressBarRight + trainProgressBarWidth*this.props.percentageComplete;
+
+        // const trainImg = document.querySelector(`[trainId="${trainId}"]`);
+        // console.log(trainImg);
+        
+        // console.log('trprogbarWd', trainProgressBarWidth);
+        // console.log('trprogbarRg', trainProgressBarRight);
+        // console.log('trposition', trainPosition);
+        // trainImg.style.right = `${this.props.percentageComplete}%`;
+    }
     componentWillUnmount() {
        clearInterval(this.updatePositions);
     }
 
     render() { 
-        const { classes, right, top } = this.props;
+        const { classes, percentageComplete, top } = this.props;
+        
         return ( 
-            <div style={{position: 'relative'}}>
+            <div style={{position: 'relative'}} id="trainProgressBar">
             <img 
                 src={trainOnMap} 
                 className={classes.trainOnMap} 
                 alt='train on a progress bar'
+                trainId={this.props.trainId}
                 style={{
                     top: `${top}px`, 
-                    right: `${right}px`
+                    right: `${percentageComplete}%`
                 }}
             />
             

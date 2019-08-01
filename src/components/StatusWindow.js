@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
+import uuid from 'uuid';
 import styles from '../styles/StatusWindowStyles';
 import { withStyles } from "@material-ui/core/styles";
 import ActiveTrain from './ActiveTrain';
 import { _CITY_ABBR } from '../assets/constants';
-
-//let companyData = JSON.parse(localStorage.getItem('companyData'));
 
 class StatusWindow extends Component {
     constructor(props) {
@@ -12,37 +11,31 @@ class StatusWindow extends Component {
         let funFactsActiveTrains;
         this.updatePositions=this.updatePositions.bind(this); 
         this.completeActiveTrain=this.completeActiveTrain.bind(this); 
-        // this.syncLocalActiveTrainStorage=this.syncLocalActiveTrainStorage.bind(this); 
-        // this.syncLocalCompanyStorage=this.syncLocalCompanyStorage.bind(this); 
         this.showNotification=this.showNotification.bind(this);
         this.state = {
             activeTrains: funFactsActiveTrains || false         
          }
     }
-    // syncLocalActiveTrainStorage() {
-    //     localStorage.setItem(
-    //         'funFactsActiveTrains', 
-    //         JSON.stringify(this.state.activeTrains))
-    //     ;
-    // }
-    // syncLocalCompanyStorage(companyData) {
-    //     localStorage.setItem(
-    //         'companyData', 
-    //         JSON.stringify(companyData))
-    //     ;
-    // }
-    updatePositions() {
+    updatePositions(trainProgressBarWidth) {
+        //*** number of increments(seconds) = lenth of trip / 5 miles (per second) */
+        //*** percentageInc = bar width / number of increments */
+
+
         let deleteId = -1;
         let deleteContractId = '';
         let lengthOfTrip = 0;
+        let numIncrements;
+        let percentageChange;
         const newTrains = this.props.activeTrains.map(train => {
-            let newRight = train.right += 400/train.lengthOfTrip;
-            if (train.right >= 400) {
+            numIncrements = train.lengthOfTrip/5;
+            percentageChange = trainProgressBarWidth / numIncrements;
+            let newPercentageComplete = train.percentageComplete += percentageChange;
+            if (train.percentageComplete >= 100) {
                 deleteId = train.id;
                 deleteContractId = train.contractId; 
                 lengthOfTrip = train.lengthOfTrip;             
             }
-            return {...train, right: newRight};
+            return {...train, percentageComplete: newPercentageComplete};
         });
         if (deleteId===-1) {
             this.props.updateActiveTrains(newTrains);
@@ -117,10 +110,11 @@ class StatusWindow extends Component {
                         <div className={classes.progressTo}>{train[0].to}</div>                
                         <div className={classes.progressTrain}>
                             <ActiveTrain 
-                                right={activeTrains[index].right}
+                                percentageComplete={activeTrains[index].percentageComplete}
                                 top={activeTrains[index].top}                       
                                 updatePositions={this.updatePositions}
                                 className={classes.activeTrain}
+                                trainId={uuid()}
                             />
                         </div>
                         
@@ -131,7 +125,7 @@ class StatusWindow extends Component {
             }
         }       
         return ( 
-            <div className={classes.root}> <h2>Active Trains</h2>
+            <div className={classes.root} id='statusWindow'> <h2>Active Trains</h2>
                 <div>
                     {activeTrainsDisplay?activeTrainsDisplay:<h4 style={
                         {textAlign: 'center', marginLeft: '-25px'}
