@@ -17,7 +17,7 @@ class ContractInfoCard extends Component {
         this.handleClick = this.handleClick.bind(this);
         this.getButtonText = this.getButtonText.bind(this);
         this.updateContractStatus = this.updateContractStatus.bind(this);
-        this.syncLocalStorage = this.syncLocalStorage.bind(this);
+        // this.syncLocalStorage = this.syncLocalStorage.bind(this);
         this.state = {
         };
     }
@@ -53,12 +53,12 @@ class ContractInfoCard extends Component {
         if (contract.status==='accepted') return 'Start Train'; 
         if (contract.status==='started') return 'In Progress'; 
     }
-    syncLocalStorage() {
-        localStorage.setItem(
-            'companyData', 
-            JSON.stringify(companyData))
-        ;
-    }
+    // syncLocalStorage() {
+    //     localStorage.setItem(
+    //         'companyData', 
+    //         JSON.stringify(companyData))
+    //     ;
+    // }
     
     render() {        
         const myCargo = this.getCargoObj();

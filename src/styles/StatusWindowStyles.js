@@ -13,10 +13,11 @@ export default {
             width: '500px'
         },
         [_MEDIA_QUERIES.down('sm')]: {
-            transform: 'rotate(-90deg)',
-            transformOrigin: 'right top',
-            top: '65px',
-            right: '200px'
+            //transform: 'rotate(-90deg)',
+            //transformOrigin: 'right top',
+            //top: '65px',
+            //right: '200px'
+            width: '250px'
         }
     },
     progress: {

@@ -3,7 +3,7 @@ import uuid from 'uuid';
 import styles from '../styles/StatusWindowStyles';
 import { withStyles } from "@material-ui/core/styles";
 import ActiveTrain from './ActiveTrain';
-import { _CITY_ABBR } from '../assets/constants';
+import { _CITY_ABBR, _TRAIN_SPEED } from '../assets/constants';
 
 class StatusWindow extends Component {
     constructor(props) {
@@ -17,9 +17,8 @@ class StatusWindow extends Component {
          }
     }
     updatePositions(trainProgressBarWidth) {
-        //*** number of increments(seconds) = lenth of trip / 5 miles (per second) */
+        //*** number of increments(seconds) = lenth of trip / _TRAIN_SPEED miles (per second) */
         //*** percentageInc = bar width / number of increments */
-
 
         let deleteId = -1;
         let deleteContractId = '';
@@ -27,7 +26,7 @@ class StatusWindow extends Component {
         let numIncrements;
         let percentageChange;
         const newTrains = this.props.activeTrains.map(train => {
-            numIncrements = train.lengthOfTrip/5;
+            numIncrements = train.lengthOfTrip/1;
             percentageChange = trainProgressBarWidth / numIncrements;
             let newPercentageComplete = train.percentageComplete += percentageChange;
             if (train.percentageComplete >= 100) {

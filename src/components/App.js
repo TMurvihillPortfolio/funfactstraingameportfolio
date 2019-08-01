@@ -39,16 +39,18 @@ class App extends Component {
     }
   }
   componentDidMount() {
-    console.log(this.state);
-    this.state.companyData[0].contracts.map(contract => contract.status = 'offered')
-    console.log(this.state);
+    /*** Delete this section ***/
+    //console.log(this.state);
+    //this.state.companyData[0].contracts.map(contract => contract.status = 'offered')
+    //this.state = [];
+    //console.log(this.state);
     //update local storage on window close
     window.addEventListener('beforeunload', (event) => {
       // Cancel the event as stated by the standard.
       event.preventDefault();
       // sync local storage
-      syncLocalStorageActiveTrains(this.state.activeTrains);
-      syncLocalStorageCompanyData(this.state.companyData);      
+      // syncLocalStorageActiveTrains(this.state.activeTrains);
+      // syncLocalStorageCompanyData(this.state.companyData);      
     });
 
     //add contract offer to state
