@@ -146,7 +146,7 @@ const _INITIAL_COMPANYDATA = [{
             }
         ],
     financials: {
-            cash: 10000,
+            cash: 200,
             loan: 2000
         }
 }]   

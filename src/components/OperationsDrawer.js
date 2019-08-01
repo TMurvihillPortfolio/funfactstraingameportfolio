@@ -217,7 +217,7 @@ class OperationsDrawer extends Component {
                                 className={classes.locoIcon} 
                                 alt='locomotive icon' />
                             } 
-                            listTitle="Buy/Sell Trains"
+                            listTitle="Buy/Sell Engines"
                         />
                     </List>
                     
@@ -235,7 +235,7 @@ class OperationsDrawer extends Component {
                     >
                         <DrawerList listItems={currentContracts} listIcon={<DescriptionIcon />} listTitle="Current Contracts"/>
                         <DrawerList listItems={offers} listIcon={<DraftsIcon />} listTitle="Current Offers"/>
-                        <DrawerList listItems={companyTrainListItems} listIcon={<img src={LocoIcon} className={classes.locoIcon} alt='locomotive icon' />} listTitle="Purchased Trains"/>
+                        <DrawerList listItems={companyTrainListItems} listIcon={<img src={LocoIcon} className={classes.locoIcon} alt='locomotive icon' />} listTitle="Purchased Engines"/>
                     </List>
 
                     <Divider />

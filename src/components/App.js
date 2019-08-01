@@ -39,18 +39,18 @@ class App extends Component {
     }
   }
   componentDidMount() {
-    /*** Delete this section ***/
-    //console.log(this.state);
-    //this.state.companyData[0].contracts.map(contract => contract.status = 'offered')
-    //this.state = [];
-    //console.log(this.state);
+    /*** Delete this section - for debugging ***/
+    // console.log(this.state);
+    // this.state.companyData[0].contracts.map(contract => contract.status = 'offered')
+    // this.state = [];
+    // console.log(this.state);
+
     //update local storage on window close
     window.addEventListener('beforeunload', (event) => {
-      // Cancel the event as stated by the standard.
       event.preventDefault();
       // sync local storage
-      // syncLocalStorageActiveTrains(this.state.activeTrains);
-      // syncLocalStorageCompanyData(this.state.companyData);      
+      syncLocalStorageActiveTrains(this.state.activeTrains);
+      syncLocalStorageCompanyData(this.state.companyData);      
     });
 
     //add contract offer to state
@@ -95,7 +95,14 @@ class App extends Component {
       this.updateCompanyData(newArray);
     }
   }
-  startTrain(contractObj, routeHistory) {   
+  startTrain(contractObj, routeHistory) {
+    //check for available engine
+    const numEngines = this.state.companyData[0].trains.length;
+    const numActiveTrains = this.state.activeTrains.length;
+    if (numEngines < numActiveTrains+1) {
+      alert('Not enough engines.');
+      return;
+    }    
     //create new active train
     const newActiveTrain = {
         id: uuid(),
@@ -108,8 +115,10 @@ class App extends Component {
     const activeTrains = [...this.state.activeTrains] || [];
     //add new active train
     activeTrains.push(newActiveTrain);
-    //update state       
+    //update Active Trains state       
     this.updateActiveTrains(activeTrains);
+    //update contract state
+    this.updateContract(contractObj);
     //back to train operations
     routeHistory.push('/funfactstrains/trainoperations');                  
   } 

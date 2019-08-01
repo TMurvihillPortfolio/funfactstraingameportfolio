@@ -24,7 +24,6 @@ class ContractInfoCard extends Component {
     updateContractStatus() {
         const contract = this.props.contractObj;
         contract.status = 'started';
-        console.log('after', companyData);
         this.props.updateContract(contract);      
     }
     getCargoObj() {
@@ -43,8 +42,7 @@ class ContractInfoCard extends Component {
         //update value and start train
         } else if (contract.status==='accepted') {
             contract.status='started';
-            this.props.updateContract(contract);
-            this.props.startTrain(this.props.contractObj, this.props.history);
+            this.props.startTrain(contract, this.props.history);
         }    
     }
     getButtonText() {
