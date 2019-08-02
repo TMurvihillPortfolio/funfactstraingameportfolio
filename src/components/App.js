@@ -12,7 +12,8 @@ import
   { 
     _TRAIN_DETAILS, 
     _INITIAL_COMPANYDATA, 
-    _CONTRACTOFFER_INTERVAL 
+    _CONTRACTOFFER_INTERVAL,
+    _GETPASSENGER_REWARD
   } 
   from '../assets/constants'
 ;
@@ -34,6 +35,7 @@ class App extends Component {
     this.updateCompanyData=this.updateCompanyData.bind(this);
     this.updateContract=this.updateContract.bind(this);
     this.updateActiveTrains=this.updateActiveTrains.bind(this);
+    this.getPassengerReward=this.getPassengerReward.bind(this);
     this.state = { 
       companyData: JSON.parse(localStorage.getItem('companyData')) || _INITIAL_COMPANYDATA,
       activeTrains: JSON.parse(localStorage.getItem('funFactsActiveTrains')) || []
@@ -146,6 +148,11 @@ class App extends Component {
     //update state
     this.updateCompanyData(companyDataCopy);
   }
+  getPassengerReward() {
+    const companyDataCopy = this.state.companyData;
+    companyDataCopy[0].financials.cash += _GETPASSENGER_REWARD;
+    this.updateCompanyData(companyDataCopy);
+  }
   componentWillUnmount() {
     clearInterval(this.getOffers);
 
@@ -193,7 +200,7 @@ class App extends Component {
             <Route exact path='/funfactstrains/trainoperations' render={(routeProps) => <TrainOperations companyData={this.state.companyData} activeTrains={activeTrains} updateActiveTrains={this.updateActiveTrains} {...routeProps} updateCompanyData={this.updateCompanyData}/>}/>
             <Route exact path='/funfactstrains/companymanagement' render={(routeProps) => <CompanyManagement {...routeProps}/>}/>       
             <Route exact path='/funfactstrains/buildroute' render={(routeProps) => <BuildRoute {...routeProps}/>}/>      
-            <Route exact path='/funfactstrains/getpassengers' render={(routeProps) => <GetPassengers {...routeProps}/>}/>      
+            <Route exact path='/funfactstrains/getpassengers' render={(routeProps) => <GetPassengers companyData={this.state.companyData} getPassengerReward= {this.getPassengerReward} {...routeProps}/>}/>      
             <Route exact path='/funfactstrains/trains/:trainpathname' render={getTrain}/>     
             <Route exact path='/funfactstrains/contracts/:contractpathname' render={getContract}/>
           </Switch>

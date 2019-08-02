@@ -14,8 +14,9 @@ class GetPassengers extends Component {
         setTimeout(() => {
             document.querySelector('#reward').style.display = 'none';
             document.querySelector('#amount').style.transform = 'scale(1.0)';
+            this.props.getPassengerReward();
             window.location.reload();
-        }, 4000);
+        }, 4000);       
     }
     render() { 
         return (            
@@ -23,9 +24,9 @@ class GetPassengers extends Component {
                 {/* <div className="timer">
                     <span></span>    
                 </div> */}
-                <div className="gameover">GAME OVER</div>
+                <div className="gameover">Cash: {`${this.props.companyData[0].financials.cash}.00`}</div>
                 <h1>CATCH THE PASSENGER ! <span>(click on the person)</span></h1>
-                <h2>+ $10.00</h2>
+                <h2 id='amount'>+ $10.00</h2>
                 <input className="input-circle input-circle1" type="radio" id="circle1" onClick={this.handleClick}/>
                 {/* <input class="input-circle input-circle2" type="radio" id="circle2" />
                 <input class="input-circle input-circle3" type="radio" id="circle3" />
@@ -40,7 +41,7 @@ class GetPassengers extends Component {
                 <label for="circle5" class="pajaro pajaro5"><span></span></label>
                 <label for="circle6" class="pajaro pajaro6"><span></span></label> */}
                 <div className="reward" id="reward"></div>
-                <div className="sum" id='amount'>+ $10.0</div>
+                {/* <div className="sum" id='amount'>+ $10.0</div> */}
                 <footer><a href="https://il.linkedin.com/in/eladshechter/">The Game Done By Elad Shechter</a></footer>
             </div>
          );

@@ -9,6 +9,7 @@ import milk from '../img/milk.jpg';
 const _DRAWER_WIDTH = 250;
 const _CONTRACTOFFER_INTERVAL = 45000;
 const _TRAIN_SPEED = .75; 
+const _GETPASSENGER_REWARD = 10;
 const _MEDIA_QUERIES = {
     down(size){
         const sizes = {
@@ -159,5 +160,6 @@ export {
     _INITIAL_COMPANYDATA,
     _MEDIA_QUERIES,
     _CONTRACTOFFER_INTERVAL,
-    _TRAIN_SPEED
+    _TRAIN_SPEED,
+    _GETPASSENGER_REWARD
 };
