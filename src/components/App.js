@@ -195,9 +195,9 @@ class App extends Component {
     return ( 
       <div className="App">
           <Switch>
-            <Route exact path='/' render={(routeProps) => <TrainOperations companyData={this.state.companyData} activeTrains={this.state.activeTrains} updateActiveTrains={this.updateActiveTrains} {...routeProps} updateCompanyData={this.updateCompanyData}/>}/>       
-            <Route exact path='/funfactstrains' render={(routeProps) => <TrainOperations companyData={this.state.companyData} activeTrains={this.state.activeTrains} updateActiveTrains={this.updateActiveTrains} {...routeProps} updateCompanyData={this.updateCompanyData}/>}/>       
-            <Route exact path='/funfactstrains/trainoperations' render={(routeProps) => <TrainOperations companyData={this.state.companyData} activeTrains={activeTrains} updateActiveTrains={this.updateActiveTrains} {...routeProps} updateCompanyData={this.updateCompanyData}/>}/>
+            <Route exact path='/' render={(routeProps) => <TrainOperations companyData={this.state.companyData} activeTrains={this.state.activeTrains} updateActiveTrains={this.updateActiveTrains} {...routeProps} updateCompanyData={this.updateCompanyData} getPassengerReward={this.getPassengerReward}/>}/>       
+            <Route exact path='/funfactstrains' render={(routeProps) => <TrainOperations companyData={this.state.companyData} activeTrains={this.state.activeTrains} updateActiveTrains={this.updateActiveTrains} {...routeProps} updateCompanyData={this.updateCompanyData} getPassengerReward={this.getPassengerReward}/>}/>       
+            <Route exact path='/funfactstrains/trainoperations' render={(routeProps) => <TrainOperations companyData={this.state.companyData} activeTrains={activeTrains} updateActiveTrains={this.updateActiveTrains} {...routeProps} updateCompanyData={this.updateCompanyData} getPassengerReward={this.getPassengerReward}/>}/>
             <Route exact path='/funfactstrains/companymanagement' render={(routeProps) => <CompanyManagement {...routeProps}/>}/>       
             <Route exact path='/funfactstrains/buildroute' render={(routeProps) => <BuildRoute {...routeProps}/>}/>      
             <Route exact path='/funfactstrains/getpassengers' render={(routeProps) => <GetPassengers companyData={this.state.companyData} getPassengerReward= {this.getPassengerReward} {...routeProps}/>}/>      

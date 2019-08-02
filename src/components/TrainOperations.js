@@ -1,5 +1,6 @@
 import React, { PureComponent } from "react";
 import styles from '../styles/TrainOperationsStyles';
+import '../css/GetPassengersCSS.css';
 //material-ui imports
 import { withStyles } from "@material-ui/core/styles";
 import clsx from 'clsx';
@@ -20,6 +21,7 @@ class TrainOperations extends PureComponent {
     super(props);
     this.handleDrawerOpen=this.handleDrawerOpen.bind(this);
     this.handleDrawerClose=this.handleDrawerClose.bind(this);
+    this.handlePassengerClick=this.handlePassengerClick.bind(this);
     this.state = {
       open: true
     };
@@ -29,10 +31,20 @@ class TrainOperations extends PureComponent {
   };
   handleDrawerClose = () => {
     this.setState({ open: false });
-  }; 
+  };
+  handlePassengerClick() {
+    document.querySelector('#reward').style.display = 'block';
+    //document.querySelector('#amount').style.transform = 'scale(2.0)';
+    setTimeout(() => {
+        document.querySelector('#reward').style.display = 'none';
+        //document.querySelector('#amount').style.transform = 'scale(1.0)';
+        this.props.getPassengerReward();
+    }, 8000);
+  }
   render() { 
     const { classes, companyData, activeTrains } = this.props;
     const { open } = this.state;
+    console.log(this.props.getPassengerReward);
     return (
       <div className={classes.drawerContainer}>
         <CssBaseline />

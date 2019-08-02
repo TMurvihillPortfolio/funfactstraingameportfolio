@@ -12,8 +12,12 @@ body{
   /*play area*/
   .wrapper{
       height: 100vh;
-    background: url('../img/usmap1930NewYorkChicagowCities.jpg');
-    background: linear-gradient(rgba(255,0,0,.9), rgba(0,0,0,.9)),url('../img/usmap1930NewYorkChicagowCities.jpg'),;
+    background-image: url('../img/usmap1930NewYorkChicagowCities.jpg');
+    background-image: linear-gradient(
+      rgba(255,255,255,.3), 
+      rgba(255,255,255,.3)),
+      url('../img/usmap1930NewYorkChicagowCities.jpg')
+    ;
     background-size: cover;
     position:relative;
     cursor:crosshair;
@@ -21,7 +25,7 @@ body{
   /*hide checkbox*/
   .wrapper input{position:fixed; left:-10px; top:-10px;}
   
-  .wrapper h1{margin:20px; text-align:center;}
+  .wrapper h1{margin:20px; text-align:center; color: #015e5e}
   /* .wrapper h2{position:fixed; right:20px; bottom:0; font-size:18px; color:red;} */
   /*count dead birds*/
   .input-circle:checked{
@@ -256,6 +260,8 @@ body{
       transform: translate(-50%,-50%);
       background-image: url('../img/giphy.gif');
       background-size: cover;
+      z-index: 1000;
+      border-radius: 7px;
   }
 
   .sum {
@@ -264,4 +270,8 @@ body{
 
   #amount {
     transition: all 2.0 ease-in-out;
+  }
+  .footer a {
+    text-decoration: none;
+    color: #333;
   }

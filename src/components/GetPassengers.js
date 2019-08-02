@@ -9,12 +9,13 @@ class GetPassengers extends Component {
         this.state = {  }
     }
     handleClick() {
-        console.log('click');
         document.querySelector('#reward').style.display = 'block';
         document.querySelector('#amount').style.transform = 'scale(2.0)';
+        document.querySelector('#cash').innerText = 'Caught!! + $10.00';
         setTimeout(() => {
             document.querySelector('#reward').style.display = 'none';
             document.querySelector('#amount').style.transform = 'scale(1.0)';
+            document.querySelector('#cash').innerText = `$${this.props.companyData[0].financials.cash}.00`;
             this.props.getPassengerReward();
         }, 8000);       
     }
@@ -25,8 +26,8 @@ class GetPassengers extends Component {
                 {/* <div className="timer">
                     <span></span>    
                 </div> */}
-                <div className="gameover">Cash: {`${this.props.companyData[0].financials.cash}.00`}</div>
-                <h1>CATCH THE PASSENGER ! <span>(click on the person)</span></h1>
+                <div className="gameover" id='cash'>Cash: {`$${this.props.companyData[0].financials.cash}.00`}</div>
+                <h1>CATCH THE PASSENGER !</h1>
                 <h2 id='amount'>+ $10.00</h2>
                 <input className="input-circle input-circle1" type="radio" id="circle1" onClick={this.handleClick}/>
                 <input className="input-circle input-circle2" type="radio" id="circle2" onClick={this.handleClick} />
@@ -43,7 +44,7 @@ class GetPassengers extends Component {
                 <label htmlFor="circle6" className="pajaro pajaro6"><span></span></label>
                 <div className="reward" id="reward"></div>
                 {/* <div className="sum" id='amount'>+ $10.0</div> */}
-                <footer><a href="https://il.linkedin.com/in/eladshechter/">The Game Done By Elad Shechter</a></footer>
+                <footer className='footer'>Motion courtesy of <a href="https://il.linkedin.com/in/eladshechter/">Elad Shechter</a></footer>
             </div>
          );
     }
