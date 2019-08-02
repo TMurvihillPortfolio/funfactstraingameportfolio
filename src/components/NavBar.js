@@ -78,6 +78,7 @@ class NavBar extends PureComponent {
                             <li><a href='/funfactstrains/trainoperations'>Train Operations</a></li>
                             <li><a href='/funfactstrains/companymanagement'>Company Management</a></li>
                             <li><a href='/funfactstrains/buildroute'>Build Route</a></li>
+                            <li><a href='/funfactstrains/getpassengers'>Catch Passengers($$$)</a></li>
                             <li>
                                 <ul className={classes.selectContainer} onClick={this.handleDropDownClick} id='selectMenu'>Buy/Sell Trains
                                     <div className={classes.selectItemsShow} id="selectItems">

@@ -21,7 +21,7 @@ body{
   /*hide checkbox*/
   .wrapper input{position:fixed; left:-10px; top:-10px;}
   
-  .wrapper h1{margin:0; text-align:center;}
+  .wrapper h1{margin:20px; text-align:center;}
   /* .wrapper h2{position:fixed; right:20px; bottom:0; font-size:18px; color:red;} */
   /*count dead birds*/
   .input-circle:checked{
@@ -153,6 +153,7 @@ body{
       font-size: 36px;
       font-weight: 600;
       color: #a74227;
+      margin: 15px;
     /* position:fixed; z-index:100000; left:0; top:0; bottom:0; right:0; background-color:rgba(0,0,0,0.8);
     animation:gameover 20s linear forwards;
     font-size:80px; color:white; font-weight:bold; text-align:center; 
@@ -175,12 +176,9 @@ body{
   */
   
   .pajaro{
-    /* background:tomato; */
     background-image: url('../img/runningGiphyMan.png');
     background-size: cover;
     border-radius: 50% 50% 20% 20%;
-    
-    /* color:white; */
     line-height:20px;
     letter-spacing: 2px;
     font-size:0.8em;

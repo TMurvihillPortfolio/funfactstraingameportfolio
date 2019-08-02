@@ -92,6 +92,7 @@ export default {
             backgroundColor: '#a74227'
         },
         alignItems: 'center',
-        justifyContent: 'flex-end'
+        justifyContent: 'flex-end',
+        color: 'whitesmoke'
     }
 }
