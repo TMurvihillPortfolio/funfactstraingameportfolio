@@ -255,6 +255,10 @@ body{
       background-size: cover;
   }
 
-  .rewardShow {
-      display: block;
+  .sum {
+      color: white;
+  }
+
+  #amount {
+    transition: all 2.0 ease-in-out;
   }
