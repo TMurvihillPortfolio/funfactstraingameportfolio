@@ -6,6 +6,7 @@ import TrainInfoCard from './TrainInfoCard';
 import ContractInfoCard from './ContractInfoCard';
 import TrainOperations from './TrainOperations';
 import CompanyManagement from './CompanyManagement';
+import GetPassengers from './GetPassengers';
 import BuildRoute from './BuildRoute';
 import 
   { 
@@ -147,6 +148,9 @@ class App extends Component {
   }
   componentWillUnmount() {
     clearInterval(this.getOffers);
+
+    /*** for debugging */
+    //this.state=[];
  }
   render() {
     const companyData = this.state.companyData[0];
@@ -186,9 +190,10 @@ class App extends Component {
           <Switch>
             <Route exact path='/' render={(routeProps) => <TrainOperations companyData={this.state.companyData} activeTrains={this.state.activeTrains} updateActiveTrains={this.updateActiveTrains} {...routeProps} updateCompanyData={this.updateCompanyData}/>}/>       
             <Route exact path='/funfactstrains' render={(routeProps) => <TrainOperations companyData={this.state.companyData} activeTrains={this.state.activeTrains} updateActiveTrains={this.updateActiveTrains} {...routeProps} updateCompanyData={this.updateCompanyData}/>}/>       
-            <Route exact path='/funfactstrains/trainoperations' render={(routeProps) => <TrainOperations companyData={this.state.companyData} activeTrains={activeTrains} updateActiveTrains={this.updateActiveTrains} {...routeProps} updateCompanyData={this.updateCompanyData}/>}/>        
+            <Route exact path='/funfactstrains/trainoperations' render={(routeProps) => <TrainOperations companyData={this.state.companyData} activeTrains={activeTrains} updateActiveTrains={this.updateActiveTrains} {...routeProps} updateCompanyData={this.updateCompanyData}/>}/>
             <Route exact path='/funfactstrains/companymanagement' render={(routeProps) => <CompanyManagement {...routeProps}/>}/>       
-            <Route exact path='/funfactstrains/buildroute' render={(routeProps) => <BuildRoute {...routeProps}/>}/>       
+            <Route exact path='/funfactstrains/buildroute' render={(routeProps) => <BuildRoute {...routeProps}/>}/>      
+            <Route exact path='/funfactstrains/getpassengers' render={(routeProps) => <GetPassengers {...routeProps}/>}/>      
             <Route exact path='/funfactstrains/trains/:trainpathname' render={getTrain}/>     
             <Route exact path='/funfactstrains/contracts/:contractpathname' render={getContract}/>
           </Switch>
