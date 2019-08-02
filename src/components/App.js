@@ -173,6 +173,7 @@ class App extends Component {
       return <TrainInfoCard 
                 trainObj={trains[trainIndex]} 
                 companyTrains={companyTrains} 
+                cash={companyData.financials.cash}
                 buySellTrain={this.buySellTrain} 
                 history={props.history} 
               />

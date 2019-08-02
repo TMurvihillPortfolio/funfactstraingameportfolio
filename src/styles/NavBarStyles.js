@@ -17,7 +17,10 @@ export default {
         '& img': {
             width: '50px',
         }       
-    }, 
+    },
+    linksContainer: {
+        width: '100%'
+    },
     links: {
         display: 'flex',
         flexDirection: 'row',

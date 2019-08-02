@@ -52,6 +52,7 @@ class TrainInfoCard extends PureComponent {
                     >
                             {purchased ? 'Sell Train' : 'Buy Train'}
                     </Button>
+                    <h3>Current Cash: {`$${this.props.cash}.00`}</h3>
                 </div>
                 <Divider />
                     <ul className={classes.factList}>

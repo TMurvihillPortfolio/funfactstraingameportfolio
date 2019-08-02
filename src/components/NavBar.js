@@ -72,7 +72,7 @@ class NavBar extends PureComponent {
                     <NavLink to='/funfactstrains/trainoperations'>Train Operations</NavLink>
                     <NavLink to='/funfactstrains/companymanagement'>Company Management</NavLink>
                     <NavLink to='/funfactstrains/buildroute'>Build Route</NavLink>                     */}
-                    <div>
+                    <div className={classes.linksContainer}>
                         <ul className={classes.links} id='links'>
                             <li><a href='/' className={classes.logo}><img src={logo} alt='logo Fun Facts Train Game'/></a></li>
                             <li><a href='/funfactstrains/trainoperations'>Train Operations</a></li>
@@ -90,9 +90,9 @@ class NavBar extends PureComponent {
                             </li>
                         </ul>
                         
-                    {/* </div> */}
+                    </div>
                     
-                </div>
+                {/* </div> */}
                 
             </nav>
             <div className={classes.mobileMenu} id='mobileMenu'>
