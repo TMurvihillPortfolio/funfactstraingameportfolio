@@ -29,7 +29,7 @@ class StatusWindow extends Component {
             numIncrements = train.lengthOfTrip/1;
             percentageChange = trainProgressBarWidth / numIncrements;
             let newPercentageComplete = train.percentageComplete += percentageChange;
-            if (train.percentageComplete >= 100) {
+            if (train.percentageComplete >= 90) {
                 deleteId = train.id;
                 deleteContractId = train.contractId; 
                 lengthOfTrip = train.lengthOfTrip;             

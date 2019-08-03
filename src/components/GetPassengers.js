@@ -10,25 +10,24 @@ class GetPassengers extends Component {
     }
     handleClick() {
         document.querySelector('#reward').style.display = 'block';
-        document.querySelector('#amount').style.transform = 'scale(2.0)';
-        document.querySelector('#cash').innerText = 'Caught!! + $10.00';
-        setTimeout(() => {
-            document.querySelector('#reward').style.display = 'none';
-            document.querySelector('#amount').style.transform = 'scale(1.0)';
-            document.querySelector('#cash').innerText = `$${this.props.companyData[0].financials.cash}.00`;
+        document.querySelector('#cash').innerText = 
+            'Caught!! + $10.00'
+        ;
+        setTimeout(() => {           
             this.props.getPassengerReward();
+            document.querySelector('#reward').style.display = 'none';
+            document.querySelector('#cash').innerText = 
+                `$${this.props.companyData[0].financials.cash}.00`
+            ;
         }, 8000);       
     }
     render() { 
         return (            
             <div class="wrapper"> 
-                <NavBar />              
-                {/* <div className="timer">
-                    <span></span>    
-                </div> */}
-                <div className="gameover" id='cash'>Cash: {`$${this.props.companyData[0].financials.cash}.00`}</div>
-                <h1>CATCH THE PASSENGER !</h1>
-                <h2 id='amount'>+ $10.00</h2>
+                <NavBar /> 
+                <div className="currentCash" id='cash'>Cash: {`$${this.props.companyData[0].financials.cash}.00`}</div>
+                <h1>CATCH THE PASSENGERS !</h1>
+                <h2 id='amount'>earn $10.00</h2>
                 <input className="input-circle input-circle1" type="radio" id="circle1" onClick={this.handleClick}/>
                 <input className="input-circle input-circle2" type="radio" id="circle2" onClick={this.handleClick} />
                 <input className="input-circle input-circle3" type="radio" id="circle3" onClick={this.handleClick} />
@@ -36,14 +35,13 @@ class GetPassengers extends Component {
                 <input className="input-circle input-circle5" type="radio" id="circle5" onClick={this.handleClick} />
                 <input className="input-circle input-circle6" type="radio" id="circle6" onClick={this.handleClick} />
 
-                <label htmlFor="circle1" className="pajaro pajaro1"><span></span></label>
-                <label htmlFor="circle2" className="pajaro pajaro2"><span></span></label>
-                <label htmlFor="circle3" className="pajaro pajaro3"><span></span></label>
-                <label htmlFor="circle4" className="pajaro pajaro4"><span></span></label>
-                <label htmlFor="circle5" className="pajaro pajaro5"><span></span></label>
-                <label htmlFor="circle6" className="pajaro pajaro6"><span></span></label>
+                <label htmlFor="circle1" className="passenger passenger1"></label>
+                <label htmlFor="circle2" className="passenger passenger2"></label>
+                <label htmlFor="circle3" className="passenger passenger3"></label>
+                <label htmlFor="circle4" className="passenger passenger4"></label>
+                <label htmlFor="circle5" className="passenger passenger5"></label>
+                <label htmlFor="circle6" className="passenger passenger6"></label>
                 <div className="reward" id="reward"></div>
-                {/* <div className="sum" id='amount'>+ $10.0</div> */}
                 <footer className='footer'>Motion courtesy of <a href="https://il.linkedin.com/in/eladshechter/">Elad Shechter</a></footer>
             </div>
          );
