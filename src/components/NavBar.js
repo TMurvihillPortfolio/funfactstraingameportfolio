@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react';
 import styles from '../styles/NavBarStyles';
-import { NavLink } from 'react-router-dom';
 import logo from '../img/logo.jpg';
 import {withStyles} from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -45,7 +44,6 @@ class NavBar extends PureComponent {
         //     }
         // };
         navBar.style.display= 'flex';
-        console.dir(links.style);
         links.style.flexDirection= 'column';
         links.style.alignItems= 'flex-end';
         links.style.position= 'absolute';
@@ -75,10 +73,10 @@ class NavBar extends PureComponent {
                     <div className={classes.linksContainer}>
                         <ul className={classes.links} id='links'>
                             <li><a href='/' className={classes.logo}><img src={logo} alt='logo Fun Facts Train Game'/></a></li>
-                            <li><a href='/funfactstrains/trainoperations'>Train Operations</a></li>
-                            <li><a href='/funfactstrains/companymanagement'>Company Management</a></li>
-                            <li><a href='/funfactstrains/buildroute'>Build Route</a></li>
-                            <li><a href='/funfactstrains/getpassengers'>Catch Passengers($$$)</a></li>
+                            <li><a href='./funfactstrains/trainoperations'>Train Operations</a></li>
+                            <li><a href='./funfactstrains/companymanagement'>Company Management</a></li>
+                            <li><a href='./funfactstrains/buildroute'>Build Route</a></li>
+                            <li><a href='./funfactstrains/getpassengers'>Catch Passengers($$$)</a></li>
                             <li>
                                 <ul className={classes.selectContainer} onClick={this.handleDropDownClick} id='selectMenu'>Buy/Sell Trains
                                     <div className={classes.selectItemsShow} id="selectItems">
