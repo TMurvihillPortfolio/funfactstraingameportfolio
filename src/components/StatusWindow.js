@@ -18,9 +18,9 @@ class StatusWindow extends Component {
         }
     }
     componentDidMount() {
-        
+        this.showNotification(0, "Updating Trains");
         //const localActive = JSON.parse(localStorage.getItem('funFactsActiveTrains'));
-        const trainProgBar = document.querySelector('#trainProgressBar').getBoundingClientRect();
+        //const trainProgBar = document.querySelector('#trainProgressBar').getBoundingClientRect();
         //const trainProgBar = document.querySelector('#trainProgressBar').getBoundingClientRect();
         //this.updatePositions(trainProgBar);
         // console.log(localActive);
@@ -33,14 +33,12 @@ class StatusWindow extends Component {
         //this.props.activeTrains.lastPositionUpdate = 
     }
     updatePositions(trainProgressBarWidth) {
-        //*** number of increments(seconds) = lenth of trip / _TRAIN_SPEED miles (per second) */
-        //*** percentageInc = bar width / number of increments */
-
+        //initialize variables     
         let deleteId = -1;
         let deleteContractId = '';
         let lengthOfTrip = 0;
-        let numIncrements;
-        let percentageChange;
+        let numIncrements; //length of trip / _TRAIN_SPEED miles (per second)
+        let percentageChange;  //progress bar width / number of increments
         let updateIncrementsMissed = 1;
         const newTrains = this.props.activeTrains.map(train => {
             //check time of last update
@@ -48,22 +46,11 @@ class StatusWindow extends Component {
             const lastUpdateTime = new Date(train.lastUpdatePosition);
             const secondsSinceLastUpdate = Math.round((thisUpdateTime - lastUpdateTime) / 1000);
             numIncrements = train.lengthOfTrip/_TRAIN_SPEED;
-            
-            console.log('secsince', secondsSinceLastUpdate);
-            console.log('updint', _TRAIN_UPDATE_INTERVAL/1000);
             if (secondsSinceLastUpdate > _TRAIN_UPDATE_INTERVAL/1000 ) {
                 updateIncrementsMissed = Math.round(secondsSinceLastUpdate/(_TRAIN_UPDATE_INTERVAL/1000));
-                console.log('incmissed', updateIncrementsMissed);
-                // console.log('incbef', numIncrements);
-                // numIncrements += updateIncrementsMissed;
-                // console.log('incaft', numIncrements);
-            //     //figure how many miles per increment for train
-            //     //figure out how far along train is
             }
-            console.log('incoutsideif', numIncrements);
             percentageChange = (trainProgressBarWidth / numIncrements)*updateIncrementsMissed;
             let newPercentageComplete = train.percentageComplete += percentageChange;
-            console.log('percaft', newPercentageComplete);
             let newLastUpdatePosition = Date();
             if (newPercentageComplete >= 90) {
                 deleteId = train.id;
@@ -78,15 +65,21 @@ class StatusWindow extends Component {
             this.completeActiveTrain(deleteId, deleteContractId, lengthOfTrip);
         }       
     }
-    showNotification(deleteContractId) {
-        const contracts = this.props.companyData[0].contracts;
+    showNotification(deleteContractId, message=false) {
         const notification = document.querySelector('#notification');
-        const completedContract = contracts.find(
-            contract => contract.id === deleteContractId
-        );
-        notification.innerText = `${completedContract.cargo.toUpperCase()}--${completedContract.from} to ${completedContract.to} completed its run.`;
+        let showTime = 4000;
+        if (message) {
+            notification.innerText = message; 
+            showTime = _TRAIN_UPDATE_INTERVAL;           
+        } else {           
+            const contracts = this.props.companyData[0].contracts;
+            const completedContract = contracts.find(
+                contract => contract.id === deleteContractId
+            );
+            notification.innerText = `${completedContract.cargo.toUpperCase()}--${completedContract.from} to ${completedContract.to} completed its run.`;
+        }
         notification.style.transform = 'translateY(0)';
-        setTimeout(() => notification.style.transform = 'translateY(60px)', 4000);
+        setTimeout(() => notification.style.transform = 'translateY(60px)', showTime);
     }
     completeActiveTrain(deleteId, deleteContractId, lengthOfTrip) {
         // show completed notification
