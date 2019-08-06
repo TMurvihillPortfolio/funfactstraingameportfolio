@@ -4,63 +4,68 @@ import styles from '../styles/StatusWindowStyles';
 import { withStyles } from "@material-ui/core/styles";
 import ActiveTrain from './ActiveTrain';
 import { syncLocalStorageActiveTrains } from '../assets/helpers';
-import { _CITY_ABBR, _TRAIN_SPEED, _TRAIN_UPDATE_INTERVAL } from '../assets/constants';
+import { 
+        _CITY_ABBR, 
+        _TRAIN_SPEED, 
+        _TRAIN_UPDATE_INTERVAL
+    } 
+    from '../assets/constants'
+;
 
 class StatusWindow extends Component {
     constructor(props) {
         super(props);
-        let funFactsActiveTrains;
         this.updatePositions=this.updatePositions.bind(this); 
         this.completeActiveTrain=this.completeActiveTrain.bind(this); 
         this.showNotification=this.showNotification.bind(this);
-        this.state = {
-            activeTrains: funFactsActiveTrains || false
-        }
+        this.incrementsSinceUpdate=this.incrementsSinceUpdate.bind(this);
+        this.state = {}
     }
     componentDidMount() {
-        this.showNotification(0, "Updating Trains");
-        //const localActive = JSON.parse(localStorage.getItem('funFactsActiveTrains'));
-        //const trainProgBar = document.querySelector('#trainProgressBar').getBoundingClientRect();
-        //const trainProgBar = document.querySelector('#trainProgressBar').getBoundingClientRect();
-        //this.updatePositions(trainProgBar);
-        // console.log(localActive);
-        // if (localActive.lastPositionUpdate !== undefined) {
-        //         console.log(localActive.lastPositionUpdate)
-        //     }
-        //     else{
-        //         console.log('imhere');
-        //     };
-        //this.props.activeTrains.lastPositionUpdate = 
+        this.showNotification(0, "Updating Trains"); 
+    }
+    incrementsSinceUpdate(train) {
+        //get seconds since last update
+        const secondsSinceLastUpdate = Math.round(
+            (new Date() - 
+            new Date(train.lastUpdatePosition)) / 1000
+        );
+        //get update increments since last update     
+        let updateIncrementsMissed = 1;
+        if (secondsSinceLastUpdate > _TRAIN_UPDATE_INTERVAL/1000 ) {
+            updateIncrementsMissed = Math.round(secondsSinceLastUpdate/(_TRAIN_UPDATE_INTERVAL/1000));
+        }
+        //return update increments missed
+        return updateIncrementsMissed;
     }
     updatePositions(trainProgressBarWidth) {
         //initialize variables     
         let deleteId = -1;
         let deleteContractId = '';
-        let lengthOfTrip = 0;
-        let numIncrements; //length of trip / _TRAIN_SPEED miles (per second)
-        let percentageChange;  //progress bar width / number of increments
-        let updateIncrementsMissed = 1;
+        let lengthOfTrip = 0;        
+        //update each active train
         const newTrains = this.props.activeTrains.map(train => {
-            //check time of last update
-            const thisUpdateTime = new Date();
-            const lastUpdateTime = new Date(train.lastUpdatePosition);
-            const secondsSinceLastUpdate = Math.round((thisUpdateTime - lastUpdateTime) / 1000);
-            numIncrements = train.lengthOfTrip/_TRAIN_SPEED;
-            if (secondsSinceLastUpdate > _TRAIN_UPDATE_INTERVAL/1000 ) {
-                updateIncrementsMissed = Math.round(secondsSinceLastUpdate/(_TRAIN_UPDATE_INTERVAL/1000));
-            }
-            percentageChange = (trainProgressBarWidth / numIncrements)*updateIncrementsMissed;
-            let newPercentageComplete = train.percentageComplete += percentageChange;
-            let newLastUpdatePosition = Date();
+            //check for missed updates
+            const updateIncrementsMissed = this.timeSinceUpdate(train);           
+            //prepare new percentage complete variable
+            const numIncrements = train.lengthOfTrip/_TRAIN_SPEED;
+            const percentageChange = (trainProgressBarWidth / numIncrements)*updateIncrementsMissed;
+            const newPercentageComplete = train.percentageComplete += percentageChange;          
+            //populate delete variables if train has completed its run
             if (newPercentageComplete >= 90) {
                 deleteId = train.id;
                 deleteContractId = train.contractId; 
                 lengthOfTrip = train.lengthOfTrip;             
             }
+            //refresh time of last update
+            let newLastUpdatePosition = Date();
+            //return updated active trains object
             return {...train, percentageComplete: newPercentageComplete, lastUpdatePosition: newLastUpdatePosition};
         });
+        // if run in progress, update Active Trains
         if (deleteId===-1) {
             this.props.updateActiveTrains(newTrains);
+        // if run complete, call complete train function
         } else {
             this.completeActiveTrain(deleteId, deleteContractId, lengthOfTrip);
         }       

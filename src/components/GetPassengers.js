@@ -15,10 +15,13 @@ class GetPassengers extends Component {
         ;
         setTimeout(() => {           
             this.props.getPassengerReward();
-            document.querySelector('#reward').style.display = 'none';
-            document.querySelector('#cash').innerText = 
-                `$${this.props.companyData[0].financials.cash}.00`
-            ;
+            if (document.querySelector('#reward') !== null) {
+                document.querySelector('#reward').style.display = 'none';
+            }
+            if (document.querySelector('#cash') !== null) {
+                document.querySelector('#cash').innerText = 
+                `$${this.props.companyData[0].financials.cash}.00`;
+            }
         }, 8000);       
     }
     render() { 
