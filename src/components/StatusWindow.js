@@ -46,7 +46,7 @@ class StatusWindow extends Component {
         //update each active train
         const newTrains = this.props.activeTrains.map(train => {
             //check for missed updates
-            const updateIncrementsMissed = this.timeSinceUpdate(train);           
+            const updateIncrementsMissed = this.incrementsSinceUpdate(train);           
             //prepare new percentage complete variable
             const numIncrements = train.lengthOfTrip/_TRAIN_SPEED;
             const percentageChange = (trainProgressBarWidth / numIncrements)*updateIncrementsMissed;
@@ -114,11 +114,12 @@ class StatusWindow extends Component {
         syncLocalStorageActiveTrains(this.props.activeTrains);
     }
     render() { 
+        //initialize variables
         const { classes, activeTrains, companyData } = this.props;
         const { contracts } = companyData[0];
         let activeTrainsDisplay;
-        if (activeTrains !== undefined && activeTrains.length > 0) {
-            //prepare an array that mixes infor from two props
+        //prepare an array that mixes info from two props
+        if (activeTrains !== undefined && activeTrains.length > 0) {           
             const fullArray = activeTrains.map(train => {
                 const tempArray = [];
                 let tempTrain = {};               
@@ -137,6 +138,7 @@ class StatusWindow extends Component {
                 });
                 return tempArray;
             });
+            //prepare html to display trains
             if (fullArray.length > 0 && fullArray[0].length > 0 ) {
                 activeTrainsDisplay = fullArray.map((train,index) => 
                     <div key={index} className={classes.progress}>
@@ -149,8 +151,7 @@ class StatusWindow extends Component {
                                 className={classes.activeTrain}
                                 trainId={uuid()}
                             />
-                        </div>
-                        
+                        </div>                        
                         <div className={classes.progressFrom}>{train[0].from}</div>
                         <div className={classes.progressCargo}>{train[0].cargo}</div>
                     </div>
@@ -160,11 +161,12 @@ class StatusWindow extends Component {
         return ( 
             <div className={classes.root} id='statusWindow'> <h2>Active Trains</h2>
                 <div>
-                    {activeTrainsDisplay?activeTrainsDisplay:<h4 style={
-                        {textAlign: 'center', marginLeft: '-25px'}
-                    }>
-                        No Active Trains at this time.
-                    </h4>} 
+                    {activeTrainsDisplay?
+                        activeTrainsDisplay:
+                        <h4 style={{textAlign:'center',marginLeft:'-25px'}}>
+                            No Active Trains at this time.
+                        </h4>
+                    } 
                 </div>
                 <div className={classes.notification} id='notification'>
                     Train completed run.

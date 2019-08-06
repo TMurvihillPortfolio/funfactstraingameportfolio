@@ -1,9 +1,10 @@
 import { _MEDIA_QUERIES, _DRAWER_WIDTH as drawerWidth} from '../assets/constants';
 import backgroundMap from '../img/usmap1930NewYorkChicagowNames.jpg';
+import backgroundEngine from '../img/steamEngineEdit.gif';
 export default theme => ({
     root: {
         height: '900px',
-        backgroundImage: `url(${backgroundMap})`,
+        backgroundImage: `linear-gradient(rgba(205,149,117,.5), rgba(205,149,117,.5)), url(${backgroundEngine})`,
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
