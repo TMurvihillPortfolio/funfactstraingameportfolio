@@ -44,7 +44,6 @@ class TrainOperations extends PureComponent {
   render() { 
     const { classes, companyData, activeTrains } = this.props;
     const { open } = this.state;
-    console.log(this.props.getPassengerReward);
     return (
       <div className={classes.drawerContainer}>
         <CssBaseline />

@@ -6,8 +6,9 @@ import Button from "@material-ui/core/Button";
 import Divider from '@material-ui/core/Divider';
 import NavBar from './NavBar';
 import { _TRAIN_DETAILS } from '../assets/constants';
+import illinoisCentral201 from '../img/illinoisCentral201.jpg';
 import jennyLind from '../img/jennylind.jpg';
-
+import jupiter from '../img/jupiter.jpg';
 
 class TrainInfoCard extends PureComponent {
     constructor(props) {

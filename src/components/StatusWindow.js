@@ -3,7 +3,8 @@ import uuid from 'uuid';
 import styles from '../styles/StatusWindowStyles';
 import { withStyles } from "@material-ui/core/styles";
 import ActiveTrain from './ActiveTrain';
-import { _CITY_ABBR, _TRAIN_SPEED } from '../assets/constants';
+import { syncLocalStorageActiveTrains } from '../assets/helpers';
+import { _CITY_ABBR, _TRAIN_SPEED, _TRAIN_UPDATE_INTERVAL } from '../assets/constants';
 
 class StatusWindow extends Component {
     constructor(props) {
@@ -13,8 +14,23 @@ class StatusWindow extends Component {
         this.completeActiveTrain=this.completeActiveTrain.bind(this); 
         this.showNotification=this.showNotification.bind(this);
         this.state = {
-            activeTrains: funFactsActiveTrains || false         
-         }
+            activeTrains: funFactsActiveTrains || false
+        }
+    }
+    componentDidMount() {
+        
+        //const localActive = JSON.parse(localStorage.getItem('funFactsActiveTrains'));
+        const trainProgBar = document.querySelector('#trainProgressBar').getBoundingClientRect();
+        //const trainProgBar = document.querySelector('#trainProgressBar').getBoundingClientRect();
+        //this.updatePositions(trainProgBar);
+        // console.log(localActive);
+        // if (localActive.lastPositionUpdate !== undefined) {
+        //         console.log(localActive.lastPositionUpdate)
+        //     }
+        //     else{
+        //         console.log('imhere');
+        //     };
+        //this.props.activeTrains.lastPositionUpdate = 
     }
     updatePositions(trainProgressBarWidth) {
         //*** number of increments(seconds) = lenth of trip / _TRAIN_SPEED miles (per second) */
@@ -25,16 +41,36 @@ class StatusWindow extends Component {
         let lengthOfTrip = 0;
         let numIncrements;
         let percentageChange;
+        let updateIncrementsMissed = 1;
         const newTrains = this.props.activeTrains.map(train => {
-            numIncrements = train.lengthOfTrip/1;
-            percentageChange = trainProgressBarWidth / numIncrements;
+            //check time of last update
+            const thisUpdateTime = new Date();
+            const lastUpdateTime = new Date(train.lastUpdatePosition);
+            const secondsSinceLastUpdate = Math.round((thisUpdateTime - lastUpdateTime) / 1000);
+            numIncrements = train.lengthOfTrip/_TRAIN_SPEED;
+            
+            console.log('secsince', secondsSinceLastUpdate);
+            console.log('updint', _TRAIN_UPDATE_INTERVAL/1000);
+            if (secondsSinceLastUpdate > _TRAIN_UPDATE_INTERVAL/1000 ) {
+                updateIncrementsMissed = Math.round(secondsSinceLastUpdate/(_TRAIN_UPDATE_INTERVAL/1000));
+                console.log('incmissed', updateIncrementsMissed);
+                // console.log('incbef', numIncrements);
+                // numIncrements += updateIncrementsMissed;
+                // console.log('incaft', numIncrements);
+            //     //figure how many miles per increment for train
+            //     //figure out how far along train is
+            }
+            console.log('incoutsideif', numIncrements);
+            percentageChange = (trainProgressBarWidth / numIncrements)*updateIncrementsMissed;
             let newPercentageComplete = train.percentageComplete += percentageChange;
-            if (train.percentageComplete >= 90) {
+            console.log('percaft', newPercentageComplete);
+            let newLastUpdatePosition = Date();
+            if (newPercentageComplete >= 90) {
                 deleteId = train.id;
                 deleteContractId = train.contractId; 
                 lengthOfTrip = train.lengthOfTrip;             
             }
-            return {...train, percentageComplete: newPercentageComplete};
+            return {...train, percentageComplete: newPercentageComplete, lastUpdatePosition: newLastUpdatePosition};
         });
         if (deleteId===-1) {
             this.props.updateActiveTrains(newTrains);
@@ -77,7 +113,7 @@ class StatusWindow extends Component {
         this.props.updateCompanyData(companyDataCopy);       
     }
     componentWillUnmount() {
-        //this.syncLocalActiveTrainStorage();
+        syncLocalStorageActiveTrains(this.props.activeTrains);
     }
     render() { 
         const { classes, activeTrains, companyData } = this.props;

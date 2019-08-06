@@ -1,102 +1,8 @@
-// /*
-//  * A simple React component
-//  */
-
-// import React, { PureComponent } from 'react';
-// const onInputChangeCommon = function(event) {
-//     const target = event.target;
-//     const value = target.type === "checkbox" ? target.checked : target.value;
-//     const name = target.name;
-//     this.setState({
-//       [name]: value
-//     });
-  
-//     if (name === "showHideCustomDatetime" && value) {
-//       this.interval = setInterval(this.getTime, 1000);
-//     } else if (name === "showHideCustomDatetime" && !value) {
-//       clearInterval(this.interval);
-//     }
-//   };
-  
-//   const setTime = function() {
-//     const time = new Date();
-//     // this.props.setEnterTimeCustomDatetime(time);
-//     this.callBack(time);
-//     this.setState({
-//       enterTime: time
-//     });
-//   };
-  
-//   class ActiveTrain extends React.Component {
-//     constructor(props) {
-//       super(props);
-//       this.state = {
-//         showHideCustomDatetime: true,
-//         enterTime: new Date()
-//       };
-//       this.onInputChangeCommon = onInputChangeCommon.bind(this);
-//       this.setTime = setTime.bind(this);
-//       this.callBack = this.props.callBack.bind(this);
-//     }
-  
-//     componentDidMount() {
-//       this.setState({ showHideCustomDatetime: true });
-//       this.interval = setInterval(this.setTime, 1000);
-//     }
-  
-//     componentWillUnmount() {
-//       clearInterval(this.interval);
-//     }
-  
-//     render() {
-//       return <div>{this.state.enterTime.getTime()}</div>;
-//     }
-//   }
-  
-//   class Application extends React.Component {
-//     constructor(props) {
-//       super(props);
-//       this.state = {
-//         value: null
-//       };
-//       // this.setTime = setTime.bind(this);
-//       this.clickHandler = this.clickHandler.bind(this);
-//       this.callBack = this.callBack.bind(this);
-//     }
-  
-//     clickHandler() {
-//       console.log(this.value)
-//     }
-  
-//     callBack(value) {
-//       this.value = value;
-//       // this.setState({time: value})
-//     }
-  
-//     render() {
-//       function random() {
-//         return Math.random() * (1000 - 0) + 0;
-//       }
-//       return (
-//         <div>
-//           <div>{random()}</div>
-//           <ActiveTrain callBack={this.callBack} />
-//           <button onClick={this.clickHandler}>log the current time</button>
-//         </div>
-//       );
-//     }
-//   }
-  
-//   export default ActiveTrain;
-
-
-
 import React, { PureComponent } from 'react';
-import styles from '../styles/ActiveTrainStyles';
 import { withStyles } from "@material-ui/core/styles";
-import uuid from 'uuid';
-
+import styles from '../styles/ActiveTrainStyles';
 import trainOnMap from '../img/redtraincrop.png';
+import { _TRAIN_UPDATE_INTERVAL } from '../assets/constants';
 
 class ActiveTrain extends PureComponent {
     constructor(props) {
@@ -104,31 +10,33 @@ class ActiveTrain extends PureComponent {
         this.state = {}
     }
     componentDidMount() {
+        //initialize variable
         const trainProgBar = document.querySelector('#trainProgressBar').getBoundingClientRect();
-        // UPDATE PARENT STATE
+        //immediately update train position
+        //this.props.updatePositions(trainProgBar.width);
+        // regularly update train position
         this.updatePositions = setInterval(() =>{
-            this.props.updatePositions(trainProgBar.width)}, 2000);
+            this.props.updatePositions(trainProgBar.width)}, _TRAIN_UPDATE_INTERVAL);
     }
     componentWillUnmount() {
-       clearInterval(this.updatePositions);
+        //clear update train position
+        clearInterval(this.updatePositions);
     }
 
     render() { 
-        const { classes, percentageComplete, top } = this.props;
-        
+        const { classes, percentageComplete, top } = this.props;       
         return ( 
             <div style={{position: 'relative'}} id="trainProgressBar">
-            <img 
-                src={trainOnMap} 
-                className={classes.trainOnMap} 
-                alt='train on a progress bar'
-                trainId={this.props.trainId}
-                style={{
-                    top: `${top}px`, 
-                    right: `${percentageComplete}%`
-                }}
-            />
-            
+                <img 
+                    src={trainOnMap} 
+                    className={classes.trainOnMap} 
+                    alt='train on a progress bar'
+                    trainId={this.props.trainId}
+                    style={{
+                        top: `${top}px`, 
+                        right: `${percentageComplete}%`
+                    }}
+                />          
             </div>
          );
     }

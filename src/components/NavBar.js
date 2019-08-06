@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import { Link } from 'react-router-dom';
 import styles from '../styles/NavBarStyles';
 import logo from '../img/logo.jpg';
 import {withStyles} from '@material-ui/core';
@@ -72,17 +73,17 @@ class NavBar extends PureComponent {
                     <NavLink to='/funfactstrains/buildroute'>Build Route</NavLink>                     */}
                     <div className={classes.linksContainer}>
                         <ul className={classes.links} id='links'>
-                            <li><a href='/' className={classes.logo}><img src={logo} alt='logo Fun Facts Train Game'/></a></li>
-                            <li><a href='./funfactstrains/trainoperations'>Train Operations</a></li>
-                            <li><a href='./funfactstrains/companymanagement'>Company Management</a></li>
-                            <li><a href='./funfactstrains/buildroute'>Build Route</a></li>
-                            <li><a href='./funfactstrains/getpassengers'>Catch Passengers($$$)</a></li>
+                            <li><Link href='/' className={classes.logo}><img src={logo} alt='logo Fun Facts Train Game'/></Link></li>
+                            <li><Link to='/funfactstrains/trainoperations'>Train Operations</Link></li>
+                            <li><Link to='/funfactstrains/companymanagement'>Company Management</Link></li>
+                            <li><Link to='/funfactstrains/buildroute'>Build Route</Link></li>
+                            <li><Link to='/funfactstrains/getpassengers'>Catch Passengers($$$)</Link></li>
                             <li>
                                 <ul className={classes.selectContainer} onClick={this.handleDropDownClick} id='selectMenu'>Buy/Sell Trains
                                     <div className={classes.selectItemsShow} id="selectItems">
-                                        <li className={classes.selectItems} onClick={this.closeMenu} value="jennylind"><a style={{ fontSize: '16px' }} href='/funfactstrains/trains/jennylind'>Jenny Lind</a> </li>
-                                        <li className={classes.selectItems} onClick={this.closeMenu} value="illinois201"><a style={{ fontSize: '16px' }} href='/funfactstrains/trains/illinoiscentral201'>Ill Cent 201</a></li>
-                                        <li className={classes.selectItems} onClick={this.closeMenu} value="jennylind"><a style={{ fontSize: '16px' }} href='/funfactstrains/trains/jupiter'>Jupiter</a> </li>                                
+                                        <li className={classes.selectItems} onClick={this.closeMenu} value="jennylind"><Link style={{ fontSize: '16px' }} to='/funfactstrains/trains/jennylind'>Jenny Lind</Link> </li>
+                                        <li className={classes.selectItems} onClick={this.closeMenu} value="illinois201"><Link style={{ fontSize: '16px' }} to='/funfactstrains/trains/illinoiscentral201'>Ill Cent 201</Link></li>
+                                        <li className={classes.selectItems} onClick={this.closeMenu} value="jennylind"><Link style={{ fontSize: '16px' }} to='/funfactstrains/trains/jupiter'>Jupiter</Link> </li>                                
                                     </div>
                                 </ul>
                             </li>
