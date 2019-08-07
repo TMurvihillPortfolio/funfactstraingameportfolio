@@ -1,5 +1,6 @@
 import { _MEDIA_QUERIES, _DRAWER_WIDTH as drawerWidth} from '../assets/constants';
 import backgroundEngine from '../img/steamEngineEdit.gif';
+import cogEngine from '../img/cogEngine.jpg';
 export default theme => ({
     root: {
         height: '900px',
@@ -80,7 +81,6 @@ export default theme => ({
         [_MEDIA_QUERIES.down('sm')]: {
           marginTop: '-10px',
           fontSize: '14px',
-          //width: `calc(50% - ${drawerWidth}px)`,
         },
         borderRadius: '7px',
     },
@@ -91,5 +91,19 @@ export default theme => ({
       opacity: '0.4',
       fontSize: '14px',
       marginLeft: '30px'
-    }
+    },   
+    goal: {
+        display: "block",
+        width: "fit-content",
+        position: "absolute",
+        top: "35%",
+        left: "65%",
+        transform: "translate(-50%,-50%)",
+        color: 'whitesmoke',
+        backgroundColor: 'transparent',
+        padding: '10px 15px',
+        backgroundImage: `linear-gradient(rgba(0,0,0,.1), rgba(0,0,0,.1))`,
+        zIndex: "10000",
+        borderRadius: "7px"
+    }   
 });

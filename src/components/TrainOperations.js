@@ -26,6 +26,12 @@ class TrainOperations extends PureComponent {
       open: true
     };
   }
+  componentDidMount() {
+    const goal = document.querySelector('#goal');
+    if (this.props.companyData[0].financials.cash >= 2000) {
+      goal.innerText='WINNER, WINNER, $2000 reached!!';
+    }
+  }
   handleDrawerOpen = () => {
     this.setState({ open: true });
   };
@@ -47,36 +53,36 @@ class TrainOperations extends PureComponent {
     return (
       <div className={classes.drawerContainer}>
         <CssBaseline />
-      <AppBar
-        position="fixed"
-        className={clsx(classes.appBar, {
-          [classes.appBarShift]: open,
-        })}
-      >
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="Open drawer"
-            onClick={this.handleDrawerOpen}
-            edge="start"
-            className={clsx(classes.menuButton, open && classes.hide)}
-          >
-            <ChevronRightIcon />
-            <p style={{ fontSize: '12px'}}>Train Operations</p>
-          </IconButton>
-          <NavBar />
-        </Toolbar>
-      </AppBar>
+        <AppBar
+          position="fixed"
+          className={clsx(classes.appBar, {
+            [classes.appBarShift]: open,
+          })}
+        >
+          <Toolbar>
+            <IconButton
+              color="inherit"
+              aria-label="Open drawer"
+              onClick={this.handleDrawerOpen}
+              edge="start"
+              className={clsx(classes.menuButton, open && classes.hide)}
+            >
+              <ChevronRightIcon />
+              <p style={{ fontSize: '12px'}}>Train Operations</p>
+            </IconButton>
+            <NavBar />
+          </Toolbar>
+        </AppBar>
         {open ? <OperationsDrawer routeHistory={this.props.history} handleDrawerClose={this.handleDrawerClose} companyData={companyData}/> : ''}
         <div className={classes.root}>
-            {/* <h1 className={open?classes.TrainOperationsHeaderOpen:classes.TrainOperationsHeaderOpenClosed}>Train Operations</h1>             */}
+          <div className={classes.goal} id="goal">Earn $2000 to win game!!</div>
             <StatusWindow 
               activeTrains={activeTrains} 
               companyData={this.props.companyData} 
               updateActiveTrains={this.props.updateActiveTrains} 
               updateCompanyData={this.props.updateCompanyData}
             />
-        </div> 
+        </div>         
       </div>
     );
   }
