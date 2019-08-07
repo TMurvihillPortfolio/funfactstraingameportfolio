@@ -38,9 +38,21 @@ class App extends Component {
     this.updateContract=this.updateContract.bind(this);
     this.updateActiveTrains=this.updateActiveTrains.bind(this);
     this.getPassengerReward=this.getPassengerReward.bind(this);
+    let initialCompanyData;
+    let initialActiveTrains;
+    try {
+      initialCompanyData = JSON.parse(localStorage.getItem('companyData'));
+    } catch  {
+      initialCompanyData = _INITIAL_COMPANYDATA;
+    }
+    try {
+      initialActiveTrains = JSON.parse(localStorage.getItem('funFactsActiveTrains'));
+    } catch  {
+      initialActiveTrains = [];
+    }
     this.state = { 
-      companyData: JSON.parse(localStorage.getItem('companyData')) || _INITIAL_COMPANYDATA,
-      activeTrains: JSON.parse(localStorage.getItem('funFactsActiveTrains')) || []
+      companyData:  initialCompanyData,
+      activeTrains: initialActiveTrains
     }
   }
   componentDidMount() {

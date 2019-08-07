@@ -61,6 +61,10 @@ export default theme => ({
         opacity: '0.7',
         transform: 'translateX(-14px)'
     },
+    mapIcon: {
+        height: '30px',
+        opacity: '0.7'
+    },
     labelIcon: {
       opacity: '0.4',
       fontSize: '14px',

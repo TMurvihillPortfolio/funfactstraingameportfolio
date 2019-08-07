@@ -1,3 +1,4 @@
+import uuid from 'uuid';
 import illinoisCentral201 from '../img/illinoisCentral201.jpg';
 import jennyLind from '../img/jennylind.jpg';
 import jupiter from '../img/jupiter.jpg';
@@ -137,13 +138,12 @@ const _INITIAL_COMPANYDATA = [{
     trains: [],
     contracts:  [
             {
-                id: 'f859306a-cce8-47b9-9a65-f9363396116d',
-                pathName: 'coal1_chicago_newyork16',
-                from: 'Chicago',
+                id: uuid(),       
+                pathName: 'coal1_boston_newyork',             
+                from: 'Boston',
                 to: 'NewYork',
-                payment: '16',
-                units: '1',
                 cargo: 'coal',
+                units: 1,
                 status: 'offered'
             }
         ],

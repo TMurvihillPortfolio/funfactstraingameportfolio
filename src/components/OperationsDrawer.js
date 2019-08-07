@@ -15,6 +15,7 @@ import DescriptionIcon from '@material-ui/icons/Description';
 import LabelIcon from '@material-ui/icons/Label';
 import LocoIcon from '../img/locoIcon.png';
 import TracksIcon from '../img/tracksIcon.png';
+import MapIcon from '../img/easternUS.png';
 //Required for lists
 import ListSubheader from '@material-ui/core/ListSubheader';
 import List from '@material-ui/core/List';
@@ -216,8 +217,8 @@ class OperationsDrawer extends Component {
                         <DrawerList 
                             listItems={viewMap} 
                             listIcon={<img 
-                                src={TracksIcon} 
-                                className={classes.tracksIcon} 
+                                src={MapIcon} 
+                                className={classes.mapIcon} 
                                 alt='traintracks icon' />
                             } 
                             listTitle="View Map"
