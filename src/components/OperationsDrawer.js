@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import styles from '../styles/OperationsDrawerStyles';
+import { Link } from 'react-router-dom';
 
 //material ui-general
 import { withStyles } from "@material-ui/core/styles";
@@ -10,7 +11,6 @@ import IconButton from '@material-ui/core/IconButton';
 //Icons
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import DraftsIcon from '@material-ui/icons/Drafts';
-import TrainIcon from '@material-ui/icons/Train';
 import DescriptionIcon from '@material-ui/icons/Description';
 import LabelIcon from '@material-ui/icons/Label';
 import LocoIcon from '../img/locoIcon.png';
@@ -79,8 +79,7 @@ class OperationsDrawer extends Component {
 
     render() { 
         const { classes, companyData } = this.props;
-        const { contracts, trains } = this.props.companyData[0];
-        
+        const { contracts, trains } = this.props.companyData[0];       
         const compTrains = [];
               
         if (trains !== undefined) {     
@@ -171,6 +170,19 @@ class OperationsDrawer extends Component {
                 "Under Construction--All routes available."
             </ListItem>
         ;
+        const viewMap =   
+            <ListItem  
+                key='001' 
+                className={classes.nested}
+                button
+                onClick={this.handleClick}
+            >             
+                <ListItemIcon>
+                    <LabelIcon className={classes.labelIcon}/>
+                </ListItemIcon>
+                <Link to="/funfactstrains/routemap/" >View Map</Link>
+            </ListItem>
+        ;
         return ( 
             <div>
                 <Drawer
@@ -201,6 +213,15 @@ class OperationsDrawer extends Component {
                     </div>
                     <div className={classes.buttons}>
                     <List>
+                        <DrawerList 
+                            listItems={viewMap} 
+                            listIcon={<img 
+                                src={TracksIcon} 
+                                className={classes.tracksIcon} 
+                                alt='traintracks icon' />
+                            } 
+                            listTitle="View Map"
+                        />
                         <DrawerList 
                             listItems={buildRouteItems} 
                             listIcon={<img 
@@ -233,8 +254,8 @@ class OperationsDrawer extends Component {
                         }
                         className={classes.drawerPaper}
                     >
-                        <DrawerList listItems={currentContracts} listIcon={<DescriptionIcon />} listTitle="Current Contracts"/>
-                        <DrawerList listItems={offers} listIcon={<DraftsIcon />} listTitle="Current Offers"/>
+                        <DrawerList listItems={currentContracts} listIcon={<DescriptionIcon />} listTitle={`Current Contracts (${currentContracts.length})`}/>
+                        <DrawerList listItems={offers} listIcon={<DraftsIcon />} listTitle={`Current Offers (${offers.length})`}/>
                         <DrawerList listItems={companyTrainListItems} listIcon={<img src={LocoIcon} className={classes.locoIcon} alt='locomotive icon' />} listTitle="Purchased Engines"/>
                     </List>
 

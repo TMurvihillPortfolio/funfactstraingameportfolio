@@ -1,5 +1,4 @@
 import { _MEDIA_QUERIES, _DRAWER_WIDTH as drawerWidth} from '../assets/constants';
-import backgroundMap from '../img/usmap1930NewYorkChicagowNames.jpg';
 import backgroundEngine from '../img/steamEngineEdit.gif';
 export default theme => ({
     root: {

@@ -75,9 +75,7 @@ function getLengthOfTrip(from, to) {
             }
         }
         //if distance not found, switch city order and find again       
-        city1 = to;
-        city2 = from;
-        const distance = getDistance(city1, city2)
+        const distance = getDistance(city2, city1)
         return distance !== undefined ? distance : 'Distance not found';
     }
     //Initialize variables

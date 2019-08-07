@@ -66,17 +66,13 @@ class NavBar extends PureComponent {
         return (
             <div className={classes.root}>
             <nav className={classes.NavBar} id='navBar'>               
-                {/* <div className={classes.links} id='links'>  */}
-                    {/* <NavLink className={classes.logo} to='/'><img src={logo} alt='logo Fun Facts Train Game'/></NavLink>   
-                    <NavLink to='/funfactstrains/trainoperations'>Train Operations</NavLink>
-                    <NavLink to='/funfactstrains/companymanagement'>Company Management</NavLink>
-                    <NavLink to='/funfactstrains/buildroute'>Build Route</NavLink>                     */}
                     <div className={classes.linksContainer}>
                         <ul className={classes.links} id='links'>
                             <li><Link href='/' className={classes.logo}><img src={logo} alt='logo Fun Facts Train Game'/></Link></li>
                             <li><Link to='/funfactstrains/trainoperations'>Train Operations</Link></li>
                             <li><Link to='/funfactstrains/companymanagement'>Company Management</Link></li>
                             <li><Link to='/funfactstrains/buildroute'>Build Route</Link></li>
+                            <li><Link to='/funfactstrains/RouteMap'>View Map</Link></li>
                             <li><Link to='/funfactstrains/getpassengers'>Catch Passengers($$$)</Link></li>
                             <li>
                                 <ul className={classes.selectContainer} onClick={this.handleDropDownClick} id='selectMenu'>Buy/Sell Trains
@@ -87,12 +83,8 @@ class NavBar extends PureComponent {
                                     </div>
                                 </ul>
                             </li>
-                        </ul>
-                        
-                    </div>
-                    
-                {/* </div> */}
-                
+                        </ul> 
+                    </div>              
             </nav>
             <div className={classes.mobileMenu} id='mobileMenu'>
                 <MenuIcon onClick={this.handleOpenMobile} id='mobileIcon'/>   

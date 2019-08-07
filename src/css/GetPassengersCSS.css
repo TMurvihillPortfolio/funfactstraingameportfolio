@@ -1,11 +1,11 @@
 /*catch area*/
   .wrapper{
     height: 100vh;
-    background-image: url('../img/usmap1930NewYorkChicagowCities.jpg');
+    background-image: url('../img/engineFront.jpg');
     background-image: linear-gradient(
-      rgba(255,255,255,.3), 
-      rgba(255,255,255,.3)),
-      url('../img/usmap1930NewYorkChicagowCities.jpg')
+      rgba(205,149,117,.5), 
+      rgba(255,255,255,.6)),
+      url('../img/engineFront.jpg')
     ;
     background-size: cover;
     position:relative;
@@ -22,7 +22,8 @@
   .wrapper h1{
     margin:20px; 
     text-align:center; 
-    color: #015e5e
+    color: #014d4d;
+    /* color: #015e5e */
   }
    
   .input-circle ~ .passenger{ 
@@ -96,7 +97,7 @@
   .currentCash{
       font-size: 36px;
       font-weight: 600;
-      color: #a74227;
+      color: #1c1512;
       margin: 15px;
   }
   
@@ -136,7 +137,7 @@
       height: 400px;
       width: 600px;
       position: absolute;
-      top: 50%;
+      top: 55%;
       left: 50%;
       transform: translate(-50%,-50%);
       background-image: url('../img/giphy.gif');
@@ -145,7 +146,7 @@
       border-radius: 7px;
   }
   #amount {
-    color: #c79382;
+    color: #1c1512;
   }
   .footer {
     position: fixed;
