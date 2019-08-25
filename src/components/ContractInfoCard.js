@@ -3,12 +3,9 @@ import styles from '../styles/ContractInfoCardStyles';
 import {withStyles} from '@material-ui/core';
 import NavBar from './NavBar';
 import Divider from '@material-ui/core/Divider';
-//import companyData from '../assets/trainslist';
 import Button from '@material-ui/core/Button';
 import { _CARGO_TYPES as cargoTypes } from '../assets/constants';
 import { getLengthOfTrip } from '../assets/helpers';
-
-let companyData; 
 
 class ContractInfoCard extends Component {
     constructor(props) {
@@ -17,9 +14,7 @@ class ContractInfoCard extends Component {
         this.handleClick = this.handleClick.bind(this);
         this.getButtonText = this.getButtonText.bind(this);
         this.updateContractStatus = this.updateContractStatus.bind(this);
-        // this.syncLocalStorage = this.syncLocalStorage.bind(this);
-        this.state = {
-        };
+        this.state = {};
     }
     updateContractStatus() {
         const contract = this.props.contractObj;

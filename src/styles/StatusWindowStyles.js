@@ -1,4 +1,4 @@
-import { _MEDIA_QUERIES } from '../assets/constants';
+import { _MEDIA_QUERIES, _DRAWER_WIDTH } from '../assets/constants';
 export default {
     root: {
         height: '200px',
@@ -13,11 +13,10 @@ export default {
             width: '500px'
         },
         [_MEDIA_QUERIES.down('sm')]: {
-            //transform: 'rotate(-90deg)',
-            //transformOrigin: 'right top',
-            //top: '65px',
-            //right: '200px'
-            width: '250px'
+            width: `calc(100% - ${_DRAWER_WIDTH+40}px)`
+        },
+        [_MEDIA_QUERIES.down('xs')]: {
+            width: '100%'
         }
     },
     progress: {

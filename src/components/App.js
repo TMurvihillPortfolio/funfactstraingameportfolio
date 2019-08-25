@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import uuid from 'uuid';
-import { format } from 'date-fns/format';
 import '../css/App.css';
 import { Route, Switch } from 'react-router-dom';
 import TrainInfoCard from './TrainInfoCard';
@@ -41,8 +40,12 @@ class App extends Component {
     let initialCompanyData;
     let initialActiveTrains;
     try {
+      console.log('imin try')
       initialCompanyData = JSON.parse(localStorage.getItem('companyData'));
+      if (initialCompanyData === null) initialCompanyData = _INITIAL_COMPANYDATA;
+      console.log(initialCompanyData);
     } catch  {
+      console.log('imin catch');
       initialCompanyData = _INITIAL_COMPANYDATA;
     }
     try {
@@ -115,8 +118,11 @@ class App extends Component {
   startTrain(contractObj, routeHistory) {
     //check for available engine
     const numEngines = this.state.companyData[0].trains.length;
-    const numActiveTrains = this.state.activeTrains.length;
+    const numActiveTrains = this.state.activeTrains===null ? 0 : this.state.activeTrains.length;
+    console.log(numActiveTrains, numEngines);
     if (numEngines < numActiveTrains+1) {
+      //back to train operations
+      routeHistory.push('/funfactstrains/trainoperations'); 
       alert('Not enough engines.');
       return;
     }    
@@ -129,7 +135,7 @@ class App extends Component {
         lengthOfTrip: getLengthOfTrip(contractObj.from, contractObj.to)
     }
     //copy state
-    const activeTrains = [...this.state.activeTrains] || [];
+    const activeTrains = this.state.activeTrains===null ? [] : [...this.state.activeTrains];
     //add new active train
     activeTrains.push(newActiveTrain);
     //update Active Trains state       
@@ -178,7 +184,7 @@ class App extends Component {
     let companyTrains, contracts, activeTrains;
     companyData.trains === undefined ? companyTrains = [] : companyTrains = [...companyData.trains];
     companyData.contracts === undefined ? contracts = [] : contracts = [...companyData.contracts];
-    this.state.activeTrains === undefined ? activeTrains = [] : activeTrains = [...this.state.activeTrains];
+    this.state.activeTrains === undefined || this.state.activeTrains === null ? activeTrains = [] : activeTrains = [...this.state.activeTrains];
     
     const trains = _TRAIN_DETAILS;
     const getTrain = props => {

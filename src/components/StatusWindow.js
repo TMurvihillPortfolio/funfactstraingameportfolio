@@ -119,7 +119,7 @@ class StatusWindow extends Component {
         const { contracts } = companyData[0];
         let activeTrainsDisplay;
         //prepare an array that mixes info from two props
-        if (activeTrains !== undefined && activeTrains.length > 0) {           
+        if (activeTrains !== undefined && activeTrains !== null && activeTrains.length > 0) {           
             const fullArray = activeTrains.map(train => {
                 const tempArray = [];
                 let tempTrain = {};               
@@ -163,7 +163,7 @@ class StatusWindow extends Component {
                 <div>
                     {activeTrainsDisplay?
                         activeTrainsDisplay:
-                        <h4 style={{textAlign:'center',marginLeft:'-25px'}}>
+                        <h4 style={{textAlign:'center'}}>
                             No Active Trains at this time.
                         </h4>
                     } 

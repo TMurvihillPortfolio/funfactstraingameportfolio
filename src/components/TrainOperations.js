@@ -76,6 +76,7 @@ class TrainOperations extends PureComponent {
         {open ? <OperationsDrawer routeHistory={this.props.history} handleDrawerClose={this.handleDrawerClose} companyData={companyData}/> : ''}
         <div className={classes.root}>
           <div className={classes.goal} id="goal">Earn $2000 to win game!!</div>
+          <div className={classes.waiting} id="waiting">Waiting for train to finish? "Catch Passengers' (see menu)</div>
             <StatusWindow 
               activeTrains={activeTrains} 
               companyData={this.props.companyData} 
