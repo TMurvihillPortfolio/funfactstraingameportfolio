@@ -31,13 +31,14 @@ class NavBar extends PureComponent {
     }
     handleOpenMobile(e) {
         console.log('click', e.target);
+        
         const links = document.querySelector('#links');
         const navBar = document.querySelector('#navBar');
         const a_links = [...document.querySelectorAll('#links>a')];
         const mobileMenu = document.querySelector('#mobileMenu');
-        //hide on outside click
-        // document.onclick = function(e){
-        //     if(e.target.id !== 'links' && e.target.id !== 'selectMenu'){
+        
+        // window.onclick = function(e){
+        //     if(e.target.id !== 'links' && e.target.id !== mobileIcon ){
         //         links.style.display = 'none';
         //         mobileMenu.style.display = 'flex';
         //         //window.location.reload(); //NOT YET IMPLEMENTED -- this is a hack to fix mobile menu not working on second click
@@ -64,7 +65,7 @@ class NavBar extends PureComponent {
             <nav className={classes.NavBar} id='navBar'>               
                     <div className={classes.linksContainer}>
                         <ul className={classes.links} id='links'>
-                            <li><Link href='/' className={classes.logo}><img src={logo} alt='logo Fun Facts Train Game'/></Link></li>
+                            <li><Link to='/' className={classes.logo}><img src={logo} alt='logo Fun Facts Train Game'/></Link></li>
                             <li><Link to='/funfactstrains/trainoperations'>Train Operations</Link></li>
                             <li><Link to='/funfactstrains/companymanagement'>Company Management</Link></li>
                             <li><Link to='/funfactstrains/buildroute'>Build Route</Link></li>

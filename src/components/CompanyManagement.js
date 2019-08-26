@@ -45,8 +45,7 @@ class CompanyManagement extends PureComponent {
                     src={underConstruction} 
                     alt='1800s railroad construction' 
                     className={classes.trainImageCSS}
-                /> 
-                <img src='../img/avatarHailing.jpg' />
+                />
             </div>
          );
     }

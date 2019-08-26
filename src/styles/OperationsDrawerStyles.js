@@ -33,7 +33,8 @@ export default theme => ({
         textAlign: 'center'
     },
     drawerPaper: {
-        background: "#fbF6d2"
+        //background: "#fbF6d2"
+        background: "#e8d8d3"
     },
     buttons: {
         display: 'flex',
