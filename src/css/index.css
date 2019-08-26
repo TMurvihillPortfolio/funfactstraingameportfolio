@@ -1,3 +1,6 @@
+html {
+  overflow-x: hidden;
+}
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
@@ -6,7 +9,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #fbF6d2;
-  background-clip: #f3f2fa
+  background-clip: #f3f2fa;
+  overflow-x: hidden;
 }
 
 code {

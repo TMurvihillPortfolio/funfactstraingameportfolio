@@ -34,7 +34,6 @@ class NavBar extends PureComponent {
         const links = document.querySelector('#links');
         const navBar = document.querySelector('#navBar');
         const a_links = [...document.querySelectorAll('#links>a')];
-        const selectMenu = document.querySelector('#selectMenu');
         const mobileMenu = document.querySelector('#mobileMenu');
         //hide on outside click
         // document.onclick = function(e){
@@ -51,14 +50,11 @@ class NavBar extends PureComponent {
         links.style.right= '0';
         links.style.textAlign= 'right';      
         links.style.top= '0';
-        links.style.backgroundColor= 'rgb(0,128,128,0.8)';
+        links.style.backgroundColor= 'rgb(0,128,128)';
+        links.style.backgroundColor= 'rgba(0,128,128,0.8)';
         links.style.borderRadius = '7px';
+        links.style.padding = '5px 0 5px 5px';
         a_links.map(link => link.style.fontSize='12px');
-        selectMenu.style.fontSize='14px';
-        selectMenu.style.marginLeft = '0';
-        selectMenu.style.marginRight = '13px';
-        selectMenu.style.marginTop = '0';
-        selectMenu.style.transform = 'none';
         mobileMenu.style.display = 'none';
     }
     render() { 
@@ -74,15 +70,6 @@ class NavBar extends PureComponent {
                             <li><Link to='/funfactstrains/buildroute'>Build Route</Link></li>
                             <li><Link to='/funfactstrains/RouteMap'>View Map</Link></li>
                             <li><Link to='/funfactstrains/getpassengers'>Catch Passengers($$$)</Link></li>
-                            <li>
-                                <ul className={classes.selectContainer} onClick={this.handleDropDownClick} id='selectMenu'>Buy/Sell Trains
-                                    <div className={classes.selectItemsShow} id="selectItems">
-                                        <li className={classes.selectItems} onClick={this.closeMenu} value="jennylind"><Link style={{ fontSize: '16px' }} to='/funfactstrains/trains/jennylind'>Jenny Lind</Link> </li>
-                                        <li className={classes.selectItems} onClick={this.closeMenu} value="illinois201"><Link style={{ fontSize: '16px' }} to='/funfactstrains/trains/illinoiscentral201'>Ill Cent 201</Link></li>
-                                        <li className={classes.selectItems} onClick={this.closeMenu} value="jennylind"><Link style={{ fontSize: '16px' }} to='/funfactstrains/trains/jupiter'>Jupiter</Link> </li>                                
-                                    </div>
-                                </ul>
-                            </li>
                         </ul> 
                     </div>              
             </nav>

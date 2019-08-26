@@ -97,9 +97,16 @@ class StatusWindow extends Component {
         //copy companyData
         const companyDataCopy = this.props.companyData;
 
-        //update cash
+        //update cash & notify if winner
         const payment = Math.round(lengthOfTrip*.25);
+        const below2000 = companyDataCopy[0].financials.cash < 2000;
         companyDataCopy[0].financials.cash += payment;
+        if (companyDataCopy[0].financials.cash > 2000 && below2000) {
+            const goal = document.querySelector('#goal');
+            if (this.props.companyData[0].financials.cash >= 2000) {
+                if (goal !== undefined && goal !== null) goal.innerText='WINNER, WINNER, $2000 reached!!';
+            }
+        }
 
         // delete contract
         const newContractArray = companyDataCopy[0].contracts.filter(

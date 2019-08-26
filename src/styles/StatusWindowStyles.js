@@ -38,7 +38,7 @@ export default {
         flex: '1',
     },
     notification: {
-        backgroundColor: 'teal',
+        backgroundColor: '#008080',
         width: 'fit-content',
         height: '40px',
         color: 'whitesmoke',

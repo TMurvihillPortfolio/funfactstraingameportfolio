@@ -41,42 +41,42 @@ export default {
             }
         }      
     },
-    selectContainer: {
-        listStyle: 'none',
-        fontSize: '14px',
-        cursor: 'pointer',
-        position: 'relative',
-        color: 'whitesmoke',
-        marginLeft: '3px',
-        padding: '2px 0 10px',
-        borderBottom: '1px solid transparent',
-        transition: 'border 1s ease-in-out',
-        testAlign: 'center',
-        '&:hover': {
-            borderBottom: '1px solid whitesmoke',
-            [_MEDIA_QUERIES.down('md')]: {
-                borderBottom: 'none'
-            }
-        }
-    },
-    selectItemsShow: {
-        display: 'none',
-        flexDirection: 'column',
-        position: 'absolute',
-        right: '0',
-        top: '30px',
-        backgroundColor: 'teal',
-        width: '140px',
-        borderRadius: '4px',
-        padding: '5px 7px'  
-    },
-    selectItems: { 
-        fontSize: '14px',
-        border: 'none',
-        '&:hover': {
-            border: 'none'
-        }
-    },
+    // selectContainer: {
+    //     listStyle: 'none',
+    //     fontSize: '14px',
+    //     cursor: 'pointer',
+    //     position: 'relative',
+    //     color: 'whitesmoke',
+    //     marginLeft: '3px',
+    //     padding: '2px 0 10px',
+    //     borderBottom: '1px solid transparent',
+    //     transition: 'border 1s ease-in-out',
+    //     testAlign: 'center',
+    //     '&:hover': {
+    //         borderBottom: '1px solid whitesmoke',
+    //         [_MEDIA_QUERIES.down('md')]: {
+    //             borderBottom: 'none'
+    //         }
+    //     }
+    // },
+    // selectItemsShow: {
+    //     display: 'none',
+    //     flexDirection: 'column',
+    //     position: 'absolute',
+    //     right: '0',
+    //     top: '30px',
+    //     backgroundColor: '#008080',
+    //     width: '140px',
+    //     borderRadius: '4px',
+    //     padding: '5px 7px'  
+    // },
+    // selectItems: { 
+    //     fontSize: '14px',
+    //     border: 'none',
+    //     '&:hover': {
+    //         border: 'none'
+    //     }
+    // },
     showMobileMenu: {
         display: 'flex',
         flexDirection: 'column',
@@ -86,7 +86,8 @@ export default {
         right: '0',
         textAlign: 'right',      
         top: '0',
-        backgroundColor: 'rgb(0,128,128,0.5)'
+        backgroundColor: 'rgb(0,128,128)',
+        //backgroundColor: 'rgba(0,128,128,0.5)'
     },
     mobileMenu: {
         display: 'none',

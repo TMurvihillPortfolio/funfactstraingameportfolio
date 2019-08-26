@@ -8,9 +8,8 @@ export default theme => ({
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundAttachment: 'fixed',
-        marginTop: '25px',
         [_MEDIA_QUERIES.down('sm')]: {
-          marginTop: '10px'
+          width: '100%'
         },
         position: 'relative'      
     },
@@ -101,6 +100,10 @@ export default theme => ({
         position: "absolute",
         top: "30%",
         left: "65%",
+        [_MEDIA_QUERIES.down('sm')]: {
+          left: '50%',
+          top: '25%'
+        },
         transform: "translate(-50%,-50%)",
         color: 'whitesmoke',
         backgroundColor: 'transparent',
@@ -113,9 +116,10 @@ export default theme => ({
         fontSize: "14px",
         width: "235px",
         position: "absolute",
-        top: "10px",
-        [_MEDIA_QUERIES.down('md')]: {
-          top: '20px'
+        top: "40px",
+        [_MEDIA_QUERIES.down('sm')]: {
+          right: '50%',
+          transform: "translate(50%, 50%)"
         },
         right: "0",
         color: 'whitesmoke',

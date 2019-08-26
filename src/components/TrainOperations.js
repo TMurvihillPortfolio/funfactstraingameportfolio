@@ -23,7 +23,7 @@ class TrainOperations extends PureComponent {
     this.handleDrawerClose=this.handleDrawerClose.bind(this);
     this.handlePassengerClick=this.handlePassengerClick.bind(this);
     this.state = {
-      open: true
+      open: window.innerWidth > 576 ? true : false
     };
   }
   componentDidMount() {
@@ -76,14 +76,14 @@ class TrainOperations extends PureComponent {
         {open ? <OperationsDrawer routeHistory={this.props.history} handleDrawerClose={this.handleDrawerClose} companyData={companyData}/> : ''}
         <div className={classes.root}>
           <div className={classes.goal} id="goal">Earn $2000 to win game!!</div>
-          <div className={classes.waiting} id="waiting">Waiting for train to finish? "Catch Passengers' (see menu)</div>
+          <div className={classes.waiting} id="waiting">"Catch Passengers" while you wait. (see menu)</div>
             <StatusWindow 
               activeTrains={activeTrains} 
               companyData={this.props.companyData} 
               updateActiveTrains={this.props.updateActiveTrains} 
               updateCompanyData={this.props.updateCompanyData}
             />
-        </div>         
+        </div>  
       </div>
     );
   }
