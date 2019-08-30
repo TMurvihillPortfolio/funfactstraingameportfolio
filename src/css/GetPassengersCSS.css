@@ -1,5 +1,5 @@
 /*catch area*/
-  .wrapper{
+.wrapper{
     height: 100vh;
     background-image: url('../img/engineFront.jpg');
     background-image: linear-gradient(
@@ -10,107 +10,107 @@
     background-size: cover;
     position:relative;
     cursor:crosshair;
-  }
- 
-  @media only screen and (max-width: 600px) {       
-      .wrapper h1,
-      #amount,
-      #cash {
-        font-size: 24px
-      }
-  }
-  
-  /*hide checkbox*/
-  .wrapper input{
-    position:fixed; 
-    left:-10px; 
-    top:-10px;
-  }
-  
-  .wrapper h1{
+}
+/* heading text stylings */
+#amount {
+    color: #1c1512;
+} 
+.currentCash{
+  font-size: 36px;
+  font-weight: 600;
+  color: #1c1512;
+  margin: 15px;
+}   
+.wrapper h1{
     margin:20px; 
     text-align:center; 
     color: #014d4d;
-    /* color: #015e5e */
-  }
-   
-  .input-circle ~ .passenger{ 
+}
+@media only screen and (max-width: 600px) {       
+    .wrapper h1,
+    #amount,
+    #cash {
+      font-size: 24px
+    }
+}
+/*hide checkbox*/
+.wrapper input{
+    position:fixed; 
+    left:-10px; 
+    top:-10px;
+}
+/* create flying passengers */
+.input-circle ~ .passenger{ 
     opacity:0;
     transition:0.3s  cubic-bezier(0,.43,1,0);
     animation: move 8s infinite alternate;
-  }
-  .input-circle1:not(:checked) ~ .passenger1,
-  .input-circle2:not(:checked) ~ .passenger2,
-  .input-circle3:not(:checked) ~ .passenger3,
-  .input-circle4:not(:checked) ~ .passenger4,
-  .input-circle5:not(:checked) ~ .passenger5,
-  .input-circle6:not(:checked) ~ .passenger6
-  {
+}
+.input-circle1:not(:checked) ~ .passenger1,
+.input-circle2:not(:checked) ~ .passenger2,
+.input-circle3:not(:checked) ~ .passenger3,
+.input-circle4:not(:checked) ~ .passenger4,
+.input-circle5:not(:checked) ~ .passenger5,
+.input-circle6:not(:checked) ~ .passenger6
+{
     opacity:1; 
-  }
+}
   
-  .input-circle1:checked ~ .passenger1 span,
-  .input-circle2:checked ~ .passenger2 span,
-  .input-circle3:checked ~ .passenger3 span,
-  .input-circle4:checked ~ .passenger4 span,
-  .input-circle5:checked ~ .passenger5 span,
-  .input-circle6:checked ~ .passenger6 span
-  {
+.input-circle1:checked ~ .passenger1 span,
+.input-circle2:checked ~ .passenger2 span,
+.input-circle3:checked ~ .passenger3 span,
+.input-circle4:checked ~ .passenger4 span,
+.input-circle5:checked ~ .passenger5 span,
+.input-circle6:checked ~ .passenger6 span
+{
     display:block;    
-  }
+}
   
-  .passenger{   
+/* create animation timings and passenger sizes */
+.passenger{   
     position:absolute;
     left:0;  
     cursor:crosshair;
-  }
-  .passenger1{top:50px;
+}
+.passenger1{top:50px;
     animation-delay: -2s!important;
     transform:scale(0.9);
-  }
-  .passenger2{
+}
+.passenger2{
     top:100px;
     animation-delay: -4s!important;
     transform:scale(0.5); 
-  }
-  .passenger3{
+}
+.passenger3{
     top:200px;
     animation-delay: -3s!important;
     transform:scale(1.4); 
-  }
-  
-  .passenger4{top:50px;
+} 
+.passenger4{top:50px;
     animation-delay: -12s!important;
     transform:scale(0.9);
-  }
-  .passenger5{
+}
+.passenger5{
     top:100px;
     animation-delay: -16s!important;
     transform:scale(0.5); 
-  }
-  .passenger6{
+}
+.passenger6{
     top:200px;
     animation-delay: -20s!important;
     transform:scale(1.4); 
-  }
+}
   
-  @keyframes move{
+@keyframes move{
     0%{left:0%;}
     20%{left:20%;top:50%; }
     40%{top:30%; left:60%;}
     60%{top:80%;left:80%;}
     80%{top:10%; left:20%;}
     100%{top:30%; left:20%; }
-  }
-  .currentCash{
-      font-size: 36px;
-      font-weight: 600;
-      color: #1c1512;
-      margin: 15px;
-  }
+}
   
-  /** passenger **/  
-  .passenger{
+/** passenger stylings **/  
+.passenger{
     background-image: url('../img/runningGiphyMan.png');
     background-size: cover;
     border-radius: 50% 50% 20% 20%;
@@ -125,54 +125,62 @@
     height:55px;
     animation:gliding 0.8s linear infinite;
     z-index:999;
-  }
-   
-  /** passenger animation **/ 
-  @keyframes gliding {
+}  
+/** passenger animation instructions **/ 
+@keyframes gliding {
     40%{
-      transform:rotateZ(2deg) translateX(2px) translateY(10px) translateZ(0);
-      line-height:16px;
-      font-size:0.6em;
+        transform:rotateZ(2deg) translateX(2px) translateY(10px) translateZ(0);
+        line-height:16px;
+        font-size:0.6em;
     }
     80%{
-      transform:rotateZ(-2deg) translateX(5px) translateY(8px) translateZ(0);
+        transform:rotateZ(-2deg) translateX(5px) translateY(8px) translateZ(0);
     }
-  }
-
-  /** GIF Reward box **/
-  .reward {
-      display: none;
-      height: 400px;
-      width: 600px;
-      position: absolute;
-      top: 58%;
-      left: 50%;
-      transform: translate(-50%,-50%);
-      background-image: url('../img/giphy.gif');
-      background-size: cover;
-      z-index: 1000;
-      border-radius: 7px;
-  }
-  #amount {
-    color: #1c1512;
-  }
-  .countDown {
+}
+/** GIF Reward box **/
+.reward {
+    display: none;
+    height: 400px;
+    width: 600px;
     position: absolute;
-    bottom: 50px;
-    right: 50px;
-    font-size: 24px;
-    background-color: #014d4d;
-    border-radius: 50%;
-    padding: 15px;
-    color: whitesmoke;
-    z-index: 2000;
-  }
-  .footer {
+    top: 58%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    background-image: url('../img/giphy.gif');
+    background-size: cover;
+    background-position: center;
+    z-index: 1000;
+    border-radius: 7px;
+}
+@media only screen and (max-width: 600px) {       
+    .reward {
+        width: 400px;
+    }
+}
+@media only screen and (max-width: 400px) {       
+    .reward {
+        width: 250px;
+    }
+}
+/* countdown inside reward gif  */
+.countDown {
+  position: absolute;
+  bottom: 50px;
+  right: 50px;
+  font-size: 24px;
+  background-color: #014d4d;
+  border-radius: 50%;
+  padding: 15px;
+  color: whitesmoke;
+  z-index: 2000;
+}
+/* motion credit tag line */
+.footer {
     position: fixed;
     bottom: 0;
     left: 0;
-  }
-  .footer a {   
+}
+.footer a {   
     text-decoration: none;
     color: teal;
-  }
+}
