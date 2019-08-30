@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import styles from '../styles/ContractInfoCardStyles';
 import {withStyles} from '@material-ui/core';
-import NavBar from './NavBar';
 import Divider from '@material-ui/core/Divider';
 import Button from '@material-ui/core/Button';
 import { _CARGO_TYPES as cargoTypes } from '../assets/constants';
 import { getLengthOfTrip } from '../assets/helpers';
+import NavBar from './NavBar';
 
 class ContractInfoCard extends Component {
     constructor(props) {
@@ -13,7 +13,6 @@ class ContractInfoCard extends Component {
         this.getCargoObj = this.getCargoObj.bind(this);
         this.handleClick = this.handleClick.bind(this);
         this.getButtonText = this.getButtonText.bind(this);
-        this.updateContractStatus = this.updateContractStatus.bind(this);
         this.state = {};
     }
     componentDidMount() {
@@ -25,17 +24,7 @@ class ContractInfoCard extends Component {
             this.props.history.push('/');
           }
     }
-    updateContractStatus() {
-        const contract = this.props.contractObj;
-        contract.status = 'started';
-        this.props.updateContract(contract);      
-    }
-    getCargoObj() {
-        const cargoType = this.props.contractObj.cargo;
-        const cargoIndex = cargoTypes
-            .findIndex(cargo => cargo.name === cargoType);
-        return cargoTypes[cargoIndex];
-    }
+    //update contract status and start train if required
     handleClick() {
         //Make copy of contract object
         const contract = Object.assign({}, this.props.contractObj);
@@ -49,19 +38,20 @@ class ContractInfoCard extends Component {
             this.props.startTrain(contract, this.props.history);
         }    
     }
+    //helper function-gets all cargo object details based on contractObj.cargo
+    getCargoObj() {
+        const cargoType = this.props.contractObj.cargo;
+        const cargoIndex = cargoTypes
+            .findIndex(cargo => cargo.name === cargoType);
+        return cargoTypes[cargoIndex];
+    }
+    //helper function-return user friendly button text based on contract status
     getButtonText() {
         const contract = this.props.contractObj;
         if (contract.status==='offered') return 'Accept Contract'; 
         if (contract.status==='accepted') return 'Start Train'; 
         if (contract.status==='started') return 'In Progress'; 
-    }
-    // syncLocalStorage() {
-    //     localStorage.setItem(
-    //         'companyData', 
-    //         JSON.stringify(companyData))
-    //     ;
-    // }
-    
+    }   
     render() {        
         const myCargo = this.getCargoObj();
         const { image, cargoFacts } = myCargo;

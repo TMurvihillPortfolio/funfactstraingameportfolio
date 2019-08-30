@@ -24,6 +24,7 @@ class StatusWindow extends Component {
     componentDidMount() {
         this.showNotification(0, "Updating Trains"); 
     }
+    //helper function -- check if train missed some updates due to user navigation
     incrementsSinceUpdate(train) {
         //get seconds since last update
         const secondsSinceLastUpdate = Math.round(
@@ -38,6 +39,7 @@ class StatusWindow extends Component {
         //return update increments missed
         return updateIncrementsMissed;
     }
+    //update train positions in status window
     updatePositions(trainProgressBarWidth) {
         //initialize variables     
         let deleteId = -1;
@@ -71,11 +73,14 @@ class StatusWindow extends Component {
         }       
     }
     showNotification(deleteContractId, message=false) {
+        //initialize variables
         const notification = document.querySelector('#notification');
         let showTime = 4000;
+        //if message parameter, prepare message
         if (message) {
             notification.innerText = message; 
-            showTime = _TRAIN_UPDATE_INTERVAL;           
+            showTime = _TRAIN_UPDATE_INTERVAL;
+        //if no message parameter, prepare standard completed train message
         } else {           
             const contracts = this.props.companyData[0].contracts;
             const completedContract = contracts.find(
@@ -83,7 +88,9 @@ class StatusWindow extends Component {
             );
             notification.innerText = `${completedContract.cargo.toUpperCase()}--${completedContract.from} to ${completedContract.to} completed its run.`;
         }
+        //show message
         notification.style.transform = 'translateY(0)';
+        //remove message after a certain amount of time
         setTimeout(() => notification.style.transform = 'translateY(60px)', showTime);
     }
     completeActiveTrain(deleteId, deleteContractId, lengthOfTrip) {
@@ -97,14 +104,14 @@ class StatusWindow extends Component {
         //copy companyData
         const companyDataCopy = this.props.companyData;
 
-        //update cash & notify if winner
+        //update cash
         const payment = Math.round(lengthOfTrip*.25);
-        //const below2000 = companyDataCopy[0].financials.cash < 2000;
-        const below2000 = true;
+        const below2000 = companyDataCopy[0].financials.cash < 2000;
         companyDataCopy[0].financials.cash += payment;
-        if (companyDataCopy[0].financials.cash > 300 && below2000) {
+        //notify if game complete
+        if (companyDataCopy[0].financials.cash > 2000 && below2000) {
             const goal = document.querySelector('#goal');
-            if (this.props.companyData[0].financials.cash >= 300) {
+            if (this.props.companyData[0].financials.cash >= 2000) {
                 if (goal !== undefined && goal !== null) {
                     //Show winner message
                     goal.innerText='WINNER, WINNER, $2000 reached!!';
@@ -124,6 +131,7 @@ class StatusWindow extends Component {
         this.props.updateCompanyData(companyDataCopy);       
     }
     componentWillUnmount() {
+        //update local storage with activeTrains
         syncLocalStorageActiveTrains(this.props.activeTrains);
     }
     render() { 

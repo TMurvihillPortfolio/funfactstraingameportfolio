@@ -39,10 +39,12 @@ class NavBar extends PureComponent {
         clearIcon.style.display = 'flex';
     }
     handleCloseMobile(e) {
+        //initialize variables
         const navBar = document.querySelector('#navBar');
         const mobileMenu = document.querySelector('#mobileMenu');
         const clearIcon = document.querySelector('#clearIcon');
         
+        //hide mobile menu and close icon, show hamburger
         navBar.style.display= 'none';
         mobileMenu.style.display = 'flex';
         clearIcon.style.display = 'none';

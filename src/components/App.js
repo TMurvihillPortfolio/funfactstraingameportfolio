@@ -38,6 +38,7 @@ class App extends Component {
     this.updateActiveTrains=this.updateActiveTrains.bind(this);
     this.getPassengerReward=this.getPassengerReward.bind(this);
     this.resetGameState=this.resetGameState.bind(this);
+    //get initial state values from local storage
     let initialCompanyData;
     let initialActiveTrains;
     try {
@@ -68,7 +69,7 @@ class App extends Component {
       event.preventDefault();
       let syncCompanyData;
       let syncTrains
-      // sync local storage
+      // sync local storage to state or to reset game data
       if (this.state.reset) {
         syncCompanyData = _INITIAL_COMPANYDATA;
         syncTrains = [];
@@ -170,33 +171,38 @@ class App extends Component {
       }    
       return returnValue
     });
-    //update contracts with new contracts object
+    //update company data copy with new contracts object
     companyDataCopy[0].contracts = newContractArray;
     //update state
     this.updateCompanyData(companyDataCopy);
   }
   getPassengerReward() {
+    //update company data financial when passenger caught in 'get passengers'
     const companyDataCopy = this.state.companyData;
     companyDataCopy[0].financials.cash += _GETPASSENGER_REWARD;
     this.updateCompanyData(companyDataCopy);
   }
+  //sets reset game state to true (accessed in componentDidMount)
   resetGameState() {
     this.setState({ reset : true });
   }
   componentWillUnmount() {
+    //clears the setInterval that generates new contract offers
     clearInterval(this.getOffers);
 
     /*** for debugging */
     // this.state=[];
  }
   render() {
+    //initialize variables
     const companyData = this.state.companyData[0];
     let companyTrains, contracts, activeTrains;
     companyData.trains === undefined ? companyTrains = [] : companyTrains = [...companyData.trains];
     companyData.contracts === undefined ? contracts = [] : contracts = [...companyData.contracts];
-    this.state.activeTrains === undefined || this.state.activeTrains === null ? activeTrains = [] : activeTrains = [...this.state.activeTrains];
-    
+    this.state.activeTrains === undefined || this.state.activeTrains === null ? activeTrains = [] : activeTrains = [...this.state.activeTrains];   
     const trains = _TRAIN_DETAILS;
+
+    //prepare route and props for train info cards
     const getTrain = props => {
       let name = props.match.params.trainpathname;
       let trainIndex = trains.findIndex(train => train.pathName === name);
@@ -209,6 +215,8 @@ class App extends Component {
               />
       ;
     }
+
+    //prepare route and props for contract info cards
     const getContract = routeProps => {
       //match pathname to contract data
       const name = routeProps.match.params.contractpathname;
@@ -256,12 +264,27 @@ class App extends Component {
                   getPassengerReward={this.getPassengerReward} 
                   resetGameState={this.resetGameState}/>}
                 />
-              <Route exact path='/funfactstrains/companymanagement' render={(routeProps) => <CompanyManagement {...routeProps}/>}/>       
-              <Route exact path='/funfactstrains/buildroute' render={(routeProps) => <BuildRoute {...routeProps}/>}/>
-              <Route exact path='/funfactstrains/routemap' render={(routeProps) => <RouteMap {...routeProps}/>}/>
-              <Route exact path='/funfactstrains/getpassengers' render={(routeProps) => <GetPassengers companyData={this.state.companyData} getPassengerReward= {this.getPassengerReward} {...routeProps}/>}/>      
-              <Route exact path='/funfactstrains/trains/:trainpathname' render={getTrain}/>     
-              <Route exact path='/funfactstrains/contracts/:contractpathname' render={getContract}/>
+              <Route exact path='/funfactstrains/companymanagement' render={(routeProps) => 
+                <CompanyManagement {...routeProps}/>}
+              />       
+              <Route exact path='/funfactstrains/buildroute' render={(routeProps) => 
+                <BuildRoute {...routeProps}/>}
+              />
+              <Route exact path='/funfactstrains/routemap' render={(routeProps) => 
+                <RouteMap {...routeProps}/>}
+              />
+              <Route exact path='/funfactstrains/getpassengers' render={(routeProps) => 
+                <GetPassengers 
+                  companyData={this.state.companyData} 
+                  getPassengerReward= {this.getPassengerReward} 
+                  {...routeProps}/>}
+              />      
+              <Route exact path='/funfactstrains/trains/:trainpathname' 
+                render={getTrain}
+              />     
+              <Route exact path='/funfactstrains/contracts/:contractpathname' 
+                render={getContract}
+              />
           </Switch>
       </div>
      );

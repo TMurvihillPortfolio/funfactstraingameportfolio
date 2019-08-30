@@ -12,8 +12,3 @@ body {
   background-clip: #f3f2fa;
   overflow-x: hidden;
 }
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
-}

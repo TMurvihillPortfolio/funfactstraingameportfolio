@@ -3,6 +3,7 @@ import uuid from 'uuid';
 import styles from '../styles/OperationsDrawerStyles';
 import { Link } from 'react-router-dom';
 
+//#region Material UI
 //material ui-general
 import { withStyles } from "@material-ui/core/styles";
 import Drawer from '@material-ui/core/Drawer';
@@ -22,8 +23,9 @@ import ListSubheader from '@material-ui/core/ListSubheader';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
+//#endregion
 
-//user generated
+//assets and components
 import { _TRAIN_DETAILS } from '../assets/constants';
 import ContractListItem from './ContractListItem';
 import TrainListItem from './TrainListItem';
@@ -83,7 +85,8 @@ class OperationsDrawer extends Component {
         const { classes, companyData } = this.props;
         const { contracts, trains } = this.props.companyData[0];       
         const compTrains = [];
-              
+        
+        //create array of company owned trains
         if (trains !== undefined) {     
             trains.map(train => {
                 _TRAIN_DETAILS.map(trainDetail => {
@@ -94,6 +97,7 @@ class OperationsDrawer extends Component {
             });
         }
         
+        //create list html of current accepted contracts
         const currentContracts = contracts
             .filter(contract => contract.status === 'accepted' || contract.status === 'started')
             .map(acceptedContract => 
@@ -111,6 +115,7 @@ class OperationsDrawer extends Component {
                 </ListItem>
             )
         ;
+        //create list html of offered contracts
         const offers = contracts
             .filter(contract => contract.status === 'offered')
             .map(offerContract => 
@@ -131,6 +136,7 @@ class OperationsDrawer extends Component {
                 </ListItem>
             )
         ;
+        //create list html of company owned trains
         const companyTrainListItems = compTrains.map(train =>  
             <ListItem  
                 key={uuid()} 
@@ -145,6 +151,7 @@ class OperationsDrawer extends Component {
                     listView/>
             </ListItem>
         );
+        //create list html of all trains
         const trainListItems = _TRAIN_DETAILS.map(train =>  
             <ListItem  
                 key={uuid()} 
@@ -159,6 +166,7 @@ class OperationsDrawer extends Component {
                     listView/>
             </ListItem>
         );
+        //UNDER CONSTRUCTION -- create list html of built routes
         const buildRouteItems =   
             <ListItem  
                 key={uuid()} 
@@ -172,6 +180,7 @@ class OperationsDrawer extends Component {
                 "Under Construction--All routes available."
             </ListItem>
         ;
+        //UNDER CONSTRUCTION -- create list html for map
         const viewMap =   
             <ListItem  
                 key={uuid()} 

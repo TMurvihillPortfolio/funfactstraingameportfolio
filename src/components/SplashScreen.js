@@ -3,6 +3,7 @@ import styles from '../styles/SplashScreenStyles';
 import logo from '../img/logowText.png';
 import { withStyles } from "@material-ui/core/styles";
 
+//UNDER CONSTRUCTION -- splash screen to be implemented later
 class SplashScreen extends Component {
     state = {  }
     componentDidMount() {

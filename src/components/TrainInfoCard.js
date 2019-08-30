@@ -6,9 +6,6 @@ import Button from "@material-ui/core/Button";
 import Divider from '@material-ui/core/Divider';
 import NavBar from './NavBar';
 import { _TRAIN_DETAILS } from '../assets/constants';
-import illinoisCentral201 from '../img/illinoisCentral201.jpg';
-import jennyLind from '../img/jennylind.jpg';
-import jupiter from '../img/jupiter.jpg';
 
 class TrainInfoCard extends PureComponent {
     constructor(props) {
@@ -41,7 +38,6 @@ class TrainInfoCard extends PureComponent {
                 <h1>{trainName}</h1>
                 <h3>{`$${trainCost}.00`}</h3>
                 <img 
-                    //src={trainImage}
                     src={trainImage}
                     alt='engraving of steam train' 
                     className={classes.trainImageCSS}

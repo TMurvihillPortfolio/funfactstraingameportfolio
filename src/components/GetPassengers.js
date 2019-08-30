@@ -8,11 +8,14 @@ class GetPassengers extends Component {
         this.handleClick=this.handleClick.bind(this);
         this.state = {  }
     }
+    //if flying passenger is clicked, show reward video and add reward to company financials
     handleClick() {
+        //show reward video
         document.querySelector('#reward').style.display = 'block';
         document.querySelector('#cash').innerText = 
             'Caught!! + $10.00'
         ;
+        //show countdown on reward video
         const countDown = document.querySelector('#countDown');
         let countDownIntervalFunction;
         if (countDown !== null) {
@@ -20,7 +23,8 @@ class GetPassengers extends Component {
             countDownIntervalFunction = setInterval(() => {
                 countDown.innerText = countDown.innerText - 1;
             }, 1000);
-        }       
+        }
+        //hide reward video after 8 seconds and clear countdown interval function      
         setTimeout(() => {           
             this.props.getPassengerReward();
             
