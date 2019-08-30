@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import uuid from 'uuid';
 import styles from '../styles/OperationsDrawerStyles';
 import { Link } from 'react-router-dom';
 
@@ -114,7 +115,7 @@ class OperationsDrawer extends Component {
             .filter(contract => contract.status === 'offered')
             .map(offerContract => 
                 <ListItem  
-                    key={offerContract.id} 
+                    key={uuid()} 
                     className={classes.nested}
                     button
                     onClick={this.handleClick}
@@ -132,7 +133,7 @@ class OperationsDrawer extends Component {
         ;
         const companyTrainListItems = compTrains.map(train =>  
             <ListItem  
-                key={train.id} 
+                key={uuid()} 
                 className={classes.nested}
                 button
                 onClick={this.handleClick}
@@ -146,7 +147,7 @@ class OperationsDrawer extends Component {
         );
         const trainListItems = _TRAIN_DETAILS.map(train =>  
             <ListItem  
-                key={train.id} 
+                key={uuid()} 
                 className={classes.nested}
                 button
                 onClick={this.handleClick}
@@ -160,7 +161,7 @@ class OperationsDrawer extends Component {
         );
         const buildRouteItems =   
             <ListItem  
-                key='001' 
+                key={uuid()} 
                 className={classes.nested}
                 button
                 onClick={this.handleClick}
@@ -173,7 +174,7 @@ class OperationsDrawer extends Component {
         ;
         const viewMap =   
             <ListItem  
-                key='001' 
+                key={uuid()} 
                 className={classes.nested}
                 button
                 onClick={this.handleClick}

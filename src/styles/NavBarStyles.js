@@ -97,6 +97,16 @@ export default {
         },
         alignItems: 'center',
         justifyContent: 'flex-end',
-        color: 'whitesmoke'
-    }
+        color: 'whitesmoke',
+    },
+    clearIcon: {
+        //transform: 'translateX(-150px)',
+        // width: 'fit-content',
+        // textAlign: 'right',
+        // justifyContent: 'flex-end',
+        // backgroundColor: 'teal',
+        // padding: '3px',
+        // borderRadius: '3px',       
+        color: 'black'
+   }
 }

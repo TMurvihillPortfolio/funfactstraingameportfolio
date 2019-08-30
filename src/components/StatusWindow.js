@@ -99,12 +99,18 @@ class StatusWindow extends Component {
 
         //update cash & notify if winner
         const payment = Math.round(lengthOfTrip*.25);
-        const below2000 = companyDataCopy[0].financials.cash < 2000;
+        //const below2000 = companyDataCopy[0].financials.cash < 2000;
+        const below2000 = true;
         companyDataCopy[0].financials.cash += payment;
-        if (companyDataCopy[0].financials.cash > 2000 && below2000) {
+        if (companyDataCopy[0].financials.cash > 300 && below2000) {
             const goal = document.querySelector('#goal');
-            if (this.props.companyData[0].financials.cash >= 2000) {
-                if (goal !== undefined && goal !== null) goal.innerText='WINNER, WINNER, $2000 reached!!';
+            if (this.props.companyData[0].financials.cash >= 300) {
+                if (goal !== undefined && goal !== null) {
+                    //Show winner message
+                    goal.innerText='WINNER, WINNER, $2000 reached!!';
+                    //Show reset button
+                    this.props.showReset();
+                }
             }
         }
 
@@ -159,7 +165,7 @@ class StatusWindow extends Component {
                                 trainId={uuid()}
                             />
                         </div>                        
-                        <div className={classes.progressFrom}>{train[0].from}</div>
+                        <div className={classes.progressFrom}>{train[0].from}&nbsp;</div>
                         <div className={classes.progressCargo}>{train[0].cargo}</div>
                     </div>
                 );

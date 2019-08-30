@@ -28,9 +28,9 @@ export default {
         color: '#f3f2fa',
         margin: 'auto',
         marginBottom: '30px',
-        backgroundColor: '#857cad',
+        backgroundColor: 'teal',
         '&:hover': {
-            backgroundColor: '#5f5592'
+            backgroundColor: '#265b5f'
         }
     },
 }

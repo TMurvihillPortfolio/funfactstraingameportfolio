@@ -15,6 +15,7 @@ import NavBar from './NavBar';
 import OperationsDrawer from './OperationsDrawer';
 import StatusWindow from './StatusWindow';
 import { _INITIAL_COMPANYDATA } from '../assets/constants';
+import { removeLocalStorageCompanyData, removeLocalStorageActiveTrains } from '../assets/helpers';
 
 class TrainOperations extends PureComponent {
   constructor(props) {
@@ -22,8 +23,11 @@ class TrainOperations extends PureComponent {
     this.handleDrawerOpen=this.handleDrawerOpen.bind(this);
     this.handleDrawerClose=this.handleDrawerClose.bind(this);
     this.handlePassengerClick=this.handlePassengerClick.bind(this);
+    this.showReset=this.showReset.bind(this);
+    this.resetGame=this.resetGame.bind(this);
     this.state = {
-      open: window.innerWidth > 576 ? true : false
+      open: window.innerWidth > 576 ? true : false,
+      showReset: false
     };
   }
   componentDidMount() {
@@ -47,9 +51,17 @@ class TrainOperations extends PureComponent {
         this.props.getPassengerReward();
     }, 8000);
   }
+  showReset() {
+    console.log('showreset');
+    this.setState({ showReset : true });
+  }
+  resetGame() {
+    this.props.resetGameState();
+    alert('Reload page to reset game.');
+  }
   render() { 
     const { classes, companyData, activeTrains } = this.props;
-    const { open } = this.state;
+    const { open, showReset } = this.state;
     return (
       <div className={classes.drawerContainer}>
         <CssBaseline />
@@ -75,13 +87,27 @@ class TrainOperations extends PureComponent {
         </AppBar>
         {open ? <OperationsDrawer routeHistory={this.props.history} handleDrawerClose={this.handleDrawerClose} companyData={companyData}/> : ''}
         <div className={classes.root}>
-          <div className={classes.goal} id="goal">Earn $2000 to win game!!</div>
-          <div className={classes.waiting} id="waiting">"Catch Passengers" while you wait. (see menu)</div>
+          <div className={classes.goal} id="goal">
+            Earn $2000 to win game!!           
+              
+          </div>
+          <div className={classes.reset} id="reset">
+              <button className={classes.button} onClick={this.resetGame} style={{ display: showReset?"block":"none"}}>
+                RESET
+              </button>            
+          </div> 
+          <div className={classes.waiting} id="waiting">
+            "Catch Passengers" while you wait. (see menu)
+            
+          </div>
+          
+
             <StatusWindow 
               activeTrains={activeTrains} 
               companyData={this.props.companyData} 
               updateActiveTrains={this.props.updateActiveTrains} 
               updateCompanyData={this.props.updateCompanyData}
+              showReset={this.showReset}
             />
         </div>  
       </div>

@@ -37,15 +37,13 @@ class App extends Component {
     this.updateContract=this.updateContract.bind(this);
     this.updateActiveTrains=this.updateActiveTrains.bind(this);
     this.getPassengerReward=this.getPassengerReward.bind(this);
+    this.resetGameState=this.resetGameState.bind(this);
     let initialCompanyData;
     let initialActiveTrains;
     try {
-      console.log('imin try')
       initialCompanyData = JSON.parse(localStorage.getItem('companyData'));
       if (initialCompanyData === null) initialCompanyData = _INITIAL_COMPANYDATA;
-      console.log(initialCompanyData);
     } catch  {
-      console.log('imin catch');
       initialCompanyData = _INITIAL_COMPANYDATA;
     }
     try {
@@ -62,16 +60,26 @@ class App extends Component {
     /*** Delete this section - for debugging ***/
     // console.log(this.state);
     // this.state.companyData[0].contracts.map(contract => contract.status = 'offered')
-    // this.state = [];
+    //this.state = [];
     // console.log(this.state);
 
     //update local storage on window close
     window.addEventListener('beforeunload', (event) => {
       event.preventDefault();
+      let syncCompanyData;
+      let syncTrains
       // sync local storage
-      syncLocalStorageActiveTrains(this.state.activeTrains);
-      syncLocalStorageCompanyData(this.state.companyData);      
+      if (this.state.reset) {
+        syncCompanyData = _INITIAL_COMPANYDATA;
+        syncTrains = [];
+      } else {
+        syncCompanyData = this.state.companyData;
+        syncTrains = this.state.activeTrains;
+      }
+      syncLocalStorageActiveTrains(syncTrains);
+      syncLocalStorageCompanyData(syncCompanyData); 
     });
+    this.setState({ reset: false });
 
     //add contract offer to state
     let newCompanyData = getContractOffer(this.state.companyData);    
@@ -119,7 +127,6 @@ class App extends Component {
     //check for available engine
     const numEngines = this.state.companyData[0].trains.length;
     const numActiveTrains = this.state.activeTrains===null ? 0 : this.state.activeTrains.length;
-    console.log(numActiveTrains, numEngines);
     if (numEngines < numActiveTrains+1) {
       //back to train operations
       routeHistory.push('/funfactstrains/trainoperations'); 
@@ -173,6 +180,9 @@ class App extends Component {
     companyDataCopy[0].financials.cash += _GETPASSENGER_REWARD;
     this.updateCompanyData(companyDataCopy);
   }
+  resetGameState() {
+    this.setState({ reset : true });
+  }
   componentWillUnmount() {
     clearInterval(this.getOffers);
 
@@ -216,9 +226,36 @@ class App extends Component {
     return ( 
       <div className="App">
           <Switch>
-              <Route exact path='/' render={(routeProps) => <TrainOperations companyData={this.state.companyData} activeTrains={this.state.activeTrains} updateActiveTrains={this.updateActiveTrains} {...routeProps} updateCompanyData={this.updateCompanyData} getPassengerReward={this.getPassengerReward}/>}/>       
-              <Route exact path='/funfactstrains' render={(routeProps) => <TrainOperations companyData={this.state.companyData} activeTrains={this.state.activeTrains} updateActiveTrains={this.updateActiveTrains} {...routeProps} updateCompanyData={this.updateCompanyData} getPassengerReward={this.getPassengerReward}/>}/>       
-              <Route exact path='/funfactstrains/trainoperations' render={(routeProps) => <TrainOperations companyData={this.state.companyData} activeTrains={activeTrains} updateActiveTrains={this.updateActiveTrains} {...routeProps} updateCompanyData={this.updateCompanyData} getPassengerReward={this.getPassengerReward}/>}/>
+              <Route exact path='/' render={(routeProps) => 
+                <TrainOperations 
+                  companyData={this.state.companyData} 
+                  activeTrains={this.state.activeTrains} 
+                  updateActiveTrains={this.updateActiveTrains} 
+                  {...routeProps} 
+                  updateCompanyData={this.updateCompanyData} 
+                  getPassengerReward={this.getPassengerReward} 
+                  resetGameState={this.resetGameState}/>}
+                />       
+              <Route exact path='/funfactstrains' render={(routeProps) => 
+                <TrainOperations 
+                  companyData={this.state.companyData} 
+                  activeTrains={this.state.activeTrains} 
+                  updateActiveTrains={this.updateActiveTrains} 
+                  {...routeProps} 
+                  updateCompanyData={this.updateCompanyData} 
+                  getPassengerReward={this.getPassengerReward} 
+                  resetGameState={this.resetGameState}/>}
+                />       
+              <Route exact path='/funfactstrains/trainoperations' render={(routeProps) => 
+                <TrainOperations 
+                  companyData={this.state.companyData} 
+                  activeTrains={activeTrains} 
+                  updateActiveTrains={this.updateActiveTrains} 
+                  {...routeProps} 
+                  updateCompanyData={this.updateCompanyData} 
+                  getPassengerReward={this.getPassengerReward} 
+                  resetGameState={this.resetGameState}/>}
+                />
               <Route exact path='/funfactstrains/companymanagement' render={(routeProps) => <CompanyManagement {...routeProps}/>}/>       
               <Route exact path='/funfactstrains/buildroute' render={(routeProps) => <BuildRoute {...routeProps}/>}/>
               <Route exact path='/funfactstrains/routemap' render={(routeProps) => <RouteMap {...routeProps}/>}/>

@@ -19,13 +19,12 @@ class TrainInfoCard extends PureComponent {
     handleBuyClick() {
         const purchased = (this.props.companyTrains === undefined || (this.props.companyTrains.findIndex(train => train.id === this.props.trainObj.trainId) === -1)) ? false : true;
         this.props.buySellTrain(this.props.trainObj, purchased);
+        this.props.history.push('/funfactstrains/trainoperations'); 
     }
     render() { 
-        console.log('traininfoprops', this.props);
         const { classes, companyTrains } = this.props;
         const { trainName, trainImage, trainFacts, trainId, trainCost } = this.props.trainObj;
         const purchased = (companyTrains === undefined || (companyTrains.findIndex(train => train.id === trainId) === -1)) ? false : true;
-        console.log('trainindo', purchased);
         const factList = trainFacts.map(fact => 
             <li 
                 key={`${trainId}${fact}`} 

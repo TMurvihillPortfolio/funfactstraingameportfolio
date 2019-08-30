@@ -13,6 +13,12 @@ function syncLocalStorageActiveTrains(activeTrains) {
         JSON.stringify(activeTrains))
     ;
 }
+function removeLocalStorageCompanyData() {
+    localStorage.removeItem('companyData');
+}
+function removeLocalStorageActiveTrains() {
+    localStorage.removeItem('funFactsActiveTrains');
+}
 function getPathName(companyData, cargo, units, to, from) {
     let pathName =  `_${cargo}${units}_${to}_${from}`;
     //check for duplicates
@@ -99,5 +105,7 @@ export {
     getContractOffer, 
     syncLocalStorageCompanyData, 
     syncLocalStorageActiveTrains,
+    removeLocalStorageCompanyData,
+    removeLocalStorageActiveTrains,
     getLengthOfTrip
  };

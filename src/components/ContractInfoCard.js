@@ -16,6 +16,15 @@ class ContractInfoCard extends Component {
         this.updateContractStatus = this.updateContractStatus.bind(this);
         this.state = {};
     }
+    componentDidMount() {
+        //check for company data to be sure game in progress
+        try {
+            const initialCompanyData = JSON.parse(localStorage.getItem('companyData'));
+            if (initialCompanyData === null) this.props.history.push('/');
+          } catch  {
+            this.props.history.push('/');
+          }
+    }
     updateContractStatus() {
         const contract = this.props.contractObj;
         contract.status = 'started';

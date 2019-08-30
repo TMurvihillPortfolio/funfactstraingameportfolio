@@ -56,9 +56,12 @@ export default theme => ({
     button: {
         color: '#f3f2fa',
         margin: '20px',
-        backgroundColor: '#857cad',
+        backgroundColor: 'teal',
+        borderRadius: '7px',
+        padding: '5px 7px',
+        fontSize: '36px',
         '&:hover': {
-            backgroundColor: '#5f5592'
+            backgroundColor: '#265b5f'
         }
     },
     drawHeader: {
@@ -127,5 +130,15 @@ export default theme => ({
         padding: '10px 15px',
         backgroundImage: "linear-gradient(rgba(0,0,0,.1), rgba(0,0,0,.1))",
         borderRadius: "7px"
+    },
+    reset: {
+      position: 'absolute',
+      top: '35%',
+      right: '50%',
+      transform: 'translate(50%,50%)',
+      [_MEDIA_QUERIES.down('md')]: {
+        top: '25%',
+        zIndex: 500
+      },
     }   
 });

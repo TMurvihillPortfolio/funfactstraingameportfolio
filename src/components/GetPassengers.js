@@ -13,8 +13,17 @@ class GetPassengers extends Component {
         document.querySelector('#cash').innerText = 
             'Caught!! + $10.00'
         ;
+        const countDown = document.querySelector('#countDown');
+        let countDownIntervalFunction;
+        if (countDown !== null) {
+            countDown.innerText = '8';
+            countDownIntervalFunction = setInterval(() => {
+                countDown.innerText = countDown.innerText - 1;
+            }, 1000);
+        }       
         setTimeout(() => {           
             this.props.getPassengerReward();
+            
             if (document.querySelector('#reward') !== null) {
                 document.querySelector('#reward').style.display = 'none';
             }
@@ -22,11 +31,13 @@ class GetPassengers extends Component {
                 document.querySelector('#cash').innerText = 
                 `$${this.props.companyData[0].financials.cash}.00`;
             }
-        }, 8000);       
+            clearInterval(countDownIntervalFunction); 
+        }, 8000);
+         
     }
     render() { 
         return (            
-            <div class="wrapper"> 
+            <div className="wrapper"> 
                 <NavBar /> 
                 <div className="currentCash" id='cash'>Cash: {`$${this.props.companyData[0].financials.cash}.00`}</div>
                 <h1>CATCH THE PASSENGERS !</h1>
@@ -44,7 +55,9 @@ class GetPassengers extends Component {
                 <label htmlFor="circle4" className="passenger passenger4"></label>
                 <label htmlFor="circle5" className="passenger passenger5"></label>
                 <label htmlFor="circle6" className="passenger passenger6"></label>
-                <div className="reward" id="reward"></div>
+                <div className="reward" id="reward">
+                    <div className='countDown' id='countDown'>8</div>
+                </div>
                 <footer className='footer'>Motion courtesy of <a href="https://il.linkedin.com/in/eladshechter/">Elad Shechter</a></footer>
             </div>
          );
