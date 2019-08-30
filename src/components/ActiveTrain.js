@@ -12,14 +12,12 @@ class ActiveTrain extends PureComponent {
     componentDidMount() {
         //initialize variable
         const trainProgBar = document.querySelector('#trainProgressBar').getBoundingClientRect();
-        //immediately update train position
-        //this.props.updatePositions(trainProgBar.width);
         // regularly update train position
         this.updatePositions = setInterval(() =>{
             this.props.updatePositions(trainProgBar.width)}, _TRAIN_UPDATE_INTERVAL);
     }
     componentWillUnmount() {
-        //clear update train position
+        //clear update train position interval function
         clearInterval(this.updatePositions);
     }
 
